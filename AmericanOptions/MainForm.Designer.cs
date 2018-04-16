@@ -52,6 +52,8 @@
             this.IntegralPointD1Label = new System.Windows.Forms.Label();
             this.BtK1TextBox = new System.Windows.Forms.TextBox();
             this.BtK1Label = new System.Windows.Forms.Label();
+            this.DistributionTextBox = new System.Windows.Forms.TextBox();
+            this.DistributionLabel = new System.Windows.Forms.Label();
             this.InputsGroupBox.SuspendLayout();
             this.ResultGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -140,7 +142,7 @@
             // 
             // NumberOfIterationTextBox
             // 
-            this.NumberOfIterationTextBox.Location = new System.Drawing.Point(127, 200);
+            this.NumberOfIterationTextBox.Location = new System.Drawing.Point(127, 129);
             this.NumberOfIterationTextBox.Name = "NumberOfIterationTextBox";
             this.NumberOfIterationTextBox.Size = new System.Drawing.Size(100, 20);
             this.NumberOfIterationTextBox.TabIndex = 8;
@@ -148,7 +150,7 @@
             // NumberOfIterationLabel
             // 
             this.NumberOfIterationLabel.AutoSize = true;
-            this.NumberOfIterationLabel.Location = new System.Drawing.Point(13, 203);
+            this.NumberOfIterationLabel.Location = new System.Drawing.Point(13, 132);
             this.NumberOfIterationLabel.Name = "NumberOfIterationLabel";
             this.NumberOfIterationLabel.Size = new System.Drawing.Size(108, 13);
             this.NumberOfIterationLabel.TabIndex = 9;
@@ -156,7 +158,7 @@
             // 
             // StockPriceTextBox
             // 
-            this.StockPriceTextBox.Location = new System.Drawing.Point(127, 278);
+            this.StockPriceTextBox.Location = new System.Drawing.Point(127, 181);
             this.StockPriceTextBox.Name = "StockPriceTextBox";
             this.StockPriceTextBox.Size = new System.Drawing.Size(100, 20);
             this.StockPriceTextBox.TabIndex = 6;
@@ -164,7 +166,7 @@
             // StockPriceLabel
             // 
             this.StockPriceLabel.AutoSize = true;
-            this.StockPriceLabel.Location = new System.Drawing.Point(13, 281);
+            this.StockPriceLabel.Location = new System.Drawing.Point(13, 184);
             this.StockPriceLabel.Name = "StockPriceLabel";
             this.StockPriceLabel.Size = new System.Drawing.Size(74, 13);
             this.StockPriceLabel.TabIndex = 7;
@@ -172,7 +174,7 @@
             // 
             // TimeToMaturityTextBox
             // 
-            this.TimeToMaturityTextBox.Location = new System.Drawing.Point(127, 252);
+            this.TimeToMaturityTextBox.Location = new System.Drawing.Point(127, 155);
             this.TimeToMaturityTextBox.Name = "TimeToMaturityTextBox";
             this.TimeToMaturityTextBox.Size = new System.Drawing.Size(100, 20);
             this.TimeToMaturityTextBox.TabIndex = 4;
@@ -180,7 +182,7 @@
             // TimeToMaturityLabel
             // 
             this.TimeToMaturityLabel.AutoSize = true;
-            this.TimeToMaturityLabel.Location = new System.Drawing.Point(13, 255);
+            this.TimeToMaturityLabel.Location = new System.Drawing.Point(13, 158);
             this.TimeToMaturityLabel.Name = "TimeToMaturityLabel";
             this.TimeToMaturityLabel.Size = new System.Drawing.Size(94, 13);
             this.TimeToMaturityLabel.TabIndex = 5;
@@ -188,7 +190,7 @@
             // 
             // StrikePriceTextBox
             // 
-            this.StrikePriceTextBox.Location = new System.Drawing.Point(127, 226);
+            this.StrikePriceTextBox.Location = new System.Drawing.Point(127, 103);
             this.StrikePriceTextBox.Name = "StrikePriceTextBox";
             this.StrikePriceTextBox.Size = new System.Drawing.Size(100, 20);
             this.StrikePriceTextBox.TabIndex = 3;
@@ -196,7 +198,7 @@
             // StrikePriceLabel
             // 
             this.StrikePriceLabel.AutoSize = true;
-            this.StrikePriceLabel.Location = new System.Drawing.Point(13, 229);
+            this.StrikePriceLabel.Location = new System.Drawing.Point(13, 106);
             this.StrikePriceLabel.Name = "StrikePriceLabel";
             this.StrikePriceLabel.Size = new System.Drawing.Size(73, 13);
             this.StrikePriceLabel.TabIndex = 3;
@@ -204,6 +206,8 @@
             // 
             // ResultGroupBox
             // 
+            this.ResultGroupBox.Controls.Add(this.DistributionTextBox);
+            this.ResultGroupBox.Controls.Add(this.DistributionLabel);
             this.ResultGroupBox.Controls.Add(this.IntegralPointD2TextBox);
             this.ResultGroupBox.Controls.Add(this.IntegralPointD2Label);
             this.ResultGroupBox.Controls.Add(this.IntegralPointD1TextBox);
@@ -219,7 +223,7 @@
             // 
             // IntegralPointD2TextBox
             // 
-            this.IntegralPointD2TextBox.Location = new System.Drawing.Point(96, 51);
+            this.IntegralPointD2TextBox.Location = new System.Drawing.Point(105, 51);
             this.IntegralPointD2TextBox.Name = "IntegralPointD2TextBox";
             this.IntegralPointD2TextBox.ReadOnly = true;
             this.IntegralPointD2TextBox.Size = new System.Drawing.Size(100, 20);
@@ -236,7 +240,7 @@
             // 
             // IntegralPointD1TextBox
             // 
-            this.IntegralPointD1TextBox.Location = new System.Drawing.Point(96, 22);
+            this.IntegralPointD1TextBox.Location = new System.Drawing.Point(105, 22);
             this.IntegralPointD1TextBox.Name = "IntegralPointD1TextBox";
             this.IntegralPointD1TextBox.ReadOnly = true;
             this.IntegralPointD1TextBox.Size = new System.Drawing.Size(100, 20);
@@ -253,7 +257,7 @@
             // 
             // BtK1TextBox
             // 
-            this.BtK1TextBox.Location = new System.Drawing.Point(96, 148);
+            this.BtK1TextBox.Location = new System.Drawing.Point(105, 106);
             this.BtK1TextBox.Name = "BtK1TextBox";
             this.BtK1TextBox.ReadOnly = true;
             this.BtK1TextBox.Size = new System.Drawing.Size(100, 20);
@@ -262,11 +266,28 @@
             // BtK1Label
             // 
             this.BtK1Label.AutoSize = true;
-            this.BtK1Label.Location = new System.Drawing.Point(13, 154);
+            this.BtK1Label.Location = new System.Drawing.Point(13, 109);
             this.BtK1Label.Name = "BtK1Label";
             this.BtK1Label.Size = new System.Drawing.Size(45, 13);
             this.BtK1Label.TabIndex = 9;
             this.BtK1Label.Text = "Bt, K=1:";
+            // 
+            // DistributionTextBox
+            // 
+            this.DistributionTextBox.Location = new System.Drawing.Point(105, 80);
+            this.DistributionTextBox.Name = "DistributionTextBox";
+            this.DistributionTextBox.ReadOnly = true;
+            this.DistributionTextBox.Size = new System.Drawing.Size(100, 20);
+            this.DistributionTextBox.TabIndex = 18;
+            // 
+            // DistributionLabel
+            // 
+            this.DistributionLabel.AutoSize = true;
+            this.DistributionLabel.Location = new System.Drawing.Point(13, 83);
+            this.DistributionLabel.Name = "DistributionLabel";
+            this.DistributionLabel.Size = new System.Drawing.Size(62, 13);
+            this.DistributionLabel.TabIndex = 19;
+            this.DistributionLabel.Text = "Distribution:";
             // 
             // MainForm
             // 
@@ -314,6 +335,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox IntegralPointD2TextBox;
         private System.Windows.Forms.Label IntegralPointD2Label;
+        private System.Windows.Forms.TextBox DistributionTextBox;
+        private System.Windows.Forms.Label DistributionLabel;
     }
 }
 

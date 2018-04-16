@@ -4,14 +4,14 @@ namespace AmericanOptions
 {
     public class IntegralPoints
     {
-        public decimal CalculateD1Numerator(decimal riskFreeRate, decimal volatilitySigma, decimal tau)
+        public double CalculateD1Numerator(double riskFreeRate, double volatilitySigma, double tau)
         {
-            return (riskFreeRate + ((decimal)0.5 * volatilitySigma * volatilitySigma)) * tau;
+            return (riskFreeRate + (0.5 * volatilitySigma * volatilitySigma)) * tau;
         }
 
-        public decimal CalculateD1Denominator(decimal volatilitySigma, decimal tau)
+        public double CalculateD1Denominator(double volatilitySigma, double tau)
         {
-            return volatilitySigma * (decimal)Math.Sqrt((double)tau);
+            return volatilitySigma * Math.Sqrt(tau);
         }
     }
 }
