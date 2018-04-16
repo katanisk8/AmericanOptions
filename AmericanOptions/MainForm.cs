@@ -10,14 +10,27 @@ namespace AmericanOptions
             InitializeComponent();
         }
 
-      private void MainForm_Load(object sender, EventArgs e)
-      {
+        private void CalculateButton_Click(object sender, EventArgs e)
+        {
+            CalculateIntegralPoints();
+        }
 
-      }
+        private void CalculateIntegralPoints()
+        {
+            var riskFreeRate = Convert.ToDecimal(RiskFreeRateTextBox.Text);
+            var volatilitySigma = Convert.ToDecimal(VolatilitySigmaTextBox.Text);
+            var tau = Convert.ToDecimal(TauTextBox.Text);
 
-      private void CalculateButton_Click(object sender, EventArgs e)
-      {
+            var integralPoints = new IntegralPoints();
 
-      }
-   }
+            var numerator = integralPoints.CalculateD1Numerator(riskFreeRate, volatilitySigma, tau);
+            var denominator = integralPoints.CalculateD1Denominator(volatilitySigma, tau);
+
+            var integralPointD1 = numerator / denominator;
+            var integralPointD2 = integralPointD1 - denominator;
+
+            IntegralPointD1TextBox.Text = integralPointD1.ToString("E04");
+            IntegralPointD2TextBox.Text = integralPointD2.ToString("E04");
+        }
+    }
 }
