@@ -55,6 +55,7 @@
             this.BtK1TextBox = new System.Windows.Forms.TextBox();
             this.BtK1Label = new System.Windows.Forms.Label();
             this.MainResultsGroupBox = new System.Windows.Forms.GroupBox();
+            this.CleanButton = new System.Windows.Forms.Button();
             this.InputsGroupBox.SuspendLayout();
             this.ResultGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -62,9 +63,9 @@
             // CalculateButton
             // 
             this.CalculateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CalculateButton.Location = new System.Drawing.Point(12, 337);
+            this.CalculateButton.Location = new System.Drawing.Point(75, 337);
             this.CalculateButton.Name = "CalculateButton";
-            this.CalculateButton.Size = new System.Drawing.Size(453, 30);
+            this.CalculateButton.Size = new System.Drawing.Size(390, 30);
             this.CalculateButton.TabIndex = 1;
             this.CalculateButton.Text = "Calculate";
             this.CalculateButton.UseVisualStyleBackColor = true;
@@ -88,7 +89,7 @@
             this.InputsGroupBox.Controls.Add(this.StrikePriceLabel);
             this.InputsGroupBox.Location = new System.Drawing.Point(12, 12);
             this.InputsGroupBox.Name = "InputsGroupBox";
-            this.InputsGroupBox.Size = new System.Drawing.Size(235, 213);
+            this.InputsGroupBox.Size = new System.Drawing.Size(197, 213);
             this.InputsGroupBox.TabIndex = 2;
             this.InputsGroupBox.TabStop = false;
             this.InputsGroupBox.Text = "Inputs Data";
@@ -97,7 +98,7 @@
             // 
             this.VolatilitySigmaTextBox.Location = new System.Drawing.Point(127, 51);
             this.VolatilitySigmaTextBox.Name = "VolatilitySigmaTextBox";
-            this.VolatilitySigmaTextBox.Size = new System.Drawing.Size(100, 20);
+            this.VolatilitySigmaTextBox.Size = new System.Drawing.Size(60, 20);
             this.VolatilitySigmaTextBox.TabIndex = 2;
             this.VolatilitySigmaTextBox.Tag = "Volatility sigma";
             // 
@@ -114,7 +115,7 @@
             // 
             this.RiskFreeRateTextBox.Location = new System.Drawing.Point(127, 25);
             this.RiskFreeRateTextBox.Name = "RiskFreeRateTextBox";
-            this.RiskFreeRateTextBox.Size = new System.Drawing.Size(100, 20);
+            this.RiskFreeRateTextBox.Size = new System.Drawing.Size(60, 20);
             this.RiskFreeRateTextBox.TabIndex = 1;
             this.RiskFreeRateTextBox.Tag = "Risk free rate r";
             // 
@@ -131,7 +132,7 @@
             // 
             this.TauTextBox.Location = new System.Drawing.Point(127, 77);
             this.TauTextBox.Name = "TauTextBox";
-            this.TauTextBox.Size = new System.Drawing.Size(100, 20);
+            this.TauTextBox.Size = new System.Drawing.Size(60, 20);
             this.TauTextBox.TabIndex = 3;
             this.TauTextBox.Tag = "Tau t";
             // 
@@ -148,7 +149,7 @@
             // 
             this.NumberOfIterationTextBox.Location = new System.Drawing.Point(127, 129);
             this.NumberOfIterationTextBox.Name = "NumberOfIterationTextBox";
-            this.NumberOfIterationTextBox.Size = new System.Drawing.Size(100, 20);
+            this.NumberOfIterationTextBox.Size = new System.Drawing.Size(60, 20);
             this.NumberOfIterationTextBox.TabIndex = 5;
             this.NumberOfIterationTextBox.Tag = "Number of iteration n";
             // 
@@ -165,7 +166,7 @@
             // 
             this.StockPriceTextBox.Location = new System.Drawing.Point(127, 181);
             this.StockPriceTextBox.Name = "StockPriceTextBox";
-            this.StockPriceTextBox.Size = new System.Drawing.Size(100, 20);
+            this.StockPriceTextBox.Size = new System.Drawing.Size(60, 20);
             this.StockPriceTextBox.TabIndex = 7;
             this.StockPriceTextBox.Tag = "Stock price S";
             // 
@@ -182,7 +183,7 @@
             // 
             this.TimeToMaturityTextBox.Location = new System.Drawing.Point(127, 155);
             this.TimeToMaturityTextBox.Name = "TimeToMaturityTextBox";
-            this.TimeToMaturityTextBox.Size = new System.Drawing.Size(100, 20);
+            this.TimeToMaturityTextBox.Size = new System.Drawing.Size(60, 20);
             this.TimeToMaturityTextBox.TabIndex = 6;
             this.TimeToMaturityTextBox.Tag = "Time to maturity T";
             // 
@@ -199,7 +200,7 @@
             // 
             this.StrikePriceTextBox.Location = new System.Drawing.Point(127, 103);
             this.StrikePriceTextBox.Name = "StrikePriceTextBox";
-            this.StrikePriceTextBox.Size = new System.Drawing.Size(100, 20);
+            this.StrikePriceTextBox.Size = new System.Drawing.Size(60, 20);
             this.StrikePriceTextBox.TabIndex = 4;
             this.StrikePriceTextBox.Tag = "Strike price K";
             // 
@@ -222,9 +223,9 @@
             this.ResultGroupBox.Controls.Add(this.IntegralPointD1Label);
             this.ResultGroupBox.Controls.Add(this.BtK1TextBox);
             this.ResultGroupBox.Controls.Add(this.BtK1Label);
-            this.ResultGroupBox.Location = new System.Drawing.Point(253, 12);
+            this.ResultGroupBox.Location = new System.Drawing.Point(215, 12);
             this.ResultGroupBox.Name = "ResultGroupBox";
-            this.ResultGroupBox.Size = new System.Drawing.Size(212, 213);
+            this.ResultGroupBox.Size = new System.Drawing.Size(248, 213);
             this.ResultGroupBox.TabIndex = 3;
             this.ResultGroupBox.TabStop = false;
             this.ResultGroupBox.Text = "Help Results";
@@ -234,7 +235,7 @@
             this.DistributionTextBox.Location = new System.Drawing.Point(105, 80);
             this.DistributionTextBox.Name = "DistributionTextBox";
             this.DistributionTextBox.ReadOnly = true;
-            this.DistributionTextBox.Size = new System.Drawing.Size(100, 20);
+            this.DistributionTextBox.Size = new System.Drawing.Size(130, 20);
             this.DistributionTextBox.TabIndex = 18;
             this.DistributionTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -252,7 +253,7 @@
             this.IntegralPointD2TextBox.Location = new System.Drawing.Point(105, 51);
             this.IntegralPointD2TextBox.Name = "IntegralPointD2TextBox";
             this.IntegralPointD2TextBox.ReadOnly = true;
-            this.IntegralPointD2TextBox.Size = new System.Drawing.Size(100, 20);
+            this.IntegralPointD2TextBox.Size = new System.Drawing.Size(130, 20);
             this.IntegralPointD2TextBox.TabIndex = 16;
             this.IntegralPointD2TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -270,7 +271,7 @@
             this.IntegralPointD1TextBox.Location = new System.Drawing.Point(105, 22);
             this.IntegralPointD1TextBox.Name = "IntegralPointD1TextBox";
             this.IntegralPointD1TextBox.ReadOnly = true;
-            this.IntegralPointD1TextBox.Size = new System.Drawing.Size(100, 20);
+            this.IntegralPointD1TextBox.Size = new System.Drawing.Size(130, 20);
             this.IntegralPointD1TextBox.TabIndex = 10;
             this.IntegralPointD1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -288,7 +289,7 @@
             this.BtK1TextBox.Location = new System.Drawing.Point(105, 106);
             this.BtK1TextBox.Name = "BtK1TextBox";
             this.BtK1TextBox.ReadOnly = true;
-            this.BtK1TextBox.Size = new System.Drawing.Size(100, 20);
+            this.BtK1TextBox.Size = new System.Drawing.Size(130, 20);
             this.BtK1TextBox.TabIndex = 8;
             this.BtK1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -310,11 +311,23 @@
             this.MainResultsGroupBox.TabStop = false;
             this.MainResultsGroupBox.Text = "Main Results";
             // 
+            // CleanButton
+            // 
+            this.CleanButton.Location = new System.Drawing.Point(12, 337);
+            this.CleanButton.Name = "CleanButton";
+            this.CleanButton.Size = new System.Drawing.Size(57, 30);
+            this.CleanButton.TabIndex = 5;
+            this.CleanButton.TabStop = false;
+            this.CleanButton.Text = "Clean";
+            this.CleanButton.UseVisualStyleBackColor = true;
+            this.CleanButton.Click += new System.EventHandler(this.CleanButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(475, 375);
+            this.Controls.Add(this.CleanButton);
             this.Controls.Add(this.MainResultsGroupBox);
             this.Controls.Add(this.ResultGroupBox);
             this.Controls.Add(this.InputsGroupBox);
@@ -360,6 +373,7 @@
         private System.Windows.Forms.TextBox DistributionTextBox;
         private System.Windows.Forms.Label DistributionLabel;
         private System.Windows.Forms.GroupBox MainResultsGroupBox;
+        private System.Windows.Forms.Button CleanButton;
     }
 }
 
