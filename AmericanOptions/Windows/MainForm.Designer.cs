@@ -32,7 +32,7 @@
             this.CalculateButton = new System.Windows.Forms.Button();
             this.InputsGroupBox = new System.Windows.Forms.GroupBox();
             this.VolatilitySigmaTextBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.VolatilitySigmaLabel = new System.Windows.Forms.Label();
             this.RiskFreeRateTextBox = new System.Windows.Forms.TextBox();
             this.RiskFreeRateLabel = new System.Windows.Forms.Label();
             this.TauTextBox = new System.Windows.Forms.TextBox();
@@ -46,14 +46,15 @@
             this.StrikePriceTextBox = new System.Windows.Forms.TextBox();
             this.StrikePriceLabel = new System.Windows.Forms.Label();
             this.ResultGroupBox = new System.Windows.Forms.GroupBox();
+            this.DistributionTextBox = new System.Windows.Forms.TextBox();
+            this.DistributionLabel = new System.Windows.Forms.Label();
             this.IntegralPointD2TextBox = new System.Windows.Forms.TextBox();
             this.IntegralPointD2Label = new System.Windows.Forms.Label();
             this.IntegralPointD1TextBox = new System.Windows.Forms.TextBox();
             this.IntegralPointD1Label = new System.Windows.Forms.Label();
             this.BtK1TextBox = new System.Windows.Forms.TextBox();
             this.BtK1Label = new System.Windows.Forms.Label();
-            this.DistributionTextBox = new System.Windows.Forms.TextBox();
-            this.DistributionLabel = new System.Windows.Forms.Label();
+            this.MainResultsGroupBox = new System.Windows.Forms.GroupBox();
             this.InputsGroupBox.SuspendLayout();
             this.ResultGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -61,9 +62,9 @@
             // CalculateButton
             // 
             this.CalculateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CalculateButton.Location = new System.Drawing.Point(572, 319);
+            this.CalculateButton.Location = new System.Drawing.Point(12, 337);
             this.CalculateButton.Name = "CalculateButton";
-            this.CalculateButton.Size = new System.Drawing.Size(100, 30);
+            this.CalculateButton.Size = new System.Drawing.Size(453, 30);
             this.CalculateButton.TabIndex = 1;
             this.CalculateButton.Text = "Calculate";
             this.CalculateButton.UseVisualStyleBackColor = true;
@@ -72,7 +73,7 @@
             // InputsGroupBox
             // 
             this.InputsGroupBox.Controls.Add(this.VolatilitySigmaTextBox);
-            this.InputsGroupBox.Controls.Add(this.label2);
+            this.InputsGroupBox.Controls.Add(this.VolatilitySigmaLabel);
             this.InputsGroupBox.Controls.Add(this.RiskFreeRateTextBox);
             this.InputsGroupBox.Controls.Add(this.RiskFreeRateLabel);
             this.InputsGroupBox.Controls.Add(this.TauTextBox);
@@ -87,7 +88,7 @@
             this.InputsGroupBox.Controls.Add(this.StrikePriceLabel);
             this.InputsGroupBox.Location = new System.Drawing.Point(12, 12);
             this.InputsGroupBox.Name = "InputsGroupBox";
-            this.InputsGroupBox.Size = new System.Drawing.Size(287, 337);
+            this.InputsGroupBox.Size = new System.Drawing.Size(235, 213);
             this.InputsGroupBox.TabIndex = 2;
             this.InputsGroupBox.TabStop = false;
             this.InputsGroupBox.Text = "Inputs Data";
@@ -98,15 +99,16 @@
             this.VolatilitySigmaTextBox.Name = "VolatilitySigmaTextBox";
             this.VolatilitySigmaTextBox.Size = new System.Drawing.Size(100, 20);
             this.VolatilitySigmaTextBox.TabIndex = 2;
+            this.VolatilitySigmaTextBox.Tag = "Volatility sigma";
             // 
-            // label2
+            // VolatilitySigmaLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 54);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 13);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "Volatility sigma:";
+            this.VolatilitySigmaLabel.AutoSize = true;
+            this.VolatilitySigmaLabel.Location = new System.Drawing.Point(13, 54);
+            this.VolatilitySigmaLabel.Name = "VolatilitySigmaLabel";
+            this.VolatilitySigmaLabel.Size = new System.Drawing.Size(78, 13);
+            this.VolatilitySigmaLabel.TabIndex = 15;
+            this.VolatilitySigmaLabel.Text = "Volatility sigma:";
             // 
             // RiskFreeRateTextBox
             // 
@@ -114,6 +116,7 @@
             this.RiskFreeRateTextBox.Name = "RiskFreeRateTextBox";
             this.RiskFreeRateTextBox.Size = new System.Drawing.Size(100, 20);
             this.RiskFreeRateTextBox.TabIndex = 1;
+            this.RiskFreeRateTextBox.Tag = "Risk free rate r";
             // 
             // RiskFreeRateLabel
             // 
@@ -130,6 +133,7 @@
             this.TauTextBox.Name = "TauTextBox";
             this.TauTextBox.Size = new System.Drawing.Size(100, 20);
             this.TauTextBox.TabIndex = 3;
+            this.TauTextBox.Tag = "Tau t";
             // 
             // TauLabel
             // 
@@ -145,7 +149,8 @@
             this.NumberOfIterationTextBox.Location = new System.Drawing.Point(127, 129);
             this.NumberOfIterationTextBox.Name = "NumberOfIterationTextBox";
             this.NumberOfIterationTextBox.Size = new System.Drawing.Size(100, 20);
-            this.NumberOfIterationTextBox.TabIndex = 8;
+            this.NumberOfIterationTextBox.TabIndex = 5;
+            this.NumberOfIterationTextBox.Tag = "Number of iteration n";
             // 
             // NumberOfIterationLabel
             // 
@@ -161,7 +166,8 @@
             this.StockPriceTextBox.Location = new System.Drawing.Point(127, 181);
             this.StockPriceTextBox.Name = "StockPriceTextBox";
             this.StockPriceTextBox.Size = new System.Drawing.Size(100, 20);
-            this.StockPriceTextBox.TabIndex = 6;
+            this.StockPriceTextBox.TabIndex = 7;
+            this.StockPriceTextBox.Tag = "Stock price S";
             // 
             // StockPriceLabel
             // 
@@ -177,7 +183,8 @@
             this.TimeToMaturityTextBox.Location = new System.Drawing.Point(127, 155);
             this.TimeToMaturityTextBox.Name = "TimeToMaturityTextBox";
             this.TimeToMaturityTextBox.Size = new System.Drawing.Size(100, 20);
-            this.TimeToMaturityTextBox.TabIndex = 4;
+            this.TimeToMaturityTextBox.TabIndex = 6;
+            this.TimeToMaturityTextBox.Tag = "Time to maturity T";
             // 
             // TimeToMaturityLabel
             // 
@@ -193,7 +200,8 @@
             this.StrikePriceTextBox.Location = new System.Drawing.Point(127, 103);
             this.StrikePriceTextBox.Name = "StrikePriceTextBox";
             this.StrikePriceTextBox.Size = new System.Drawing.Size(100, 20);
-            this.StrikePriceTextBox.TabIndex = 3;
+            this.StrikePriceTextBox.TabIndex = 4;
+            this.StrikePriceTextBox.Tag = "Strike price K";
             // 
             // StrikePriceLabel
             // 
@@ -214,12 +222,30 @@
             this.ResultGroupBox.Controls.Add(this.IntegralPointD1Label);
             this.ResultGroupBox.Controls.Add(this.BtK1TextBox);
             this.ResultGroupBox.Controls.Add(this.BtK1Label);
-            this.ResultGroupBox.Location = new System.Drawing.Point(305, 12);
+            this.ResultGroupBox.Location = new System.Drawing.Point(253, 12);
             this.ResultGroupBox.Name = "ResultGroupBox";
-            this.ResultGroupBox.Size = new System.Drawing.Size(233, 256);
+            this.ResultGroupBox.Size = new System.Drawing.Size(212, 213);
             this.ResultGroupBox.TabIndex = 3;
             this.ResultGroupBox.TabStop = false;
-            this.ResultGroupBox.Text = "Result";
+            this.ResultGroupBox.Text = "Help Results";
+            // 
+            // DistributionTextBox
+            // 
+            this.DistributionTextBox.Location = new System.Drawing.Point(105, 80);
+            this.DistributionTextBox.Name = "DistributionTextBox";
+            this.DistributionTextBox.ReadOnly = true;
+            this.DistributionTextBox.Size = new System.Drawing.Size(100, 20);
+            this.DistributionTextBox.TabIndex = 18;
+            this.DistributionTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // DistributionLabel
+            // 
+            this.DistributionLabel.AutoSize = true;
+            this.DistributionLabel.Location = new System.Drawing.Point(13, 83);
+            this.DistributionLabel.Name = "DistributionLabel";
+            this.DistributionLabel.Size = new System.Drawing.Size(62, 13);
+            this.DistributionLabel.TabIndex = 19;
+            this.DistributionLabel.Text = "Distribution:";
             // 
             // IntegralPointD2TextBox
             // 
@@ -228,6 +254,7 @@
             this.IntegralPointD2TextBox.ReadOnly = true;
             this.IntegralPointD2TextBox.Size = new System.Drawing.Size(100, 20);
             this.IntegralPointD2TextBox.TabIndex = 16;
+            this.IntegralPointD2TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // IntegralPointD2Label
             // 
@@ -245,6 +272,7 @@
             this.IntegralPointD1TextBox.ReadOnly = true;
             this.IntegralPointD1TextBox.Size = new System.Drawing.Size(100, 20);
             this.IntegralPointD1TextBox.TabIndex = 10;
+            this.IntegralPointD1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // IntegralPointD1Label
             // 
@@ -262,6 +290,7 @@
             this.BtK1TextBox.ReadOnly = true;
             this.BtK1TextBox.Size = new System.Drawing.Size(100, 20);
             this.BtK1TextBox.TabIndex = 8;
+            this.BtK1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // BtK1Label
             // 
@@ -272,28 +301,21 @@
             this.BtK1Label.TabIndex = 9;
             this.BtK1Label.Text = "Bt, K=1:";
             // 
-            // DistributionTextBox
+            // MainResultsGroupBox
             // 
-            this.DistributionTextBox.Location = new System.Drawing.Point(105, 80);
-            this.DistributionTextBox.Name = "DistributionTextBox";
-            this.DistributionTextBox.ReadOnly = true;
-            this.DistributionTextBox.Size = new System.Drawing.Size(100, 20);
-            this.DistributionTextBox.TabIndex = 18;
-            // 
-            // DistributionLabel
-            // 
-            this.DistributionLabel.AutoSize = true;
-            this.DistributionLabel.Location = new System.Drawing.Point(13, 83);
-            this.DistributionLabel.Name = "DistributionLabel";
-            this.DistributionLabel.Size = new System.Drawing.Size(62, 13);
-            this.DistributionLabel.TabIndex = 19;
-            this.DistributionLabel.Text = "Distribution:";
+            this.MainResultsGroupBox.Location = new System.Drawing.Point(12, 231);
+            this.MainResultsGroupBox.Name = "MainResultsGroupBox";
+            this.MainResultsGroupBox.Size = new System.Drawing.Size(453, 100);
+            this.MainResultsGroupBox.TabIndex = 4;
+            this.MainResultsGroupBox.TabStop = false;
+            this.MainResultsGroupBox.Text = "Main Results";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 361);
+            this.ClientSize = new System.Drawing.Size(475, 375);
+            this.Controls.Add(this.MainResultsGroupBox);
             this.Controls.Add(this.ResultGroupBox);
             this.Controls.Add(this.InputsGroupBox);
             this.Controls.Add(this.CalculateButton);
@@ -332,11 +354,12 @@
         private System.Windows.Forms.TextBox RiskFreeRateTextBox;
         private System.Windows.Forms.Label RiskFreeRateLabel;
         private System.Windows.Forms.TextBox VolatilitySigmaTextBox;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label VolatilitySigmaLabel;
         private System.Windows.Forms.TextBox IntegralPointD2TextBox;
         private System.Windows.Forms.Label IntegralPointD2Label;
         private System.Windows.Forms.TextBox DistributionTextBox;
         private System.Windows.Forms.Label DistributionLabel;
+        private System.Windows.Forms.GroupBox MainResultsGroupBox;
     }
 }
 
