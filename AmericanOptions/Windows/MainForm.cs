@@ -48,6 +48,11 @@ namespace AmericanOptions
 
         private void CleanButton_Click(object sender, EventArgs e)
         {
+            CleanTextBoxes();
+        }
+
+        private void CleanTextBoxes()
+        {
             List<Control> textBoxList = GetAllTextBoxControls(this);
 
             foreach (Control c in textBoxList)
