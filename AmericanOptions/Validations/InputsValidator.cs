@@ -47,6 +47,7 @@ namespace AmericanOptions
         private void SetTextBoxInExceptionMode(TextBox textBox)
         {
             textBox.BackColor = Color.IndianRed;
+            textBox.Select();
         }
 
         private void SetTextBoxInNormalMode(TextBox textBox)
