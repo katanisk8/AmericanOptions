@@ -45,27 +45,19 @@
             this.TimeToMaturityLabel = new System.Windows.Forms.Label();
             this.StrikePriceTextBox = new System.Windows.Forms.TextBox();
             this.StrikePriceLabel = new System.Windows.Forms.Label();
-            this.ResultGroupBox = new System.Windows.Forms.GroupBox();
-            this.DistributionTextBox = new System.Windows.Forms.TextBox();
-            this.DistributionLabel = new System.Windows.Forms.Label();
-            this.IntegralPointD2TextBox = new System.Windows.Forms.TextBox();
-            this.IntegralPointD2Label = new System.Windows.Forms.Label();
-            this.IntegralPointD1TextBox = new System.Windows.Forms.TextBox();
-            this.IntegralPointD1Label = new System.Windows.Forms.Label();
-            this.BtK1TextBox = new System.Windows.Forms.TextBox();
-            this.BtK1Label = new System.Windows.Forms.Label();
-            this.MainResultsGroupBox = new System.Windows.Forms.GroupBox();
             this.CleanButton = new System.Windows.Forms.Button();
+            this.ResultsPanel = new System.Windows.Forms.Panel();
+            this.NumberOfNodesTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.InputsGroupBox.SuspendLayout();
-            this.ResultGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // CalculateButton
             // 
             this.CalculateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CalculateButton.Location = new System.Drawing.Point(75, 337);
+            this.CalculateButton.Location = new System.Drawing.Point(12, 289);
             this.CalculateButton.Name = "CalculateButton";
-            this.CalculateButton.Size = new System.Drawing.Size(390, 30);
+            this.CalculateButton.Size = new System.Drawing.Size(197, 30);
             this.CalculateButton.TabIndex = 1;
             this.CalculateButton.Text = "Calculate";
             this.CalculateButton.UseVisualStyleBackColor = true;
@@ -73,6 +65,8 @@
             // 
             // InputsGroupBox
             // 
+            this.InputsGroupBox.Controls.Add(this.NumberOfNodesTextBox);
+            this.InputsGroupBox.Controls.Add(this.label1);
             this.InputsGroupBox.Controls.Add(this.VolatilitySigmaTextBox);
             this.InputsGroupBox.Controls.Add(this.VolatilitySigmaLabel);
             this.InputsGroupBox.Controls.Add(this.RiskFreeRateTextBox);
@@ -89,7 +83,7 @@
             this.InputsGroupBox.Controls.Add(this.StrikePriceLabel);
             this.InputsGroupBox.Location = new System.Drawing.Point(12, 12);
             this.InputsGroupBox.Name = "InputsGroupBox";
-            this.InputsGroupBox.Size = new System.Drawing.Size(197, 213);
+            this.InputsGroupBox.Size = new System.Drawing.Size(197, 235);
             this.InputsGroupBox.TabIndex = 2;
             this.InputsGroupBox.TabStop = false;
             this.InputsGroupBox.Text = "Inputs Data";
@@ -147,33 +141,33 @@
             // 
             // NumberOfIterationTextBox
             // 
-            this.NumberOfIterationTextBox.Location = new System.Drawing.Point(127, 129);
+            this.NumberOfIterationTextBox.Location = new System.Drawing.Point(127, 155);
             this.NumberOfIterationTextBox.Name = "NumberOfIterationTextBox";
             this.NumberOfIterationTextBox.Size = new System.Drawing.Size(60, 20);
-            this.NumberOfIterationTextBox.TabIndex = 5;
+            this.NumberOfIterationTextBox.TabIndex = 6;
             this.NumberOfIterationTextBox.Tag = "Number of iteration n";
             // 
             // NumberOfIterationLabel
             // 
             this.NumberOfIterationLabel.AutoSize = true;
-            this.NumberOfIterationLabel.Location = new System.Drawing.Point(13, 132);
+            this.NumberOfIterationLabel.Location = new System.Drawing.Point(13, 158);
             this.NumberOfIterationLabel.Name = "NumberOfIterationLabel";
             this.NumberOfIterationLabel.Size = new System.Drawing.Size(108, 13);
             this.NumberOfIterationLabel.TabIndex = 9;
-            this.NumberOfIterationLabel.Text = "Number of iteration n:";
+            this.NumberOfIterationLabel.Text = "Number of iteration k:";
             // 
             // StockPriceTextBox
             // 
-            this.StockPriceTextBox.Location = new System.Drawing.Point(127, 181);
+            this.StockPriceTextBox.Location = new System.Drawing.Point(127, 129);
             this.StockPriceTextBox.Name = "StockPriceTextBox";
             this.StockPriceTextBox.Size = new System.Drawing.Size(60, 20);
-            this.StockPriceTextBox.TabIndex = 7;
+            this.StockPriceTextBox.TabIndex = 5;
             this.StockPriceTextBox.Tag = "Stock price S";
             // 
             // StockPriceLabel
             // 
             this.StockPriceLabel.AutoSize = true;
-            this.StockPriceLabel.Location = new System.Drawing.Point(13, 184);
+            this.StockPriceLabel.Location = new System.Drawing.Point(13, 132);
             this.StockPriceLabel.Name = "StockPriceLabel";
             this.StockPriceLabel.Size = new System.Drawing.Size(74, 13);
             this.StockPriceLabel.TabIndex = 7;
@@ -181,16 +175,16 @@
             // 
             // TimeToMaturityTextBox
             // 
-            this.TimeToMaturityTextBox.Location = new System.Drawing.Point(127, 155);
+            this.TimeToMaturityTextBox.Location = new System.Drawing.Point(127, 207);
             this.TimeToMaturityTextBox.Name = "TimeToMaturityTextBox";
             this.TimeToMaturityTextBox.Size = new System.Drawing.Size(60, 20);
-            this.TimeToMaturityTextBox.TabIndex = 6;
+            this.TimeToMaturityTextBox.TabIndex = 7;
             this.TimeToMaturityTextBox.Tag = "Time to maturity T";
             // 
             // TimeToMaturityLabel
             // 
             this.TimeToMaturityLabel.AutoSize = true;
-            this.TimeToMaturityLabel.Location = new System.Drawing.Point(13, 158);
+            this.TimeToMaturityLabel.Location = new System.Drawing.Point(13, 210);
             this.TimeToMaturityLabel.Name = "TimeToMaturityLabel";
             this.TimeToMaturityLabel.Size = new System.Drawing.Size(94, 13);
             this.TimeToMaturityLabel.TabIndex = 5;
@@ -213,125 +207,52 @@
             this.StrikePriceLabel.TabIndex = 3;
             this.StrikePriceLabel.Text = "Strike price K:";
             // 
-            // ResultGroupBox
-            // 
-            this.ResultGroupBox.Controls.Add(this.DistributionTextBox);
-            this.ResultGroupBox.Controls.Add(this.DistributionLabel);
-            this.ResultGroupBox.Controls.Add(this.IntegralPointD2TextBox);
-            this.ResultGroupBox.Controls.Add(this.IntegralPointD2Label);
-            this.ResultGroupBox.Controls.Add(this.IntegralPointD1TextBox);
-            this.ResultGroupBox.Controls.Add(this.IntegralPointD1Label);
-            this.ResultGroupBox.Controls.Add(this.BtK1TextBox);
-            this.ResultGroupBox.Controls.Add(this.BtK1Label);
-            this.ResultGroupBox.Location = new System.Drawing.Point(215, 12);
-            this.ResultGroupBox.Name = "ResultGroupBox";
-            this.ResultGroupBox.Size = new System.Drawing.Size(248, 213);
-            this.ResultGroupBox.TabIndex = 3;
-            this.ResultGroupBox.TabStop = false;
-            this.ResultGroupBox.Text = "Help Results";
-            // 
-            // DistributionTextBox
-            // 
-            this.DistributionTextBox.Location = new System.Drawing.Point(105, 80);
-            this.DistributionTextBox.Name = "DistributionTextBox";
-            this.DistributionTextBox.ReadOnly = true;
-            this.DistributionTextBox.Size = new System.Drawing.Size(130, 20);
-            this.DistributionTextBox.TabIndex = 18;
-            this.DistributionTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // DistributionLabel
-            // 
-            this.DistributionLabel.AutoSize = true;
-            this.DistributionLabel.Location = new System.Drawing.Point(13, 83);
-            this.DistributionLabel.Name = "DistributionLabel";
-            this.DistributionLabel.Size = new System.Drawing.Size(62, 13);
-            this.DistributionLabel.TabIndex = 19;
-            this.DistributionLabel.Text = "Distribution:";
-            // 
-            // IntegralPointD2TextBox
-            // 
-            this.IntegralPointD2TextBox.Location = new System.Drawing.Point(105, 51);
-            this.IntegralPointD2TextBox.Name = "IntegralPointD2TextBox";
-            this.IntegralPointD2TextBox.ReadOnly = true;
-            this.IntegralPointD2TextBox.Size = new System.Drawing.Size(130, 20);
-            this.IntegralPointD2TextBox.TabIndex = 16;
-            this.IntegralPointD2TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // IntegralPointD2Label
-            // 
-            this.IntegralPointD2Label.AutoSize = true;
-            this.IntegralPointD2Label.Location = new System.Drawing.Point(13, 54);
-            this.IntegralPointD2Label.Name = "IntegralPointD2Label";
-            this.IntegralPointD2Label.Size = new System.Drawing.Size(86, 13);
-            this.IntegralPointD2Label.TabIndex = 17;
-            this.IntegralPointD2Label.Text = "Integral point d2:";
-            // 
-            // IntegralPointD1TextBox
-            // 
-            this.IntegralPointD1TextBox.Location = new System.Drawing.Point(105, 22);
-            this.IntegralPointD1TextBox.Name = "IntegralPointD1TextBox";
-            this.IntegralPointD1TextBox.ReadOnly = true;
-            this.IntegralPointD1TextBox.Size = new System.Drawing.Size(130, 20);
-            this.IntegralPointD1TextBox.TabIndex = 10;
-            this.IntegralPointD1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // IntegralPointD1Label
-            // 
-            this.IntegralPointD1Label.AutoSize = true;
-            this.IntegralPointD1Label.Location = new System.Drawing.Point(13, 25);
-            this.IntegralPointD1Label.Name = "IntegralPointD1Label";
-            this.IntegralPointD1Label.Size = new System.Drawing.Size(86, 13);
-            this.IntegralPointD1Label.TabIndex = 11;
-            this.IntegralPointD1Label.Text = "Integral point d1:";
-            // 
-            // BtK1TextBox
-            // 
-            this.BtK1TextBox.Location = new System.Drawing.Point(105, 106);
-            this.BtK1TextBox.Name = "BtK1TextBox";
-            this.BtK1TextBox.ReadOnly = true;
-            this.BtK1TextBox.Size = new System.Drawing.Size(130, 20);
-            this.BtK1TextBox.TabIndex = 8;
-            this.BtK1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // BtK1Label
-            // 
-            this.BtK1Label.AutoSize = true;
-            this.BtK1Label.Location = new System.Drawing.Point(13, 109);
-            this.BtK1Label.Name = "BtK1Label";
-            this.BtK1Label.Size = new System.Drawing.Size(45, 13);
-            this.BtK1Label.TabIndex = 9;
-            this.BtK1Label.Text = "Bt, K=1:";
-            // 
-            // MainResultsGroupBox
-            // 
-            this.MainResultsGroupBox.Location = new System.Drawing.Point(12, 231);
-            this.MainResultsGroupBox.Name = "MainResultsGroupBox";
-            this.MainResultsGroupBox.Size = new System.Drawing.Size(453, 100);
-            this.MainResultsGroupBox.TabIndex = 4;
-            this.MainResultsGroupBox.TabStop = false;
-            this.MainResultsGroupBox.Text = "Main Results";
-            // 
             // CleanButton
             // 
-            this.CleanButton.Location = new System.Drawing.Point(12, 337);
+            this.CleanButton.Location = new System.Drawing.Point(12, 253);
             this.CleanButton.Name = "CleanButton";
-            this.CleanButton.Size = new System.Drawing.Size(57, 30);
+            this.CleanButton.Size = new System.Drawing.Size(197, 30);
             this.CleanButton.TabIndex = 5;
             this.CleanButton.TabStop = false;
             this.CleanButton.Text = "Clean";
             this.CleanButton.UseVisualStyleBackColor = true;
             this.CleanButton.Click += new System.EventHandler(this.CleanButton_Click);
             // 
+            // ResultsPanel
+            // 
+            this.ResultsPanel.AutoScroll = true;
+            this.ResultsPanel.Location = new System.Drawing.Point(215, 13);
+            this.ResultsPanel.Name = "ResultsPanel";
+            this.ResultsPanel.Size = new System.Drawing.Size(135, 306);
+            this.ResultsPanel.TabIndex = 6;
+            // 
+            // NumberOfNodesTextBox
+            // 
+            this.NumberOfNodesTextBox.Location = new System.Drawing.Point(127, 181);
+            this.NumberOfNodesTextBox.Name = "NumberOfNodesTextBox";
+            this.NumberOfNodesTextBox.Size = new System.Drawing.Size(60, 20);
+            this.NumberOfNodesTextBox.TabIndex = 16;
+            this.NumberOfNodesTextBox.Tag = "Number of iteration n";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 184);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 13);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Number of nodes n:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 375);
+            this.ClientSize = new System.Drawing.Size(362, 330);
+            this.Controls.Add(this.ResultsPanel);
             this.Controls.Add(this.CleanButton);
-            this.Controls.Add(this.MainResultsGroupBox);
-            this.Controls.Add(this.ResultGroupBox);
             this.Controls.Add(this.InputsGroupBox);
             this.Controls.Add(this.CalculateButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
@@ -339,8 +260,6 @@
             this.Text = "American Options";
             this.InputsGroupBox.ResumeLayout(false);
             this.InputsGroupBox.PerformLayout();
-            this.ResultGroupBox.ResumeLayout(false);
-            this.ResultGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -357,9 +276,6 @@
         private System.Windows.Forms.Label NumberOfIterationLabel;
         private System.Windows.Forms.TextBox StockPriceTextBox;
         private System.Windows.Forms.Label StockPriceLabel;
-        private System.Windows.Forms.GroupBox ResultGroupBox;
-        private System.Windows.Forms.TextBox BtK1TextBox;
-        private System.Windows.Forms.Label BtK1Label;
         private System.Windows.Forms.TextBox TauTextBox;
         private System.Windows.Forms.Label TauLabel;
         private System.Windows.Forms.TextBox RiskFreeRateTextBox;
