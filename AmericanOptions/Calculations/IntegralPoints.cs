@@ -4,24 +4,24 @@ namespace AmericanOptions
 {
     public class IntegralPoints
     {
-        public double CalculateIntegralPointD1(double riskFreeRate, double volatilitySigma, double tau)
+        public double CalculateIntegralPointD1(double S, double B, double r, double sigma, double t)
         {
-            return CalculateD1Numerator(riskFreeRate, volatilitySigma, tau) / CalculateD1Denominator(volatilitySigma, tau);
+            return CalculateD1Numerator(S, B, r, sigma, t) / CalculateD1Denominator(sigma, t);
         }
 
-        public double CalculateIntegralPointD2(double integralPointD1, double volatilitySigma, double tau)
+        public double CalculateIntegralPointD2(double d1, double sigma, double t)
         {
-            return integralPointD1 - CalculateD1Denominator(volatilitySigma, tau);
+            return d1 - CalculateD1Denominator(sigma, t);
         }
 
-        private double CalculateD1Numerator(double riskFreeRate, double volatilitySigma, double tau)
+        private double CalculateD1Numerator(double S, double B, double r, double sigma, double t)
         {
-            return (riskFreeRate + (0.5 * volatilitySigma * volatilitySigma)) * tau;
+            return Math.Log(S/B) + (r + (0.5 * Math.Pow(sigma, 2))) * t;
         }
 
-        private double CalculateD1Denominator(double volatilitySigma, double tau)
+        private double CalculateD1Denominator(double sigma, double t)
         {
-            return volatilitySigma * Math.Sqrt(tau);
+            return sigma * Math.Sqrt(t);
         }
     }
 }

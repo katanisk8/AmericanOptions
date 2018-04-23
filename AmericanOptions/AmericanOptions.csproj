@@ -56,8 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Calculations\BtK1.cs" />
+    <Compile Include="Bt\BtCalculator.cs" />
+    <Compile Include="Bt\BtResult.cs" />
     <Compile Include="Calculations\StandardNormalDistribution.cs" />
+    <Compile Include="Calculations\IntegralFunction.cs" />
     <Compile Include="Validations\InputsValidator.cs" />
     <Compile Include="Calculations\IntegralPoints.cs" />
     <Compile Include="Windows\MainForm.cs">
