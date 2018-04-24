@@ -23,22 +23,9 @@ namespace AmericanOptions
         public MainForm()
         {
             InitializeComponent();
-            AssignDefaultVariables();
         }
 
-        private void AssignDefaultVariables()
-        {
-            RiskFreeRateTextBox.Text = "0,05";
-            VolatilitySigmaTextBox.Text = "0,2";
-            TauTextBox.Text = "1";
-            StrikePriceTextBox.Text = "45";
-            StockPriceTextBox.Text = "45";
-            NumberOfIterationTextBox.Text = "10";
-            NumberOfNodesTextBox.Text = "4";
-            TimeToMaturityTextBox.Text = "1";
-        }
-
-        private void CalculateButton_Click(object sender, EventArgs e)
+        private async void CalculateButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -46,7 +33,9 @@ namespace AmericanOptions
                 ValidateInputs();
                 AssignVariables();
 
-                List<BtResult> results = new BtCalculator().Calculate(
+                BtCalculator calculator = new BtCalculator();
+
+                List<BtResult> results = await calculator.Calculate(
                     riskFreeRate,
                     volatilitySigma,
                     tau,
@@ -64,10 +53,27 @@ namespace AmericanOptions
             }
         }
 
+        private void DefaultButton_Click(object sender, EventArgs e)
+        {
+            AssignDefaultVariables();
+        }
+
         private void ClearButton_Click(object sender, EventArgs e)
         {
             Clean.CleanTextBoxes(this);
             Clean.CleanResultsLabels(ResultsPanel);
+        }
+
+        private void AssignDefaultVariables()
+        {
+            RiskFreeRateTextBox.Text = "0,05";
+            VolatilitySigmaTextBox.Text = "0,2";
+            TauTextBox.Text = "1";
+            StrikePriceTextBox.Text = "45";
+            StockPriceTextBox.Text = "45";
+            NumberOfIterationTextBox.Text = "10";
+            NumberOfNodesTextBox.Text = "4";
+            TimeToMaturityTextBox.Text = "1";
         }
 
         private void ValidateInputs()
@@ -101,7 +107,7 @@ namespace AmericanOptions
 
             foreach (var result in results)
             {
-                creator.CreateResultLabel(ResultsPanel, result);
+                creator.CreateResultsLabels(ResultsPanel, result);
             }
         }
     }

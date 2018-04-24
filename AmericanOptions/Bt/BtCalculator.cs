@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AmericanOptions.Calculations;
 
 namespace AmericanOptions.Bt
 {
     internal class BtCalculator
     {
-        internal List<BtResult> Calculate(double riskFreeRate, double volatilitySigma, double tau, double strikePrice, double stockPrice, double numberOfIterration, double numberOfNodes, double timeToMaturity)
+        internal async Task<List<BtResult>> Calculate(double riskFreeRate, double volatilitySigma, double tau, double strikePrice, double stockPrice, double numberOfIterration, double numberOfNodes, double timeToMaturity)
         {
             BtCalculator bt = new BtCalculator();
             List<BtResult> btResults = new List<BtResult>();
@@ -24,7 +25,7 @@ namespace AmericanOptions.Bt
             {
                 if (i == 0)
                 {
-                    btResults.Add(new BtResult { NumberOfResult = i, Value = strikePrice });
+                    btResults.Add(new BtResult { ResultNumber = i, Value = strikePrice });
                 }
                 else if (i == 1)
                 {
@@ -33,7 +34,7 @@ namespace AmericanOptions.Bt
                     distribution = standardNormalDistribution.CalculatePDF(integralPointD1);
                     BtK_1 = bt.CalculateBtK_1(volatilitySigma, strikePrice, distribution, integralPointD1, riskFreeRate, tau, integralPointD2);
                     
-                    btResults.Add(new BtResult { NumberOfResult = i, Value = BtK_1 });
+                    btResults.Add(new BtResult { ResultNumber = i, Value = BtK_1 });
                 }
                 else
                 {
@@ -41,9 +42,15 @@ namespace AmericanOptions.Bt
                     integralPointD2 = integralPoints.CalculateIntegralPointD2(integralPointD1, volatilitySigma, tau);
                     distribution = standardNormalDistribution.CalculatePDF(integralPointD1);
                     BtK = bt.CalculateBt(volatilitySigma, strikePrice, distribution, integralPointD1, riskFreeRate, tau, integralPointD2, numberOfNodes, timeToMaturity);
+                    
+                    if (double.IsNaN(BtK))
+                    {
+                        break;
+                    }
+
                     BtK_1 = BtK;
 
-                    btResults.Add(new BtResult { NumberOfResult = i, Value = BtK });
+                    btResults.Add(new BtResult { ResultNumber = i, Value = BtK });
                 }
             }
 

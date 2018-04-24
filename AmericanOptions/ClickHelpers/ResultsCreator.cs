@@ -7,19 +7,21 @@ namespace AmericanOptions.ClickHelpers
 {
     internal class ResultsCreator
     {
-        internal void CreateResultLabel(Panel panel, BtResult result)
+        internal void CreateResultsLabels(Panel panel, BtResult result)
         {
-            int x = result.NumberOfResult;
+            int x = result.ResultNumber;
+            int y = x * 16 + 16;
 
             Label label = new Label();
-            label.Size = new Size(55, 13);
-            label.Location = new Point(6, x * 16 + 16);
+            label.AutoSize = true;
+            label.Size = new Size(60, 13);
+            label.Location = new Point(6, y);
             label.Name = string.Format("LabelBtK={0}", x);
             label.Text = string.Format("Bt, K={0}:", x);
 
             Label resultLabel = new Label();
             resultLabel.Size = new Size(50, 13);
-            resultLabel.Location = new Point(label.Location.X + 60, x * 16 + 16);
+            resultLabel.Location = new Point(label.Size.Width, y);
             resultLabel.Name = string.Format("ResultLabelBtK={0}", x);
             resultLabel.Text = Math.Round(result.Value, 4).ToString();
 

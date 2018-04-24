@@ -2,7 +2,7 @@
 {
     internal class BtResult
     {
-        internal int NumberOfResult;
+        internal int ResultNumber;
         internal double Value;
     }
 }
