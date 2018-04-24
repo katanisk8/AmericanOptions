@@ -1,11 +1,56 @@
 ﻿using System;
+using System.Collections.Generic;
 using AmericanOptions.Calculations;
 
 namespace AmericanOptions.Bt
 {
-    public class BtCalculator
+    internal class BtCalculator
     {
-        internal double CalculateBtK_1(double sigma, double K, double dist, double d1, double r, double tau, double d2)
+        internal List<BtResult> Calculate(double riskFreeRate, double volatilitySigma, double tau, double strikePrice, double stockPrice, double numberOfIterration, double numberOfNodes, double timeToMaturity)
+        {
+            BtCalculator bt = new BtCalculator();
+            List<BtResult> btResults = new List<BtResult>();
+            StandardNormalDistribution standardNormalDistribution = new StandardNormalDistribution();
+            IntegralPoints integralPoints = new IntegralPoints();
+            double integralPointD1;
+            double integralPointD2;
+            double distribution;
+
+            // Results
+            double BtK_1 = 0;
+            double BtK;
+
+            for (int i = 0; i <= numberOfIterration; i++)
+            {
+                if (i == 0)
+                {
+                    btResults.Add(new BtResult { NumberOfResult = i, Value = strikePrice });
+                }
+                else if (i == 1)
+                {
+                    integralPointD1 = integralPoints.CalculateIntegralPointD1(strikePrice, strikePrice, riskFreeRate, volatilitySigma, tau);
+                    integralPointD2 = integralPoints.CalculateIntegralPointD2(integralPointD1, volatilitySigma, tau);
+                    distribution = standardNormalDistribution.CalculatePDF(integralPointD1);
+                    BtK_1 = bt.CalculateBtK_1(volatilitySigma, strikePrice, distribution, integralPointD1, riskFreeRate, tau, integralPointD2);
+                    
+                    btResults.Add(new BtResult { NumberOfResult = i, Value = BtK_1 });
+                }
+                else
+                {
+                    integralPointD1 = integralPoints.CalculateIntegralPointD1(BtK_1, strikePrice, riskFreeRate, volatilitySigma, tau);
+                    integralPointD2 = integralPoints.CalculateIntegralPointD2(integralPointD1, volatilitySigma, tau);
+                    distribution = standardNormalDistribution.CalculatePDF(integralPointD1);
+                    BtK = bt.CalculateBt(volatilitySigma, strikePrice, distribution, integralPointD1, riskFreeRate, tau, integralPointD2, numberOfNodes, timeToMaturity);
+                    BtK_1 = BtK;
+
+                    btResults.Add(new BtResult { NumberOfResult = i, Value = BtK });
+                }
+            }
+
+            return btResults;
+        }
+
+        private double CalculateBtK_1(double sigma, double K, double dist, double d1, double r, double tau, double d2)
         {
             double a = (1 / sigma * Math.Sqrt(2 * Math.PI * tau));
 
@@ -14,7 +59,7 @@ namespace AmericanOptions.Bt
                 (((2 * sigma * r) / ((2 * r) + (Math.Pow(sigma, 2))) * (2 * dist) - 1));
         }
 
-        internal double CalculateBt(double sigma, double K, double dist, double d1, double r, double t, double d2, double n, double T)
+        private double CalculateBt(double sigma, double K, double dist, double d1, double r, double t, double d2, double n, double T)
         {
             double a = (1 / sigma * Math.Sqrt(2 * Math.PI * t));
             double integralFunction = new IntegralFunction().Calculate(n, T, r, sigma, t, d2);

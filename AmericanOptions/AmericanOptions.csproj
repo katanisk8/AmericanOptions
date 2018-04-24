@@ -60,6 +60,8 @@
     <Compile Include="Bt\BtResult.cs" />
     <Compile Include="Calculations\StandardNormalDistribution.cs" />
     <Compile Include="Calculations\IntegralFunction.cs" />
+    <Compile Include="ClickHelpers\Clean.cs" />
+    <Compile Include="ClickHelpers\ResultsCreator.cs" />
     <Compile Include="Validations\InputsValidator.cs" />
     <Compile Include="Calculations\IntegralPoints.cs" />
     <Compile Include="Windows\MainForm.cs">

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AmericanOptions.Bt
+﻿namespace AmericanOptions.Bt
 {
-    public class BtResult
+    internal class BtResult
     {
-        public int NumberOfResult;
-        public double Value;
+        internal int NumberOfResult;
+        internal double Value;
     }
 }

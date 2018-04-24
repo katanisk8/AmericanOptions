@@ -2,7 +2,7 @@
 
 namespace AmericanOptions.Calculations
 {
-    public class IntegralFunction
+    internal class IntegralFunction
     {
         internal double Calculate(double n, double T, double r, double sigma, double t, double d2)
         {
