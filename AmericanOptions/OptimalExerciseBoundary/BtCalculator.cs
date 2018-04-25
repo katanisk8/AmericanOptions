@@ -1,14 +1,12 @@
 ﻿using AmericanOptions.Helpers;
-using AmericanOptions.PutOptions;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace AmericanOptions.OptimalExerciseBoundary
 {
     internal class BtCalculator
     {
-        internal async Task<List<Result>> Calculate(double riskFreeRate, double volatilitySigma, double tau, double strikePrice, double stockPrice, double numberOfIterration, double numberOfNodes, double timeToMaturity)
+        internal List<Result> Calculate(double riskFreeRate, double volatilitySigma, double tau, double strikePrice, double stockPrice, double numberOfIterration, double numberOfNodes, double timeToMaturity)
         {
             BtCalculator bt = new BtCalculator();
             List<Result> Results = new List<Result>();

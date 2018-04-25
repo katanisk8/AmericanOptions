@@ -87,12 +87,12 @@ namespace AmericanOptions
             timeToMaturity = Convert.ToDouble(TimeToMaturityTextBox.Text);
         }
 
-        private void SetResultLabels(List<Result> btResults, List<Result> putResults)
+        private void SetResultLabels(Results results)
         {
             ResultsCreator creator = new ResultsCreator();
             
-            creator.CreateResultsLabels(BtResultsPanel, btResults, "Bt, k={0}:");            
-            creator.CreateResultsLabels(PutResultsPanel, putResults, "P, k={0}:");
+            creator.CreateResultsLabels(BtResultsPanel, results.BtResults, "Bt, k={0}:");            
+            creator.CreateResultsLabels(PutResultsPanel, results.PutResults, "P, k={0}:");
         }
 
         private async void Calculate()
@@ -104,37 +104,17 @@ namespace AmericanOptions
                 ValidateInputs();
                 AssignVariables();
 
-                BtCalculator btCalculator = new BtCalculator();
-                AmercianPut putCalculator = new AmercianPut();
-
-                List<Result> BtResults = await btCalculator.Calculate(
-                    riskFreeRate,
-                    volatilitySigma,
+                Results results = new Calculator().Calcluate(
+                    riskFreeRate, 
+                    volatilitySigma, 
                     tau,
-                    strikePrice,
-                    stockPrice,
-                    numberOfIterration,
-                    numberOfNodes,
+                    strikePrice, 
+                    stockPrice, 
+                    numberOfIterration, 
+                    numberOfNodes, 
                     timeToMaturity);
 
-                List<Result> PutResults = new List<Result>();
-
-                foreach (var result in BtResults)
-                {
-                    double putResult = putCalculator.Calculate(
-                       strikePrice,
-                       stockPrice,
-                       riskFreeRate,
-                       tau,
-                       volatilitySigma,
-                       numberOfNodes,
-                       timeToMaturity,
-                       result.Value);
-
-                    PutResults.Add(new Result { ResultNumber = result.ResultNumber, Value = putResult });
-                }
-
-                SetResultLabels(BtResults, PutResults);
+                SetResultLabels(results);
             }
             catch (Exception ex)
             {

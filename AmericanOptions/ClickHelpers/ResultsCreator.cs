@@ -8,7 +8,7 @@ namespace AmericanOptions.ClickHelpers
 {
     internal class ResultsCreator
     {
-        internal void CreateResultsLabels(Control container, List<Result> results, string text)
+        internal void CreateResultsLabels(Control container, IEnumerable<Result> results, string text)
         {
             foreach (var result in results)
             {
