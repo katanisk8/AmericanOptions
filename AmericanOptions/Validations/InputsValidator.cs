@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace AmericanOptions
 {
-   public class InputsValidator
+   internal class InputsValidator
    {
       internal void ValidateTextBoxInput(TextBox textBox)
       {

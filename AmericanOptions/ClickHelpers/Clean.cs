@@ -21,13 +21,14 @@ namespace AmericanOptions.ClickHelpers
 
         internal static void CleanTextBoxes(MainForm form)
         {
-            List<Control> textBoxList = GetAll(form, typeof(TextBox)).ToList();
+            List<Control> controls = new List<Control>();
+            controls.AddRange(GetAll(form, typeof(TextBox)).ToList());
+            controls.AddRange(GetAll(form, typeof(NumericUpDown)).ToList());
 
-            foreach (Control c in textBoxList)
+            foreach (Control control in controls)
             {
-                TextBox textBox = (TextBox)c;
-                textBox.Text = string.Empty;
-                textBox.BackColor = Color.White;
+                control.Text = string.Empty;
+                control.BackColor = Color.White;
             }
         }
 

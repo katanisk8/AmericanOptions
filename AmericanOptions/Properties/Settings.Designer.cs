@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AmericanOptions.Properties
+namespace AmericanPut.Properties
 {
 
 

@@ -1,5 +1,6 @@
-﻿using AmericanOptions.Bt;
+﻿using AmericanOptions.PutOptions;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -7,26 +8,27 @@ namespace AmericanOptions.ClickHelpers
 {
     internal class ResultsCreator
     {
-        internal void CreateResultsLabels(Panel panel, BtResult result)
+        internal void CreateResultsLabels(Control container, List<Result> results, string text)
         {
-            int x = result.ResultNumber;
-            int y = x * 16 + 16;
+            foreach (var result in results)
+            {
+                int x = result.ResultNumber;
+                int y = x * 16 + 16;
 
-            Label label = new Label();
-            label.AutoSize = true;
-            label.Size = new Size(60, 13);
-            label.Location = new Point(6, y);
-            label.Name = string.Format("LabelBtk={0}", x);
-            label.Text = string.Format("Bt, k={0}:", x);
+                Label label = new Label();
+                label.AutoSize = true;
+                label.Size = new Size(60, 13);
+                label.Location = new Point(6, y);
+                label.Text = string.Format(text, x);
 
-            Label resultLabel = new Label();
-            resultLabel.Size = new Size(50, 13);
-            resultLabel.Location = new Point(label.Size.Width, y);
-            resultLabel.Name = string.Format("ResultLabelBtK={0}", x);
-            resultLabel.Text = Math.Round(result.Value, 4).ToString();
+                Label resultLabel = new Label();
+                resultLabel.Size = new Size(50, 13);
+                resultLabel.Location = new Point(label.Size.Width, y);
+                resultLabel.Text = Math.Round(result.Value, 4).ToString();
 
-            panel.Controls.Add(label);
-            panel.Controls.Add(resultLabel);
+                container.Controls.Add(label);
+                container.Controls.Add(resultLabel);
+            }
         }
     }
 }
