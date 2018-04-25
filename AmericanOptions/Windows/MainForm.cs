@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using AmericanOptions.ClickHelpers;
+using AmericanOptions.Helpers;
 using AmericanOptions.OptimalExerciseBoundary;
 using AmericanOptions.PutOptions;
 
@@ -103,10 +104,10 @@ namespace AmericanOptions
                 ValidateInputs();
                 AssignVariables();
 
-                BtCalculator calculator = new BtCalculator();
+                BtCalculator btCalculator = new BtCalculator();
                 AmercianPut putCalculator = new AmercianPut();
 
-                List<Result> BtResults = await calculator.Calculate(
+                List<Result> BtResults = await btCalculator.Calculate(
                     riskFreeRate,
                     volatilitySigma,
                     tau,

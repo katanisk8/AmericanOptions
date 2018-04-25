@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AmericanOptions.CalculationHelpers
+namespace AmericanOptions.Helpers
 {
     internal class IntegralPoints
     {

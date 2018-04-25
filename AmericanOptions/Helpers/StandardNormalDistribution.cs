@@ -1,6 +1,6 @@
 ﻿using MathNet.Numerics.Distributions;
 
-namespace AmericanOptions.CalculationHelpers
+namespace AmericanOptions.Helpers
 {
     internal class StandardNormalDistribution
     {

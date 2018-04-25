@@ -1,4 +1,4 @@
-﻿using AmericanOptions.CalculationHelpers;
+﻿using AmericanOptions.Helpers;
 using System;
 
 namespace AmericanOptions.PutOptions

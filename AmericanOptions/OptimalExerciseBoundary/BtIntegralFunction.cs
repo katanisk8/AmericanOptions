@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace AmericanOptions.CalculationHelpers
+namespace AmericanOptions.OptimalExerciseBoundary
 {
-    internal class IntegralFunction
+    internal class BtIntegralFunction
     {
         internal double Calculate(double n, double T, double r, double sigma, double t, double d2)
         {

@@ -1,4 +1,4 @@
-﻿using AmericanOptions.CalculationHelpers;
+﻿using AmericanOptions.Helpers;
 using AmericanOptions.PutOptions;
 using System;
 using System.Collections.Generic;
@@ -70,7 +70,7 @@ namespace AmericanOptions.OptimalExerciseBoundary
         private double CalculateBt(double sigma, double K, double dist, double d1, double r, double t, double d2, double n, double T)
         {
             double a = (1 / sigma * Math.Sqrt(2 * Math.PI * t));
-            double integralFunction = new IntegralFunction().Calculate(n, T, r, sigma, t, d2);
+            double integralFunction = new BtIntegralFunction().Calculate(n, T, r, sigma, t, d2);
 
             return (1 / (dist + a * Math.Exp(-0.5 * Math.Pow(d1, 2)))) *
                 (a * K * Math.Exp(-((r * t) + (0.5 * Math.Pow(d2, 2))))) +

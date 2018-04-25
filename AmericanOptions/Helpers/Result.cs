@@ -1,4 +1,4 @@
-﻿namespace AmericanOptions.PutOptions
+﻿namespace AmericanOptions.Helpers
 {
     internal class Result
     {
