@@ -16,8 +16,8 @@ namespace AmericanOptions.ClickHelpers
             label.AutoSize = true;
             label.Size = new Size(60, 13);
             label.Location = new Point(6, y);
-            label.Name = string.Format("LabelBtK={0}", x);
-            label.Text = string.Format("Bt, K={0}:", x);
+            label.Name = string.Format("LabelBtk={0}", x);
+            label.Text = string.Format("Bt, k={0}:", x);
 
             Label resultLabel = new Label();
             resultLabel.Size = new Size(50, 13);
