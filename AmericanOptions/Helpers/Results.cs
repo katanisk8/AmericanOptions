@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace AmericanOptions.Helpers
 {
     internal class Results
     {
-        internal IEnumerable<Result> BtResults;
-        internal IEnumerable<Result> PutResults;
+        internal List<Result> BtResults;
+        internal List<Result> PutResults;
 
         public Results()
         {

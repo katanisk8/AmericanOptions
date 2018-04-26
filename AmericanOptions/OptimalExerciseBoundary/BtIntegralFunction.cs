@@ -4,7 +4,7 @@ namespace AmericanOptions.OptimalExerciseBoundary
 {
     internal class BtIntegralFunction
     {
-        internal double Calculate(double n, double T, double r, double sigma, double t, double d2)
+        internal double Calculate(int n, double T, double r, double sigma, double t, double d2)
         {
             double result = 0;
 

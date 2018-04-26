@@ -5,7 +5,7 @@ namespace AmericanOptions.PutOptions
 {
     internal class PutIntegralFunction
     {
-        internal double Calculate(double n, double T, double r, double sigma, double t, double S, double K, double Btksi)
+        internal double Calculate(int n, double T, double r, double sigma, double t, double S, double K, double Btksi)
         {
             double result = 0;
 

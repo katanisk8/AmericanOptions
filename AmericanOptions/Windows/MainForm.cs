@@ -10,16 +10,14 @@ namespace AmericanOptions
 {
     internal partial class MainForm : Form
     {
-        private const string numberFormat = "F06";
-
         // Inputs
         private double riskFreeRate;
         private double volatilitySigma;
         private double tau;
         private double strikePrice;
         private double stockPrice;
-        private double numberOfIterration;
-        private double numberOfNodes;
+        private int numberOfIterration;
+        private int numberOfNodes;
         private double timeToMaturity;
 
         internal MainForm()
@@ -27,17 +25,17 @@ namespace AmericanOptions
             InitializeComponent();
         }
 
-        private async void CalculateButton_Click(object sender, EventArgs e)
+        private void CalculateButton_Click(object sender, EventArgs e)
         {
             Calculate();
         }
 
-        private async void NumberOfIterationTextBox_ValueChanged(object sender, EventArgs e)
+        private void NumberOfIterationTextBox_ValueChanged(object sender, EventArgs e)
         {
             Calculate();
         }
 
-        private async void NumberOfNodesTextBox_ValueChanged(object sender, EventArgs e)
+        private void NumberOfNodesTextBox_ValueChanged(object sender, EventArgs e)
         {
             Calculate();
         }
@@ -82,8 +80,8 @@ namespace AmericanOptions
             tau = Convert.ToDouble(TauTextBox.Text);
             strikePrice = Convert.ToDouble(StrikePriceTextBox.Text);
             stockPrice = Convert.ToDouble(StockPriceTextBox.Text);
-            numberOfIterration = Convert.ToDouble(NumberOfIterationTextBox.Text);
-            numberOfNodes = Convert.ToDouble(NumberOfNodesTextBox.Text);
+            numberOfIterration = Convert.ToInt32(NumberOfIterationTextBox.Text);
+            numberOfNodes = Convert.ToInt32(NumberOfNodesTextBox.Text);
             timeToMaturity = Convert.ToDouble(TimeToMaturityTextBox.Text);
         }
 
@@ -95,7 +93,7 @@ namespace AmericanOptions
             creator.CreateResultsLabels(PutResultsPanel, results.PutResults, "P, k={0}:");
         }
 
-        private async void Calculate()
+        private void Calculate()
         {
             try
             {
