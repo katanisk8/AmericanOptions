@@ -6,39 +6,24 @@ using System.Windows.Forms;
 
 namespace AmericanOptions.ClickHelpers
 {
-    internal static class Clean
+    internal class Clean
     {
 
-        internal static void CleanResultsLabels(Panel resultsPanel)
+        internal void CleanResultsLabels(Panel panel)
         {
-            List<Control> labelList = GetAll(resultsPanel, typeof(Label)).ToList();
-
-            foreach (var control in labelList)
-            {
-                resultsPanel.Controls.Remove((Label)control);
-            }
+            panel.Controls.Clear();
         }
 
-        internal static void CleanTextBoxes(MainForm form)
+        internal void CleanTextBoxes(GroupBox groupbox)
         {
-            List<Control> controls = new List<Control>();
-            controls.AddRange(GetAll(form, typeof(TextBox)).ToList());
-            controls.AddRange(GetAll(form, typeof(NumericUpDown)).ToList());
-
-            foreach (Control control in controls)
+            foreach (Control control in groupbox.Controls)
             {
-                control.Text = string.Empty;
-                control.BackColor = Color.White;
+                if (control is TextBox || control is NumericUpDown)
+                {
+                    control.ResetText();
+                    control.BackColor = Color.White;
+                }
             }
-        }
-
-        private static IEnumerable<Control> GetAll(Control control, Type type)
-        {
-            var controls = control.Controls.Cast<Control>();
-
-            return controls.SelectMany(ctrl => GetAll(ctrl, type))
-                                      .Concat(controls)
-                                      .Where(c => c.GetType() == type);
         }
     }
 }

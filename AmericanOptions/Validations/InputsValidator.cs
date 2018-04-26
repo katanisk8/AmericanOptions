@@ -4,55 +4,55 @@ using System.Windows.Forms;
 
 namespace AmericanOptions
 {
-   internal class InputsValidator
-   {
-      internal void ValidateTextBoxInput(TextBox textBox)
-      {
-         ValidateText(textBox);
-         ValidateNumber(textBox);
-      }
+    internal class InputsValidator
+    {
+        internal void ValidateInput(Control control)
+        {
+            ValidateText(control);
+            ValidateNumber(control);
+        }
 
-      private void ValidateText(TextBox textBox)
-      {
-         string inputText = textBox.Text;
+        private void ValidateText(Control control)
+        {
+            string inputText = control.Text;
 
-         if (string.IsNullOrEmpty(inputText) || string.IsNullOrWhiteSpace(inputText))
-         {
-            string message = string.Format("Input \"{0}\" cannot be empty!", textBox.Tag);
-            SetTextBoxInExceptionMode(textBox);
-            throw new Exception(message);
-         }
-         else
-         {
-            SetTextBoxInNormalMode(textBox);
-         }
-      }
+            if (string.IsNullOrEmpty(inputText) || string.IsNullOrWhiteSpace(inputText))
+            {
+                string message = string.Format("Input \"{0}\" cannot be empty!", control.Tag);
+                SetControlInExceptionMode(control);
+                throw new Exception(message);
+            }
+            else
+            {
+                SetControlInNormalMode(control);
+            }
+        }
 
-      private void ValidateNumber(TextBox textBox)
-      {
-         string inputText = textBox.Text;
+        private void ValidateNumber(Control control)
+        {
+            string inputText = control.Text;
 
-         if (!double.TryParse(inputText, out double result))
-         {
-            string message = string.Format("Input \"{0}\" must be a number!", textBox.Tag);
-            SetTextBoxInExceptionMode(textBox);
-            throw new Exception(message);
-         }
-         else
-         {
-            SetTextBoxInNormalMode(textBox);
-         }
-      }
+            if (!double.TryParse(inputText, out double result))
+            {
+                string message = string.Format("Input \"{0}\" must be a number!", control.Tag);
+                SetControlInExceptionMode(control);
+                throw new Exception(message);
+            }
+            else
+            {
+                SetControlInNormalMode(control);
+            }
+        }
 
-      private void SetTextBoxInExceptionMode(TextBox textBox)
-      {
-         textBox.BackColor = Color.IndianRed;
-         textBox.Select();
-      }
+        private void SetControlInExceptionMode(Control control)
+        {
+            control.BackColor = Color.IndianRed;
+            control.Select();
+        }
 
-      private void SetTextBoxInNormalMode(TextBox textBox)
-      {
-         textBox.BackColor = Color.White;
-      }
-   }
+        private void SetControlInNormalMode(Control control)
+        {
+            control.BackColor = Color.White;
+        }
+    }
 }
