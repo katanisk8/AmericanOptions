@@ -3,12 +3,12 @@ using System.Linq;
 
 namespace AmericanOptions.Helpers
 {
-    internal class Results
+    public class Results
     {
         internal List<Result> BtResults;
         internal List<Result> PutResults;
 
-        public Results()
+       internal Results()
         {
             BtResults = new List<Result>();
             PutResults = new List<Result>();

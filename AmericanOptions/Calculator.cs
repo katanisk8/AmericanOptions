@@ -5,9 +5,9 @@ using AmericanOptions.PutOptions;
 
 namespace AmericanOptions
 {
-   internal class Calculator
+   public class Calculator
    {
-      internal Results Calcluate(double r, double sigma, double t, double K, double S, int k, int n, double T)
+      public Results Calcluate(double r, double sigma, double t, double K, double S, int k, int n, double T)
       {
          Results results = new Results();
          BtCalculator btCalculator = new BtCalculator();

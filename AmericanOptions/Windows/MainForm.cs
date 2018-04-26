@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using AmericanOptions.ClickHelpers;
 using AmericanOptions.Helpers;
-using AmericanOptions.OptimalExerciseBoundary;
-using AmericanOptions.PutOptions;
 
 namespace AmericanOptions
 {
-    internal partial class MainForm : Form
+   internal partial class MainForm : Form
     {
         // Inputs
         private double riskFreeRate;
