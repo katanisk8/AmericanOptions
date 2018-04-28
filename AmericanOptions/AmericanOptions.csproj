@@ -58,10 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
-    <Compile Include="Helpers\Results.cs" />
-    <Compile Include="OptimalExerciseBoundary\BtCalculator.cs" />
     <Compile Include="Helpers\Result.cs" />
-    <Compile Include="Helpers\StandardNormalDistribution.cs" />
+    <Compile Include="OptimalExerciseBoundary\BtCalculator.cs" />
     <Compile Include="OptimalExerciseBoundary\BtIntegralFunction.cs" />
     <Compile Include="ClickHelpers\Clean.cs" />
     <Compile Include="ClickHelpers\ResultsCreator.cs" />

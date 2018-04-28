@@ -1,54 +1,70 @@
 ﻿using AmericanOptions.Helpers;
 using AmericanOptions.OptimalExerciseBoundary;
 using AmericanOptions.PutOptions;
+using System;
 
 namespace AmericanOptions
 {
     public class Calculator
     {
-        public Results Calculate(double r, double sigma, double t, double K, double S, int k, int n, double T)
+        public Result[] Calculate(double r, double sigma, double t, double K, double S, int k, int n, double T)
         {
-            Results results = new Results();
+            Result[] results = new Result[k];
             BtCalculator btCalculator = new BtCalculator();
             AmercianPut putCalculator = new AmercianPut();
 
-            Result btk1 = new Result();
-            Result btk = new Result();
 
             for (int i = 0; i < k; i++)
             {
-                if (i == 0)
+                if (i == 0) // Calulation for Bt, k=0 and Put, k=0
                 {
-                    Result btk0 = btCalculator.CalculateBtK0(i, K);
-                    Result put0 = putCalculator.Calculate(K, S, r, t, sigma, n, T, btk0.Value, i);
+                    Result result = new Result();
 
-                    results.BtResults.Add(btk0);
-                    results.PutResults.Add(put0);
+                    result.ResultNumber = i;
+
+                    result.BtValue = K;
+                    result.BtRoundedValue = Math.Round(K, 4);
+
+                    result.PutValue = putCalculator.Calculate(K, S, r, t, sigma, n, T, K);
+                    result.PutRoundedValue = Math.Round(result.PutValue, 4);
+
+                    results[i] = result;
 
                 }
-                else if (i == 1)
+                else if (i == 1) // Calulation for Bt, k=1 and Put, k=1
                 {
-                    btk1 = btCalculator.CalculateBtK1(r, sigma, t, K, S, i, n, T);
-                    Result put1 = putCalculator.Calculate(K, S, r, t, sigma, n, T, btk1.Value, i);
+                    Result result = new Result();
 
-                    results.BtResults.Add(btk1);
-                    results.PutResults.Add(put1);
+                    result.ResultNumber = i;
 
+                    result.BtValue = btCalculator.CalculateBtK1(r, sigma, t, K, S, i, n, T);
+                    result.BtRoundedValue = Math.Round(result.BtValue, 4);
+
+                    result.PutValue = putCalculator.Calculate(K, S, r, t, sigma, n, T, result.BtValue);
+                    result.PutRoundedValue = Math.Round(result.PutValue, 4);
+
+                    results[i] = result;
                 }
-                else
+                else // Calulation for Bt, k=n and Put, k=n
                 {
-                    btk = btCalculator.CalculateBtK(r, sigma, t, K, S, i, n, T, btk1.Value);
-                    Result put = putCalculator.Calculate(K, S, r, t, sigma, n, T, btk.Value, i);
+                    Result result = new Result();
 
-                    if (double.IsNaN(btk.Value))
+                    result.ResultNumber = i;
+
+                    result.BtValue = btCalculator.CalculateBtK(r, sigma, t, K, S, i, n, T, results[i - 1].BtValue);
+                    result.BtRoundedValue = Math.Round(result.BtValue, 4);
+
+                    result.PutValue = putCalculator.Calculate(K, S, r, t, sigma, n, T, result.BtValue);
+                    result.PutRoundedValue = Math.Round(result.PutValue, 4);
+
+                    if (double.IsNaN(result.BtValue))
                     {
+                        Array.Resize(ref results, i);
                         break;
                     }
 
-                    results.BtResults.Add(btk);
-                    results.PutResults.Add(put);
+                    results[i] = result;
 
-                    btk1 = btk;
                 }
             }
 

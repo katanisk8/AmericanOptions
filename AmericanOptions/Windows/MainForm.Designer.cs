@@ -49,15 +49,12 @@
             this.StrikePriceLabel = new System.Windows.Forms.Label();
             this.ClearButton = new System.Windows.Forms.Button();
             this.DefaultButton = new System.Windows.Forms.Button();
-            this.BtResultsPanel = new System.Windows.Forms.Panel();
-            this.BoundaryResultsGroupBox = new System.Windows.Forms.GroupBox();
-            this.PutResultsGroupBox = new System.Windows.Forms.GroupBox();
-            this.PutResultsPanel = new System.Windows.Forms.Panel();
+            this.ResultsPanel = new System.Windows.Forms.Panel();
+            this.ResultsGroupBox = new System.Windows.Forms.GroupBox();
             this.InputsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumberOfIterationTextBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumberOfNodesTextBox)).BeginInit();
-            this.BoundaryResultsGroupBox.SuspendLayout();
-            this.PutResultsGroupBox.SuspendLayout();
+            this.ResultsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // CalculateButton
@@ -100,7 +97,7 @@
             // 
             this.NumberOfIterationTextBox.Location = new System.Drawing.Point(127, 155);
             this.NumberOfIterationTextBox.Maximum = new decimal(new int[] {
-            9999,
+            99999,
             0,
             0,
             0});
@@ -275,49 +272,30 @@
             this.DefaultButton.UseVisualStyleBackColor = true;
             this.DefaultButton.Click += new System.EventHandler(this.DefaultButton_Click);
             // 
-            // BtResultsPanel
+            // ResultsPanel
             // 
-            this.BtResultsPanel.AutoScroll = true;
-            this.BtResultsPanel.Location = new System.Drawing.Point(6, 19);
-            this.BtResultsPanel.Name = "BtResultsPanel";
-            this.BtResultsPanel.Size = new System.Drawing.Size(138, 281);
-            this.BtResultsPanel.TabIndex = 6;
+            this.ResultsPanel.AutoScroll = true;
+            this.ResultsPanel.Location = new System.Drawing.Point(6, 19);
+            this.ResultsPanel.Name = "ResultsPanel";
+            this.ResultsPanel.Size = new System.Drawing.Size(238, 281);
+            this.ResultsPanel.TabIndex = 6;
             // 
-            // BoundaryResultsGroupBox
+            // ResultsGroupBox
             // 
-            this.BoundaryResultsGroupBox.Controls.Add(this.BtResultsPanel);
-            this.BoundaryResultsGroupBox.Location = new System.Drawing.Point(215, 12);
-            this.BoundaryResultsGroupBox.Name = "BoundaryResultsGroupBox";
-            this.BoundaryResultsGroupBox.Size = new System.Drawing.Size(150, 306);
-            this.BoundaryResultsGroupBox.TabIndex = 13;
-            this.BoundaryResultsGroupBox.TabStop = false;
-            this.BoundaryResultsGroupBox.Text = "Boundary Results";
-            // 
-            // PutResultsGroupBox
-            // 
-            this.PutResultsGroupBox.Controls.Add(this.PutResultsPanel);
-            this.PutResultsGroupBox.Location = new System.Drawing.Point(372, 12);
-            this.PutResultsGroupBox.Name = "PutResultsGroupBox";
-            this.PutResultsGroupBox.Size = new System.Drawing.Size(150, 306);
-            this.PutResultsGroupBox.TabIndex = 14;
-            this.PutResultsGroupBox.TabStop = false;
-            this.PutResultsGroupBox.Text = "Put Results";
-            // 
-            // PutResultsPanel
-            // 
-            this.PutResultsPanel.AutoScroll = true;
-            this.PutResultsPanel.Location = new System.Drawing.Point(6, 19);
-            this.PutResultsPanel.Name = "PutResultsPanel";
-            this.PutResultsPanel.Size = new System.Drawing.Size(138, 281);
-            this.PutResultsPanel.TabIndex = 6;
+            this.ResultsGroupBox.Controls.Add(this.ResultsPanel);
+            this.ResultsGroupBox.Location = new System.Drawing.Point(215, 12);
+            this.ResultsGroupBox.Name = "ResultsGroupBox";
+            this.ResultsGroupBox.Size = new System.Drawing.Size(250, 306);
+            this.ResultsGroupBox.TabIndex = 13;
+            this.ResultsGroupBox.TabStop = false;
+            this.ResultsGroupBox.Text = "Results";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(531, 327);
-            this.Controls.Add(this.PutResultsGroupBox);
-            this.Controls.Add(this.BoundaryResultsGroupBox);
+            this.ClientSize = new System.Drawing.Size(474, 327);
+            this.Controls.Add(this.ResultsGroupBox);
             this.Controls.Add(this.DefaultButton);
             this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.InputsGroupBox);
@@ -332,8 +310,7 @@
             this.InputsGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumberOfIterationTextBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumberOfNodesTextBox)).EndInit();
-            this.BoundaryResultsGroupBox.ResumeLayout(false);
-            this.PutResultsGroupBox.ResumeLayout(false);
+            this.ResultsGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -360,10 +337,8 @@
         private System.Windows.Forms.Button DefaultButton;
       private System.Windows.Forms.NumericUpDown NumberOfNodesTextBox;
       private System.Windows.Forms.NumericUpDown NumberOfIterationTextBox;
-        private System.Windows.Forms.Panel BtResultsPanel;
-        private System.Windows.Forms.GroupBox BoundaryResultsGroupBox;
-        private System.Windows.Forms.GroupBox PutResultsGroupBox;
-        private System.Windows.Forms.Panel PutResultsPanel;
+        private System.Windows.Forms.Panel ResultsPanel;
+        private System.Windows.Forms.GroupBox ResultsGroupBox;
     }
 }
 

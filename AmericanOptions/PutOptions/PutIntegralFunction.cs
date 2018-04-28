@@ -1,4 +1,5 @@
 ﻿using AmericanOptions.Helpers;
+using MathNet.Numerics.Distributions;
 using System;
 
 namespace AmericanOptions.PutOptions
@@ -24,7 +25,7 @@ namespace AmericanOptions.PutOptions
         {
             double integralPointD1 = new IntegralPoints().CalculateIntegralPointD1(S, Btksi, r, sigma, t - ksi);
             double integralPointD2 = new IntegralPoints().CalculateIntegralPointD2(integralPointD1, sigma, t - ksi);
-            double distribution = new StandardNormalDistribution().CalculatePDF(-integralPointD2);
+            double distribution = new Normal().Density(-integralPointD2);
 
             return r * K * Math.Exp(-r * (t - ksi)) * distribution;
         }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using AmericanOptions.ClickHelpers;
@@ -70,7 +68,7 @@ namespace AmericanOptions
 
                 Dispatcher.CurrentDispatcher.Invoke(() =>
                 {
-                    Results results = new Calculator().Calculate(
+                    var results = new Calculator().Calculate(
                     riskFreeRate,
                     volatilitySigma,
                     tau,
@@ -92,9 +90,7 @@ namespace AmericanOptions
         private void ClearResultsLabels()
         {
             Clean clear = new Clean();
-
-            clear.CleanResultsLabels(BtResultsPanel);
-            clear.CleanResultsLabels(PutResultsPanel);
+            clear.CleanResultsLabels(ResultsPanel);
         }
 
         private void AssignDefaultVariables()
@@ -135,17 +131,15 @@ namespace AmericanOptions
             timeToMaturity = Convert.ToDouble(TimeToMaturityTextBox.Text);
         }
 
-        private void SetLabels(Results results)
+        private void SetLabels(Result[] results)
         {
             ResultsCreator creator = new ResultsCreator();
-            List<Label> btResultsLabels = new List<Label>();
-            List<Label> putResultsLabels = new List<Label>();
+            Label[] labels = new Label[results.Length];
 
-            btResultsLabels = creator.CreateResultsLabels(results.BtResults, "Bt, k={0}:");
-            putResultsLabels = creator.CreateResultsLabels(results.PutResults, "P, k={0}:");
+            labels = creator.CreateResultsLabels(results, "Bt, k={0}: {1}   P, k={2}: {3}");
 
-            BtResultsPanel.Controls.AddRange(btResultsLabels.Cast<Control>().ToArray());
-            PutResultsPanel.Controls.AddRange(putResultsLabels.Cast<Control>().ToArray());
+            ResultsPanel.Controls.AddRange(labels);
+
         }
 
         private void ClearAll()
@@ -153,8 +147,7 @@ namespace AmericanOptions
             Clean clear = new Clean();
 
             clear.CleanTextBoxes(InputsGroupBox);
-            clear.CleanResultsLabels(BtResultsPanel);
-            clear.CleanResultsLabels(PutResultsPanel);
+            clear.CleanResultsLabels(ResultsPanel);
         }
     }
 }
