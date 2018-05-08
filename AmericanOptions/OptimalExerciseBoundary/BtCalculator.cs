@@ -6,7 +6,7 @@ namespace AmericanOptions.OptimalExerciseBoundary
 {
     internal class BtCalculator
     {
-        internal double CalculateBtK1(double r, double sigma, double t, double K, double S, int k, int n, double T)
+        internal double CalculateBtK1(double r, double sigma, double t, double K, double S, int n, double T)
         {
             IntegralPoints integralPoints = new IntegralPoints();
 
@@ -17,7 +17,7 @@ namespace AmericanOptions.OptimalExerciseBoundary
             return CalculateBtK_1(sigma, K, distribution, integralPointD1, r, t, integralPointD2);
         }
 
-        internal double CalculateBtK(double r, double sigma, double t, double K, double S, int k, int n, double T, double BtK_1)
+        internal double CalculateBtK(double r, double sigma, double t, double K, double S, int n, double T, double BtK_1)
         {
             IntegralPoints integralPoints = new IntegralPoints();
 

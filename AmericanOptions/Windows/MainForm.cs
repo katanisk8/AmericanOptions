@@ -18,8 +18,6 @@ namespace AmericanOptions
         private int numberOfNodes;
         private double timeToMaturity;
 
-        private bool ReCalculateFlag = true;
-
         internal MainForm()
         {
             InitializeComponent();
@@ -30,27 +28,9 @@ namespace AmericanOptions
             Calculate();
         }
 
-        private void NumberOfIterationTextBox_ValueChanged(object sender, EventArgs e)
-        {
-            if (ReCalculateFlag)
-            {
-                Calculate();
-            }
-        }
-
-        private void NumberOfNodesTextBox_ValueChanged(object sender, EventArgs e)
-        {
-            if (ReCalculateFlag)
-            {
-                Calculate();
-            }
-        }
-
         private void DefaultButton_Click(object sender, EventArgs e)
         {
-            ReCalculateFlag = false;
             AssignDefaultVariables();
-            ReCalculateFlag = true;
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
@@ -85,7 +65,7 @@ namespace AmericanOptions
             {
                 MessageBox.Show(ex.Message);
             }
-        }
+         }
 
         private void ClearResultsLabels()
         {
@@ -100,7 +80,7 @@ namespace AmericanOptions
             TauTextBox.Text = "1";
             StrikePriceTextBox.Text = "45";
             StockPriceTextBox.Text = "45";
-            NumberOfIterationTextBox.Text = "20";
+            NumberOfIterationTextBox.Text = "16";
             NumberOfNodesTextBox.Text = "4";
             TimeToMaturityTextBox.Text = "1";
         }
@@ -139,7 +119,6 @@ namespace AmericanOptions
             labels = creator.CreateResultsLabels(results, "Bt, k={0}: {1}   P, k={2}: {3}");
 
             ResultsPanel.Controls.AddRange(labels);
-
         }
 
         private void ClearAll()

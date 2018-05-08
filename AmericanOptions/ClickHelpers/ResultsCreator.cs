@@ -13,7 +13,7 @@ namespace AmericanOptions.ClickHelpers
             for (int i = 0; i < results.Length; i++)
             {
                 int x = results[i].ResultNumber;
-                int y = x * 16 + 16;
+                int y = x * 16;
 
                 Label label = new Label();
                 label.AutoSize = true;

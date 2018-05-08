@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.CalculateButton = new System.Windows.Forms.Button();
             this.InputsGroupBox = new System.Windows.Forms.GroupBox();
-            this.NumberOfIterationTextBox = new System.Windows.Forms.NumericUpDown();
-            this.NumberOfNodesTextBox = new System.Windows.Forms.NumericUpDown();
+            this.NumberOfNodesTextBox = new System.Windows.Forms.TextBox();
+            this.NumberOfIterationTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.VolatilitySigmaTextBox = new System.Windows.Forms.TextBox();
             this.VolatilitySigmaLabel = new System.Windows.Forms.Label();
@@ -52,8 +52,6 @@
             this.ResultsPanel = new System.Windows.Forms.Panel();
             this.ResultsGroupBox = new System.Windows.Forms.GroupBox();
             this.InputsGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumberOfIterationTextBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumberOfNodesTextBox)).BeginInit();
             this.ResultsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,8 +68,8 @@
             // 
             // InputsGroupBox
             // 
-            this.InputsGroupBox.Controls.Add(this.NumberOfIterationTextBox);
             this.InputsGroupBox.Controls.Add(this.NumberOfNodesTextBox);
+            this.InputsGroupBox.Controls.Add(this.NumberOfIterationTextBox);
             this.InputsGroupBox.Controls.Add(this.label1);
             this.InputsGroupBox.Controls.Add(this.VolatilitySigmaTextBox);
             this.InputsGroupBox.Controls.Add(this.VolatilitySigmaLabel);
@@ -93,36 +91,23 @@
             this.InputsGroupBox.TabStop = false;
             this.InputsGroupBox.Text = "Input Data";
             // 
-            // NumberOfIterationTextBox
-            // 
-            this.NumberOfIterationTextBox.Location = new System.Drawing.Point(127, 155);
-            this.NumberOfIterationTextBox.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.NumberOfIterationTextBox.Name = "NumberOfIterationTextBox";
-            this.NumberOfIterationTextBox.Size = new System.Drawing.Size(60, 20);
-            this.NumberOfIterationTextBox.TabIndex = 6;
-            this.NumberOfIterationTextBox.Value = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.NumberOfIterationTextBox.ValueChanged += new System.EventHandler(this.NumberOfIterationTextBox_ValueChanged);
-            // 
             // NumberOfNodesTextBox
             // 
             this.NumberOfNodesTextBox.Location = new System.Drawing.Point(127, 181);
             this.NumberOfNodesTextBox.Name = "NumberOfNodesTextBox";
             this.NumberOfNodesTextBox.Size = new System.Drawing.Size(60, 20);
-            this.NumberOfNodesTextBox.TabIndex = 7;
-            this.NumberOfNodesTextBox.Value = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            this.NumberOfNodesTextBox.ValueChanged += new System.EventHandler(this.NumberOfNodesTextBox_ValueChanged);
+            this.NumberOfNodesTextBox.TabIndex = 19;
+            this.NumberOfNodesTextBox.Tag = "Number Of Nodes n";
+            this.NumberOfNodesTextBox.Text = "4";
+            // 
+            // NumberOfIterationTextBox
+            // 
+            this.NumberOfIterationTextBox.Location = new System.Drawing.Point(127, 155);
+            this.NumberOfIterationTextBox.Name = "NumberOfIterationTextBox";
+            this.NumberOfIterationTextBox.Size = new System.Drawing.Size(60, 20);
+            this.NumberOfIterationTextBox.TabIndex = 18;
+            this.NumberOfIterationTextBox.Tag = "Number Of Iteration k";
+            this.NumberOfIterationTextBox.Text = "16";
             // 
             // label1
             // 
@@ -308,8 +293,6 @@
             this.Text = "American Options";
             this.InputsGroupBox.ResumeLayout(false);
             this.InputsGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumberOfIterationTextBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumberOfNodesTextBox)).EndInit();
             this.ResultsGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -335,10 +318,10 @@
         private System.Windows.Forms.Button ClearButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button DefaultButton;
-      private System.Windows.Forms.NumericUpDown NumberOfNodesTextBox;
-      private System.Windows.Forms.NumericUpDown NumberOfIterationTextBox;
         private System.Windows.Forms.Panel ResultsPanel;
         private System.Windows.Forms.GroupBox ResultsGroupBox;
+        private System.Windows.Forms.TextBox NumberOfNodesTextBox;
+        private System.Windows.Forms.TextBox NumberOfIterationTextBox;
     }
 }
 
