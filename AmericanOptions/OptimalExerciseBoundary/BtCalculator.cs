@@ -12,7 +12,7 @@ namespace AmericanOptions.OptimalExerciseBoundary
 
             double integralPointD1 = integralPoints.CalculateIntegralPointD1(K, K, r, sigma, t);
             double integralPointD2 = integralPoints.CalculateIntegralPointD2(integralPointD1, sigma, t);
-            double distribution = new Normal().Density(integralPointD1);
+            double distribution = new Distribution().CDF(integralPointD1);
 
             return CalculateBtK_1(sigma, K, distribution, integralPointD1, r, t, integralPointD2);
         }
@@ -23,7 +23,7 @@ namespace AmericanOptions.OptimalExerciseBoundary
 
             var integralPointD1 = integralPoints.CalculateIntegralPointD1(BtK_1, K, r, sigma, t);
             var integralPointD2 = integralPoints.CalculateIntegralPointD2(integralPointD1, sigma, t);
-            var distribution = new Normal().Density(integralPointD1);
+            var distribution = new Distribution().CDF(integralPointD1);
 
             return CalculateBt(sigma, K, distribution, integralPointD1, r, t, integralPointD2, n, T);
         }

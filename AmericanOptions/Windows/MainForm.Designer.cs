@@ -96,7 +96,7 @@
             this.NumberOfNodesTextBox.Location = new System.Drawing.Point(127, 181);
             this.NumberOfNodesTextBox.Name = "NumberOfNodesTextBox";
             this.NumberOfNodesTextBox.Size = new System.Drawing.Size(60, 20);
-            this.NumberOfNodesTextBox.TabIndex = 19;
+            this.NumberOfNodesTextBox.TabIndex = 7;
             this.NumberOfNodesTextBox.Tag = "Number Of Nodes n";
             this.NumberOfNodesTextBox.Text = "4";
             // 
@@ -105,7 +105,7 @@
             this.NumberOfIterationTextBox.Location = new System.Drawing.Point(127, 155);
             this.NumberOfIterationTextBox.Name = "NumberOfIterationTextBox";
             this.NumberOfIterationTextBox.Size = new System.Drawing.Size(60, 20);
-            this.NumberOfIterationTextBox.TabIndex = 18;
+            this.NumberOfIterationTextBox.TabIndex = 6;
             this.NumberOfIterationTextBox.Tag = "Number Of Iteration k";
             this.NumberOfIterationTextBox.Text = "16";
             // 
@@ -241,7 +241,6 @@
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(95, 30);
             this.ClearButton.TabIndex = 10;
-            this.ClearButton.TabStop = false;
             this.ClearButton.Text = "Clear";
             this.ClearButton.UseVisualStyleBackColor = true;
             this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
@@ -252,7 +251,6 @@
             this.DefaultButton.Name = "DefaultButton";
             this.DefaultButton.Size = new System.Drawing.Size(95, 30);
             this.DefaultButton.TabIndex = 11;
-            this.DefaultButton.TabStop = false;
             this.DefaultButton.Text = "Default";
             this.DefaultButton.UseVisualStyleBackColor = true;
             this.DefaultButton.Click += new System.EventHandler(this.DefaultButton_Click);

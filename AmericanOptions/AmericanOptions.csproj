@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
+    <Compile Include="Helpers\Distribution.cs" />
     <Compile Include="Helpers\Result.cs" />
     <Compile Include="OptimalExerciseBoundary\BtCalculator.cs" />
     <Compile Include="OptimalExerciseBoundary\BtIntegralFunction.cs" />
