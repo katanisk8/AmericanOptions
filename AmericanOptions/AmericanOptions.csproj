@@ -85,8 +85,6 @@
     <Compile Include="ClickHelpers\ICleaner.cs" />
     <Compile Include="ClickHelpers\IResultsCreator.cs" />
     <Compile Include="Helpers\IIntegralPoints.cs" />
-    <Compile Include="Helpers\INormal.cs" />
-    <Compile Include="Helpers\Normal.cs" />
     <Compile Include="Model\Result.cs" />
     <Compile Include="ICalculator.cs" />
     <Compile Include="OptimalExerciseBoundary\BtCalculator.cs" />

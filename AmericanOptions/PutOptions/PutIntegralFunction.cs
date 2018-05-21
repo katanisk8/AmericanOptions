@@ -1,4 +1,5 @@
 ﻿using AmericanOptions.Helpers;
+using MathNet.Numerics.Distributions;
 using System;
 
 namespace AmericanOptions.PutOptions
@@ -6,12 +7,12 @@ namespace AmericanOptions.PutOptions
     public class PutIntegralFunction : IPutIntegralFunction
     {
         IIntegralPoints integralPoints;
-        INormal normal;
+        IUnivariateDistribution dist;
 
-        public PutIntegralFunction(IIntegralPoints _integralPoints, INormal _normal)
+        public PutIntegralFunction(IIntegralPoints _integralPoints, IUnivariateDistribution _dist)
         {
             integralPoints = _integralPoints;
-            normal = _normal;
+            dist = _dist;
         }
 
         public double Calculate(int n, double T, double r, double sigma, double t, double S, double K, double Btksi)
@@ -33,7 +34,7 @@ namespace AmericanOptions.PutOptions
         {
             double integralPointD1 = integralPoints.CalculateIntegralPointD1(S, Btksi, r, sigma, t - ksi);
             double integralPointD2 = integralPoints.CalculateIntegralPointD2(integralPointD1, sigma, t - ksi);
-            double distribution = normal.CDF(-integralPointD2);
+            double distribution = dist.CumulativeDistribution(-integralPointD2);
 
             return r * K * Math.Exp(-r * (t - ksi)) * distribution;
         }

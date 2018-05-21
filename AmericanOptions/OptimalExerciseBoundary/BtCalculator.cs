@@ -1,4 +1,5 @@
 ﻿using AmericanOptions.Helpers;
+using MathNet.Numerics.Distributions;
 using System;
 
 namespace AmericanOptions.OptimalExerciseBoundary
@@ -7,34 +8,34 @@ namespace AmericanOptions.OptimalExerciseBoundary
     {
         IIntegralPoints integralPoints;
         IBtIntegralFunction btIntegralFunction;
-        INormal normal;
+        IUnivariateDistribution dist;
 
-        public BtCalculator(IIntegralPoints _integralPoints, IBtIntegralFunction _btIntegralFunction, INormal _normal)
+        public BtCalculator(IIntegralPoints _integralPoints, IBtIntegralFunction _btIntegralFunction, IUnivariateDistribution _dist)
         {
             integralPoints = _integralPoints;
             btIntegralFunction = _btIntegralFunction;
-            normal = _normal;
+            dist = _dist;
         }
 
         public double CalculateBtK1(double r, double sigma, double t, double K, double S, int n, double T)
         {
             double integralPointD1 = integralPoints.CalculateIntegralPointD1(K, K, r, sigma, t);
             double integralPointD2 = integralPoints.CalculateIntegralPointD2(integralPointD1, sigma, t);
-            double distribution = normal.CDF(integralPointD1);
+            double distribution = dist.CumulativeDistribution(integralPointD1);
 
-            return CalculateBtK_1(sigma, K, distribution, integralPointD1, r, t, integralPointD2);
+            return CalculateBtK1(sigma, K, distribution, integralPointD1, r, t, integralPointD2);
         }
 
         public double CalculateBtK(double r, double sigma, double t, double K, double S, int n, double T, double BtK_1)
         {
             var integralPointD1 = integralPoints.CalculateIntegralPointD1(BtK_1, K, r, sigma, t);
             var integralPointD2 = integralPoints.CalculateIntegralPointD2(integralPointD1, sigma, t);
-            var distribution = normal.CDF(integralPointD1);
+            var distribution = dist.CumulativeDistribution(integralPointD1);
 
             return CalculateBt(sigma, K, distribution, integralPointD1, r, t, integralPointD2, n, T);
         }
 
-        private double CalculateBtK_1(double sigma, double K, double dist, double d1, double r, double tau, double d2)
+        private double CalculateBtK1(double sigma, double K, double dist, double d1, double r, double tau, double d2)
         {
             double a = (1 / sigma * Math.Sqrt(2 * Math.PI * tau));
 

@@ -73,7 +73,7 @@ namespace AmericanOptions
 
             result.ResultNumber = i;
 
-            result.BtValue = btCalculator.CalculateBtK(r, sigma, t, K, S, n, T, BtK_1 );
+            result.BtValue = btCalculator.CalculateBtK(r, sigma, t, K, S, n, T, BtK_1);
             result.BtRoundedValue = Math.Round(result.BtValue, 4);
 
             result.PutValue = putCalculator.Calculate(K, S, r, t, sigma, n, T, result.BtValue);

@@ -2,9 +2,11 @@
 using AmericanOptions.Helpers;
 using AmericanOptions.OptimalExerciseBoundary;
 using AmericanOptions.PutOptions;
+using MathNet.Numerics.Distributions;
 using System;
 using System.Windows.Forms;
 using Unity;
+using Unity.Injection;
 
 namespace AmericanOptions
 {
@@ -18,8 +20,8 @@ namespace AmericanOptions
         {
             UnityContainer container = new UnityContainer();
 
+            container.RegisterType<IUnivariateDistribution, Normal>(new InjectionConstructor());
             container.RegisterType<IIntegralPoints, IntegralPoints>();
-            container.RegisterType<INormal, Normal>();
             container.RegisterType<IBtCalculator, BtCalculator>();
             container.RegisterType<IBtIntegralFunction, BtIntegralFunction>();
             container.RegisterType<IAmercianPut, AmercianPut>();

@@ -24,7 +24,7 @@ namespace AmericanOptions
             }
             else
             {
-                SetControlInNormalMode(control);
+                SetControlIndistMode(control);
             }
         }
 
@@ -40,7 +40,7 @@ namespace AmericanOptions
             }
             else
             {
-                SetControlInNormalMode(control);
+                SetControlIndistMode(control);
             }
         }
 
@@ -50,7 +50,7 @@ namespace AmericanOptions
             control.Select();
         }
 
-        private void SetControlInNormalMode(Control control)
+        private void SetControlIndistMode(Control control)
         {
             control.BackColor = Color.White;
         }
