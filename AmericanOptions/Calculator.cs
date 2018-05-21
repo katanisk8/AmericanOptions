@@ -5,16 +5,23 @@ using System;
 
 namespace AmericanOptions
 {
-    public class Calculator
+    public class Calculator : ICalculator
     {
+        IBtCalculator btCalculator;
+        IAmercianPut putCalculator;
+
+        public Calculator(IBtCalculator _btCalculator, IAmercianPut _putCalculator)
+        {
+            btCalculator = _btCalculator;
+            putCalculator = _putCalculator;
+        }
+
         public Result[] Calculate(double r, double sigma, double t, double K, double S, int k, int n, double T)
         {
             Result[] results = new Result[k];
-            BtCalculator btCalculator = new BtCalculator();
-            AmercianPut putCalculator = new AmercianPut();
 
-            results[0] = CalculateK0(putCalculator, K, S, r, t, sigma, n, T);
-            results[1] = CalculateK1(btCalculator, putCalculator, K, S, r, t, sigma, n, T);
+            results[0] = CalculateK0(K, S, r, t, sigma, n, T);
+            results[1] = CalculateK1(K, S, r, t, sigma, n, T);
 
             for (int i = 2; i < k; i++)
             {
@@ -40,7 +47,7 @@ namespace AmericanOptions
             return results;
         }
 
-        private Result CalculateK0(AmercianPut putCalculator, double K, double S, double r, double t, double sigma, int n, double T)
+        private Result CalculateK0(double K, double S, double r, double t, double sigma, int n, double T)
         {
             Result result = new Result();
 
@@ -55,7 +62,7 @@ namespace AmericanOptions
             return result;
         }
 
-        private Result CalculateK1(BtCalculator btCalculator, AmercianPut putCalculator, double K, double S, double r, double t, double sigma, int n, double T)
+        private Result CalculateK1(double K, double S, double r, double t, double sigma, int n, double T)
         {
             Result result = new Result();
 

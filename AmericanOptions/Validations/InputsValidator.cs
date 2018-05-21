@@ -4,9 +4,9 @@ using System.Windows.Forms;
 
 namespace AmericanOptions
 {
-    internal class InputsValidator
+    public class InputsValidator : IInputsValidator
     {
-        internal void ValidateInput(Control control)
+        public void ValidateInput(Control control)
         {
             ValidateText(control);
             ValidateNumber(control);

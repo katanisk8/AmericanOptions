@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace AmericanOptions.ClickHelpers
 {
-    internal class Clean
+    public class Clean
     {
 
-        internal void CleanResultsLabels(Panel panel)
+        public void CleanResultsLabels(Panel panel)
         {
             panel.Controls.Clear();
         }
 
-        internal void CleanTextBoxes(GroupBox groupbox)
+        public void CleanTextBoxes(GroupBox groupbox)
         {
             foreach (Control control in groupbox.Controls)
             {

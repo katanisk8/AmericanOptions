@@ -2,12 +2,12 @@
 {
     public class Result
     {
-        internal int ResultNumber;
+        public int ResultNumber;
 
-        internal double BtValue;
-        internal double BtRoundedValue;
+        public double BtValue;
+        public double BtRoundedValue;
 
-        internal double PutValue;
-        internal double PutRoundedValue;
+        public double PutValue;
+        public double PutRoundedValue;
     }
 }

@@ -2,14 +2,14 @@
 
 namespace AmericanOptions.Helpers
 {
-    internal class IntegralPoints
+    public class IntegralPoints : IIntegralPoints
     {
-        internal double CalculateIntegralPointD1(double S, double B, double r, double sigma, double t)
+        public double CalculateIntegralPointD1(double S, double B, double r, double sigma, double t)
         {
             return CalculateD1Numerator(S, B, r, sigma, t) / CalculateD1Denominator(sigma, t);
         }
 
-        internal double CalculateIntegralPointD2(double d1, double sigma, double t)
+        public double CalculateIntegralPointD2(double d1, double sigma, double t)
         {
             return d1 - CalculateD1Denominator(sigma, t);
         }

@@ -2,9 +2,9 @@
 
 namespace AmericanOptions.OptimalExerciseBoundary
 {
-    internal class BtIntegralFunction
+    public class BtIntegralFunction : IBtIntegralFunction
     {
-        internal double Calculate(int n, double T, double r, double sigma, double t, double d2)
+        public double Calculate(int n, double T, double r, double sigma, double t, double d2)
         {
             double result = 0;
 

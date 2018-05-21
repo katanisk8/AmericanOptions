@@ -6,8 +6,10 @@ using AmericanOptions.Helpers;
 
 namespace AmericanOptions
 {
-    internal partial class MainForm : Form
+    public partial class MainForm : Form
     {
+        ICalculator calc;
+
         // Inputs
         private double riskFreeRate;
         private double volatilitySigma;
@@ -18,9 +20,10 @@ namespace AmericanOptions
         private int numberOfNodes;
         private double timeToMaturity;
 
-        internal MainForm()
+        public MainForm(ICalculator _calc)
         {
             InitializeComponent();
+            calc = _calc;
         }
 
         private void CalculateButton_Click(object sender, EventArgs e)
@@ -48,7 +51,7 @@ namespace AmericanOptions
 
                 Dispatcher.CurrentDispatcher.Invoke(() =>
                 {
-                    var results = new Calculator().Calculate(
+                    var results = calc.Calculate(
                     riskFreeRate,
                     volatilitySigma,
                     tau,

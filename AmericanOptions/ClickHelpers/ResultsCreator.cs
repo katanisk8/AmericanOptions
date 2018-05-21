@@ -4,9 +4,9 @@ using System.Windows.Forms;
 
 namespace AmericanOptions.ClickHelpers
 {
-    internal class ResultsCreator
+    public class ResultsCreator
     {
-        internal Label[] CreateResultsLabels(Result[] results, string text)
+        public Label[] CreateResultsLabels(Result[] results, string text)
         {
             Label[] labels = new Label[results.Length];
 
