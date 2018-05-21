@@ -1,4 +1,3 @@
-using Moq;
 using Xunit;
 using AmericanOptions.Helpers;
 
@@ -15,9 +14,9 @@ namespace AmericanOptionsTest
         [Fact]
         public void CalculateIntegralPointD1Test()
         {
-            Mock<IntegralPoints> integralPoints = new Mock<IntegralPoints>();
+            IntegralPoints integralPoints = new IntegralPoints();
 
-            double d1 = integralPoints.Object.CalculateIntegralPointD1(S, B, r, sigma, t);
+            double d1 = integralPoints.CalculateIntegralPointD1(S, B, r, sigma, t);
 
             Assert.Equal(0.35000000000000003, d1);
         }
@@ -25,10 +24,10 @@ namespace AmericanOptionsTest
         [Fact]
         public void CalculateIntegralPointD2Test()
         {
-            Mock<IntegralPoints> integralPoints = new Mock<IntegralPoints>();
+            IntegralPoints integralPoints = new IntegralPoints();
 
-            double d1 = integralPoints.Object.CalculateIntegralPointD1(S, B, r, sigma, t);
-            double d2 = integralPoints.Object.CalculateIntegralPointD2(d1, sigma, t);
+            double d1 = integralPoints.CalculateIntegralPointD1(S, B, r, sigma, t);
+            double d2 = integralPoints.CalculateIntegralPointD2(d1, sigma, t);
 
             Assert.Equal(0.15000000000000002, d2);
         }

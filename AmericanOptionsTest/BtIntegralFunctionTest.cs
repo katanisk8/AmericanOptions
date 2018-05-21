@@ -1,5 +1,4 @@
 ﻿using AmericanOptions.OptimalExerciseBoundary;
-using Moq;
 using Xunit;
 
 namespace AmericanOptionsTest
@@ -17,9 +16,9 @@ namespace AmericanOptionsTest
         [Fact]
         public void CalculateTest()
         {
-            Mock<BtIntegralFunction> integral = new Mock<BtIntegralFunction>();
+            BtIntegralFunction integral = new BtIntegralFunction();
 
-            double integralValue = integral.Object.Calculate(n, T, r, sigma, t, d2);
+            double integralValue = integral.Calculate(n, T, r, sigma, t, d2);
 
             Assert.Equal(0.33245806127914307, integralValue);
         }
