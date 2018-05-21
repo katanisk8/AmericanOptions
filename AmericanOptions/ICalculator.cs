@@ -1,4 +1,4 @@
-﻿using AmericanOptions.Helpers;
+﻿using AmericanOptions.Model;
 
 namespace AmericanOptions
 {

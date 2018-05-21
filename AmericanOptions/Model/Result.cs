@@ -1,4 +1,4 @@
-﻿namespace AmericanOptions.Helpers
+﻿namespace AmericanOptions.Model
 {
     public class Result
     {

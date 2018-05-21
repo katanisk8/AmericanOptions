@@ -1,4 +1,5 @@
-﻿using AmericanOptions.Helpers;
+﻿using AmericanOptions.ClickHelpers;
+using AmericanOptions.Helpers;
 using AmericanOptions.OptimalExerciseBoundary;
 using AmericanOptions.PutOptions;
 using System;
@@ -24,14 +25,18 @@ namespace AmericanOptions
             container.RegisterType<IAmercianPut, AmercianPut>();
             container.RegisterType<IEuropeanPut, EuropeanPut>();
             container.RegisterType<IPutIntegralFunction, PutIntegralFunction>();
-            container.RegisterType<IInputsValidator, InputsValidator>();
             container.RegisterType<ICalculator, Calculator>();
-
-            ICalculator calc = container.Resolve<ICalculator>();
-
+            container.RegisterType<IInputsValidator, InputsValidator>();
+            container.RegisterType<IResultsCreator, ResultsCreator>();
+            container.RegisterType<ICleaner, Cleaner>();
+            container.RegisterType<IContainerControl, MainForm>();
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm(calc));
+
+            Form form = container.Resolve<IContainerControl>() as Form;  
+            
+            Application.Run(form);
         }
     }
 }

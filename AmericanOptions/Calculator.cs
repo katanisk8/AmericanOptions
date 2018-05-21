@@ -1,4 +1,4 @@
-﻿using AmericanOptions.Helpers;
+﻿using AmericanOptions.Model;
 using AmericanOptions.OptimalExerciseBoundary;
 using AmericanOptions.PutOptions;
 using System;
@@ -21,27 +21,17 @@ namespace AmericanOptions
             Result[] results = new Result[k];
 
             results[0] = CalculateK0(K, S, r, t, sigma, n, T);
-            results[1] = CalculateK1(K, S, r, t, sigma, n, T);
+            results[1] = CalculateBtK1(K, S, r, t, sigma, n, T);
 
             for (int i = 2; i < k; i++)
             {
-                Result result = new Result();
+                results[i] = CalculateBtK(K, S, r, t, sigma, n, T, i, results[i - 1].BtValue);
 
-                result.ResultNumber = i;
-
-                result.BtValue = btCalculator.CalculateBtK(r, sigma, t, K, S, n, T, results[i - 1].BtValue);
-                result.BtRoundedValue = Math.Round(result.BtValue, 4);
-
-                result.PutValue = putCalculator.Calculate(K, S, r, t, sigma, n, T, result.BtValue);
-                result.PutRoundedValue = Math.Round(result.PutValue, 4);
-
-                if (double.IsNaN(result.BtValue))
+                if (double.IsNaN(results[i].BtValue))
                 {
                     Array.Resize(ref results, i);
                     break;
                 }
-
-                results[i] = result;
             }
 
             return results;
@@ -62,13 +52,28 @@ namespace AmericanOptions
             return result;
         }
 
-        private Result CalculateK1(double K, double S, double r, double t, double sigma, int n, double T)
+        private Result CalculateBtK1(double K, double S, double r, double t, double sigma, int n, double T)
         {
             Result result = new Result();
 
             result.ResultNumber = 1;
 
             result.BtValue = btCalculator.CalculateBtK1(r, sigma, t, K, S, n, T);
+            result.BtRoundedValue = Math.Round(result.BtValue, 4);
+
+            result.PutValue = putCalculator.Calculate(K, S, r, t, sigma, n, T, result.BtValue);
+            result.PutRoundedValue = Math.Round(result.PutValue, 4);
+
+            return result;
+        }
+
+        private Result CalculateBtK(double K, double S, double r, double t, double sigma, int n, double T, int i, double BtK_1)
+        {
+            Result result = new Result();
+
+            result.ResultNumber = i;
+
+            result.BtValue = btCalculator.CalculateBtK(r, sigma, t, K, S, n, T, BtK_1 );
             result.BtRoundedValue = Math.Round(result.BtValue, 4);
 
             result.PutValue = putCalculator.Calculate(K, S, r, t, sigma, n, T, result.BtValue);

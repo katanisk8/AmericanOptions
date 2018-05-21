@@ -2,13 +2,16 @@
 using System.Windows.Forms;
 using System.Windows.Threading;
 using AmericanOptions.ClickHelpers;
-using AmericanOptions.Helpers;
+using AmericanOptions.Model;
 
 namespace AmericanOptions
 {
     public partial class MainForm : Form
     {
-        ICalculator calc;
+        ICalculator calculator;
+        IInputsValidator validator;
+        IResultsCreator resultCreator;
+        ICleaner cleaner;
 
         // Inputs
         private double riskFreeRate;
@@ -20,10 +23,14 @@ namespace AmericanOptions
         private int numberOfNodes;
         private double timeToMaturity;
 
-        public MainForm(ICalculator _calc)
+        public MainForm(ICalculator _calculator, IInputsValidator _validator, IResultsCreator _resultCreator, ICleaner _cleaner)
         {
             InitializeComponent();
-            calc = _calc;
+
+            calculator = _calculator;
+            validator = _validator;
+            resultCreator = _resultCreator;
+            cleaner = _cleaner;
         }
 
         private void CalculateButton_Click(object sender, EventArgs e)
@@ -51,7 +58,7 @@ namespace AmericanOptions
 
                 Dispatcher.CurrentDispatcher.Invoke(() =>
                 {
-                    var results = calc.Calculate(
+                    Result[] results = calculator.Calculate(
                     riskFreeRate,
                     volatilitySigma,
                     tau,
@@ -72,8 +79,20 @@ namespace AmericanOptions
 
         private void ClearResultsLabels()
         {
-            Clean clear = new Clean();
-            clear.CleanResultsLabels(ResultsPanel);
+            cleaner.CleanResultsLabels(ResultsPanel);
+        }
+
+        private void ValidateInputs()
+        {
+            validator.ValidateInput(RiskFreeRateTextBox);
+            validator.ValidateInput(VolatilitySigmaTextBox);
+            validator.ValidateInput(TauTextBox);
+            validator.ValidateInput(StrikePriceTextBox);
+            validator.ValidateInput(StockPriceTextBox);
+            validator.ValidateInput(NumberOfIterationTextBox);
+            validator.ValidateInput(NumberOfNodesTextBox);
+            validator.ValidateInput(StockPriceTextBox);
+            validator.ValidateInput(TimeToMaturityTextBox);
         }
 
         private void AssignDefaultVariables()
@@ -86,20 +105,6 @@ namespace AmericanOptions
             NumberOfIterationTextBox.Text = "16";
             NumberOfNodesTextBox.Text = "4";
             TimeToMaturityTextBox.Text = "1";
-        }
-
-        private void ValidateInputs()
-        {
-            InputsValidator validator = new InputsValidator();
-            validator.ValidateInput(RiskFreeRateTextBox);
-            validator.ValidateInput(VolatilitySigmaTextBox);
-            validator.ValidateInput(TauTextBox);
-            validator.ValidateInput(StrikePriceTextBox);
-            validator.ValidateInput(StockPriceTextBox);
-            validator.ValidateInput(NumberOfIterationTextBox);
-            validator.ValidateInput(NumberOfNodesTextBox);
-            validator.ValidateInput(StockPriceTextBox);
-            validator.ValidateInput(TimeToMaturityTextBox);
         }
 
         private void AssignVariables()
@@ -116,20 +121,14 @@ namespace AmericanOptions
 
         private void SetLabels(Result[] results)
         {
-            ResultsCreator creator = new ResultsCreator();
-            Label[] labels = new Label[results.Length];
-
-            labels = creator.CreateResultsLabels(results, "Bt, k={0}: {1}   P, k={2}: {3}");
-
+            Label[] labels = resultCreator.CreateResultsLabels(results);
             ResultsPanel.Controls.AddRange(labels);
         }
 
         private void ClearAll()
         {
-            Clean clear = new Clean();
-
-            clear.CleanTextBoxes(InputsGroupBox);
-            clear.CleanResultsLabels(ResultsPanel);
+            cleaner.CleanTextBoxes(InputsGroupBox);
+            cleaner.CleanResultsLabels(ResultsPanel);
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace AmericanOptions.ClickHelpers
 {
-    public class Clean
+    public class Cleaner : ICleaner
     {
 
         public void CleanResultsLabels(Panel panel)
