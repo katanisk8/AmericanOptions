@@ -5,18 +5,20 @@ using AmericanOptions.PutOptions;
 using MathNet.Numerics.Distributions;
 using System;
 using System.Windows.Forms;
+using AmericanOptions.Validations;
+using AmericanOptions.Windows;
 using Unity;
 using Unity.Injection;
 
 namespace AmericanOptions
 {
-    static class Program
+   internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+      private static void Main()
         {
             UnityContainer container = new UnityContainer();
 

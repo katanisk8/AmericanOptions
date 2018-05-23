@@ -5,11 +5,11 @@ namespace AmericanOptionsTest
 {
     public class IntegralPointsUnitTest
     {
-        double S = 45;
-        double B = 45;
-        double r = 0.05;
-        double sigma = 0.2;
-        double t = 1;
+      private double S = 45;
+      private double B = 45;
+      private double r = 0.05;
+      private double sigma = 0.2;
+      private double t = 1;
 
         [Fact]
         public void CalculateIntegralPointD1Test()

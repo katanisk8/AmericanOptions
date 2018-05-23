@@ -1,22 +1,22 @@
 ﻿namespace AmericanOptions.PutOptions
 {
-    public class AmercianPut : IAmercianPut
-    {
-        IEuropeanPut europeanPut;
-        IPutIntegralFunction putIntegralFunction;
+   public class AmercianPut : IAmercianPut
+   {
+      private readonly IEuropeanPut _europeanPut;
+      private readonly IPutIntegralFunction _putIntegralFunction;
 
-        public AmercianPut(IEuropeanPut _europeanPut, IPutIntegralFunction _putIntegralFunction)
-        {
-            europeanPut = _europeanPut;
-            putIntegralFunction = _putIntegralFunction;
-        }
+      public AmercianPut(IEuropeanPut europeanPut, IPutIntegralFunction putIntegralFunction)
+      {
+         _europeanPut = europeanPut;
+         _putIntegralFunction = putIntegralFunction;
+      }
 
-        public double Calculate(double K, double S, double r, double t, double sigma, int n, double T, double Btksi)
-        {
-            double europeanPutValue = europeanPut.Calculate(K, S, r, t, sigma);
-            double putIntegralFunctionValue = putIntegralFunction.Calculate(n, T, r, sigma, t, S, K, Btksi);
+      public double Calculate(double K, double S, double r, double t, double sigma, int n, double T, double Btksi)
+      {
+         double europeanPutValue = _europeanPut.Calculate(K, S, r, t, sigma);
+         double putIntegralFunctionValue = _putIntegralFunction.Calculate(n, T, r, sigma, t, S, K, Btksi);
 
-            return europeanPutValue + putIntegralFunctionValue;
-        }
-    }
+         return europeanPutValue + putIntegralFunctionValue;
+      }
+   }
 }

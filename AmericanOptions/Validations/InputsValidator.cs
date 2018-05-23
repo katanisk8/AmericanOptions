@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace AmericanOptions
+namespace AmericanOptions.Validations
 {
     public class InputsValidator : IInputsValidator
     {

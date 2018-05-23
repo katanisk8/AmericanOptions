@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace AmericanOptions
+namespace AmericanOptions.Validations
 {
     public interface IInputsValidator
     {

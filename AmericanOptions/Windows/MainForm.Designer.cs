@@ -1,4 +1,4 @@
-﻿namespace AmericanOptions
+﻿namespace AmericanOptions.Windows
 {
     partial class MainForm
     {

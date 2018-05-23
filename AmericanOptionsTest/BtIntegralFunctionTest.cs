@@ -5,12 +5,12 @@ namespace AmericanOptionsTest
 {
     public class BtIntegralFunctionTest
     {
-        int n = 4;
-        double T = 1;
-        double r = 0.05;
-        double sigma = 0.2;
-        double t = 1;
-        double d2 = -0.81945721667909832;
+      private int n = 4;
+      private double T = 1;
+      private double r = 0.05;
+      private double sigma = 0.2;
+      private double t = 1;
+      private double d2 = -0.81945721667909832;
 
 
         [Fact]

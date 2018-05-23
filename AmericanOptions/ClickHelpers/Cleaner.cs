@@ -5,7 +5,6 @@ namespace AmericanOptions.ClickHelpers
 {
     public class Cleaner : ICleaner
     {
-
         public void CleanResultsLabels(Panel panel)
         {
             panel.Controls.Clear();

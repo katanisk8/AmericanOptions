@@ -9,30 +9,29 @@ namespace AmericanOptionsTest
 {
     public class CalculatorTest
     {
-        double r = 0.05;
-        double sigma = 0.02;
-        double t = 1;
-        double K = 45;
-        double S = 45;
-        int k = 100;
-        int n = 4;
-        double T = 1;
+      private double r = 0.05;
+      private double sigma = 0.02;
+      private double t = 1;
+      private double K = 45;
+      private double S = 45;
+      private int k = 3;
+      private int n = 4;
+      private double T = 1;
 
         [Fact]
         public void CalculateTest()
         {
-            Mock<BtCalculator> btCalculator = new Mock<BtCalculator>();
-            Mock<AmercianPut> putCalculator = new Mock<AmercianPut>();
-
+            Mock<IBtCalculator> btCalculator = new Mock<IBtCalculator>();
+            Mock<IAmercianPut> putCalculator = new Mock<IAmercianPut>();
+         
             Calculator calculator = new Calculator(btCalculator.Object, putCalculator.Object);
             
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            Result[] integralValue = calculator.Calculate(r, sigma, t, K, S, k, n, T);
+            Result[] results = calculator.Calculate(r, sigma, t, K, S, k, n, T);
 
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
-
         }
     }
 }
