@@ -39,7 +39,7 @@ namespace AmericanOptions.OptimalExerciseBoundary
         {
             double a = (1 / sigma * Math.Sqrt(2 * Math.PI * tau));
 
-            return (K * (1 / (dist + a) * Math.Exp(-0.5 * Math.Pow(d1, 2)))) *
+            return (K * (1 / (dist + a * Math.Exp(-0.5 * Math.Pow(d1, 2))))) *
                 (a * Math.Exp(-((r * tau) + (0.5 * Math.Pow(d2, 2))))) +
                 (((2 * sigma * r) / ((2 * r) + (Math.Pow(sigma, 2))) * (2 * dist) - 1));
         }
