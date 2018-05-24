@@ -28,7 +28,7 @@ namespace AmericanOptionsTest
             
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            Result[] results = calculator.Calculate(r, sigma, t, K, S, k, n, T);
+
 
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;

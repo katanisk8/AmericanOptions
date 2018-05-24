@@ -31,7 +31,6 @@ namespace AmericanOptions
             container.RegisterType<IPutIntegralFunction, PutIntegralFunction>();
             container.RegisterType<ICalculator, Calculator>();
             container.RegisterType<IInputsValidator, InputsValidator>();
-            container.RegisterType<IResultsCreator, ResultsCreator>();
             container.RegisterType<ICleaner, Cleaner>();
             container.RegisterType<IContainerControl, MainForm>();
             

@@ -33,7 +33,7 @@
             this.InputsGroupBox = new System.Windows.Forms.GroupBox();
             this.NumberOfNodesTextBox = new System.Windows.Forms.TextBox();
             this.NumberOfIterationTextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.NumberOfNodesLabel = new System.Windows.Forms.Label();
             this.VolatilitySigmaTextBox = new System.Windows.Forms.TextBox();
             this.VolatilitySigmaLabel = new System.Windows.Forms.Label();
             this.RiskFreeRateTextBox = new System.Windows.Forms.TextBox();
@@ -72,7 +72,7 @@
             // 
             this.InputsGroupBox.Controls.Add(this.NumberOfNodesTextBox);
             this.InputsGroupBox.Controls.Add(this.NumberOfIterationTextBox);
-            this.InputsGroupBox.Controls.Add(this.label1);
+            this.InputsGroupBox.Controls.Add(this.NumberOfNodesLabel);
             this.InputsGroupBox.Controls.Add(this.VolatilitySigmaTextBox);
             this.InputsGroupBox.Controls.Add(this.VolatilitySigmaLabel);
             this.InputsGroupBox.Controls.Add(this.RiskFreeRateTextBox);
@@ -111,14 +111,14 @@
             this.NumberOfIterationTextBox.Tag = "Number Of Iteration k";
             this.NumberOfIterationTextBox.Text = "16";
             // 
-            // label1
+            // NumberOfNodesLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 184);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 13);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Number of nodes n:";
+            this.NumberOfNodesLabel.AutoSize = true;
+            this.NumberOfNodesLabel.Location = new System.Drawing.Point(13, 184);
+            this.NumberOfNodesLabel.Name = "NumberOfNodesLabel";
+            this.NumberOfNodesLabel.Size = new System.Drawing.Size(100, 13);
+            this.NumberOfNodesLabel.TabIndex = 17;
+            this.NumberOfNodesLabel.Text = "Number of nodes n:";
             // 
             // VolatilitySigmaTextBox
             // 
@@ -282,14 +282,12 @@
             // 
             // BtColumn
             // 
-            this.BtColumn.Text = "Bt";
-            this.BtColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.BtColumn.Text = "Boundary";
             this.BtColumn.Width = 75;
             // 
             // PutColumn
             // 
             this.PutColumn.Text = "Put";
-            this.PutColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.PutColumn.Width = 75;
             // 
             // CalculateProgressBar
@@ -325,10 +323,10 @@
 
         }
 
-      #endregion
+        #endregion
 
-      private System.Windows.Forms.Button CalculateButton;
-      private System.Windows.Forms.GroupBox InputsGroupBox;
+        private System.Windows.Forms.Button CalculateButton;
+        private System.Windows.Forms.GroupBox InputsGroupBox;
         private System.Windows.Forms.TextBox TimeToMaturityTextBox;
         private System.Windows.Forms.Label TimeToMaturityLabel;
         private System.Windows.Forms.TextBox StrikePriceTextBox;
@@ -343,7 +341,7 @@
         private System.Windows.Forms.TextBox VolatilitySigmaTextBox;
         private System.Windows.Forms.Label VolatilitySigmaLabel;
         private System.Windows.Forms.Button ClearButton;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label NumberOfNodesLabel;
         private System.Windows.Forms.Button DefaultButton;
         private System.Windows.Forms.TextBox NumberOfNodesTextBox;
         private System.Windows.Forms.TextBox NumberOfIterationTextBox;

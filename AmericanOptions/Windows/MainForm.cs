@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
 using System.Windows.Threading;
@@ -12,7 +13,6 @@ namespace AmericanOptions.Windows
     {
         private readonly ICalculator _calculator;
         private readonly IInputsValidator _validator;
-        private readonly IResultsCreator _resultCreator;
         private readonly ICleaner _cleaner;
 
         // Inputs
@@ -25,13 +25,12 @@ namespace AmericanOptions.Windows
         private int _numberOfNodes;
         private double _timeToMaturity;
 
-        public MainForm(ICalculator calculator, IInputsValidator validator, IResultsCreator resultCreator, ICleaner cleaner)
+        public MainForm(ICalculator calculator, IInputsValidator validator, ICleaner cleaner)
         {
             InitializeComponent();
 
             _calculator = calculator;
             _validator = validator;
-            _resultCreator = resultCreator;
             _cleaner = cleaner;
         }
 
@@ -107,7 +106,7 @@ namespace AmericanOptions.Windows
                             CalculateProgressBar.Maximum = results.Length;
                             break;
                         }
-                    }                    
+                    }
                 });
             }
             catch (Exception ex)
@@ -162,7 +161,7 @@ namespace AmericanOptions.Windows
         private void ClearAll()
         {
             _cleaner.CleanTextBoxes(InputsGroupBox);
-
+            ClearResultView();
         }
     }
 }
