@@ -49,10 +49,12 @@
             this.StrikePriceLabel = new System.Windows.Forms.Label();
             this.ClearButton = new System.Windows.Forms.Button();
             this.DefaultButton = new System.Windows.Forms.Button();
-            this.ResultsPanel = new System.Windows.Forms.Panel();
-            this.ResultsGroupBox = new System.Windows.Forms.GroupBox();
+            this.ResultListView = new System.Windows.Forms.ListView();
+            this.IterationColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.BtColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.PutColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.CalculateProgressBar = new System.Windows.Forms.ProgressBar();
             this.InputsGroupBox.SuspendLayout();
-            this.ResultsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // CalculateButton
@@ -107,7 +109,7 @@
             this.NumberOfIterationTextBox.Size = new System.Drawing.Size(60, 20);
             this.NumberOfIterationTextBox.TabIndex = 6;
             this.NumberOfIterationTextBox.Tag = "Number Of Iteration k";
-            this.NumberOfIterationTextBox.Text = "16";
+            this.NumberOfIterationTextBox.Text = "16000";
             // 
             // label1
             // 
@@ -255,30 +257,58 @@
             this.DefaultButton.UseVisualStyleBackColor = true;
             this.DefaultButton.Click += new System.EventHandler(this.DefaultButton_Click);
             // 
-            // ResultsPanel
+            // ResultListView
             // 
-            this.ResultsPanel.AutoScroll = true;
-            this.ResultsPanel.Location = new System.Drawing.Point(6, 19);
-            this.ResultsPanel.Name = "ResultsPanel";
-            this.ResultsPanel.Size = new System.Drawing.Size(238, 281);
-            this.ResultsPanel.TabIndex = 6;
+            this.ResultListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.ResultListView.Alignment = System.Windows.Forms.ListViewAlignment.Default;
+            this.ResultListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.IterationColumn,
+            this.BtColumn,
+            this.PutColumn});
+            this.ResultListView.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.ResultListView.FullRowSelect = true;
+            this.ResultListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.ResultListView.Location = new System.Drawing.Point(215, 18);
+            this.ResultListView.Name = "ResultListView";
+            this.ResultListView.Size = new System.Drawing.Size(230, 297);
+            this.ResultListView.TabIndex = 12;
+            this.ResultListView.UseCompatibleStateImageBehavior = false;
+            this.ResultListView.View = System.Windows.Forms.View.Details;
             // 
-            // ResultsGroupBox
+            // IterationColumn
             // 
-            this.ResultsGroupBox.Controls.Add(this.ResultsPanel);
-            this.ResultsGroupBox.Location = new System.Drawing.Point(215, 12);
-            this.ResultsGroupBox.Name = "ResultsGroupBox";
-            this.ResultsGroupBox.Size = new System.Drawing.Size(250, 306);
-            this.ResultsGroupBox.TabIndex = 13;
-            this.ResultsGroupBox.TabStop = false;
-            this.ResultsGroupBox.Text = "Results";
+            this.IterationColumn.Text = "Iteration";
+            this.IterationColumn.Width = 53;
+            // 
+            // BtColumn
+            // 
+            this.BtColumn.Text = "Bt";
+            this.BtColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.BtColumn.Width = 75;
+            // 
+            // PutColumn
+            // 
+            this.PutColumn.Text = "Put";
+            this.PutColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.PutColumn.Width = 75;
+            // 
+            // CalculateProgressBar
+            // 
+            this.CalculateProgressBar.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.CalculateProgressBar.Location = new System.Drawing.Point(215, 314);
+            this.CalculateProgressBar.Maximum = 10000;
+            this.CalculateProgressBar.Name = "CalculateProgressBar";
+            this.CalculateProgressBar.Size = new System.Drawing.Size(230, 5);
+            this.CalculateProgressBar.Step = 1;
+            this.CalculateProgressBar.TabIndex = 13;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 327);
-            this.Controls.Add(this.ResultsGroupBox);
+            this.ClientSize = new System.Drawing.Size(457, 327);
+            this.Controls.Add(this.CalculateProgressBar);
+            this.Controls.Add(this.ResultListView);
             this.Controls.Add(this.DefaultButton);
             this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.InputsGroupBox);
@@ -291,7 +321,6 @@
             this.Text = "American Options";
             this.InputsGroupBox.ResumeLayout(false);
             this.InputsGroupBox.PerformLayout();
-            this.ResultsGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -316,10 +345,13 @@
         private System.Windows.Forms.Button ClearButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button DefaultButton;
-        private System.Windows.Forms.Panel ResultsPanel;
-        private System.Windows.Forms.GroupBox ResultsGroupBox;
         private System.Windows.Forms.TextBox NumberOfNodesTextBox;
         private System.Windows.Forms.TextBox NumberOfIterationTextBox;
+        private System.Windows.Forms.ColumnHeader IterationColumn;
+        private System.Windows.Forms.ColumnHeader BtColumn;
+        private System.Windows.Forms.ColumnHeader PutColumn;
+        private System.Windows.Forms.ListView ResultListView;
+        private System.Windows.Forms.ProgressBar CalculateProgressBar;
     }
 }
 
