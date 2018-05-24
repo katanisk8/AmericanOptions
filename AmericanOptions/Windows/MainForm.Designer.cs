@@ -109,7 +109,7 @@
             this.NumberOfIterationTextBox.Size = new System.Drawing.Size(60, 20);
             this.NumberOfIterationTextBox.TabIndex = 6;
             this.NumberOfIterationTextBox.Tag = "Number Of Iteration k";
-            this.NumberOfIterationTextBox.Text = "16000";
+            this.NumberOfIterationTextBox.Text = "16";
             // 
             // label1
             // 

@@ -54,23 +54,60 @@ namespace AmericanOptions.Windows
         {
             try
             {
-                ClearResultsLabels();
+                ClearResultView();
                 ValidateInputs();
                 AssignVariables();
 
                 Dispatcher.CurrentDispatcher.Invoke(() =>
                 {
-                    Result[] results = _calculator.Calculate(
-                    _riskFreeRate,
-                    _volatilitySigma,
-                    _tau,
-                    _strikePrice,
-                    _stockPrice,
-                    _numberOfIterration,
-                    _numberOfNodes,
-                    _timeToMaturity);
+                    Result[] results = new Result[_numberOfIterration];
+                    CalculateProgressBar.Maximum = _numberOfIterration;
 
-                    SetLabels(results);
+                    results[0] = _calculator.CalculateK0(_strikePrice, _stockPrice, _riskFreeRate,
+                    _tau, _volatilitySigma, _numberOfNodes, _timeToMaturity);
+
+                    string[] subItemsK0 = new string[] {
+                    results[0].ResultNumber.ToString(),
+                    results[0].BtRoundedValue.ToString(),
+                    results[0].PutRoundedValue.ToString()
+                    };
+
+                    ResultListView.Items.Add(new ListViewItem(subItemsK0));
+                    CalculateProgressBar.PerformStep();
+
+                    results[1] = _calculator.CalculateBtK1(_strikePrice, _stockPrice, _riskFreeRate,
+                    _tau, _volatilitySigma, _numberOfNodes, _timeToMaturity);
+
+                    string[] subItemsK1 = new string[] {
+                    results[1].ResultNumber.ToString(),
+                    results[1].BtRoundedValue.ToString(),
+                    results[1].PutRoundedValue.ToString()
+                    };
+
+                    ResultListView.Items.Add(new ListViewItem(subItemsK1));
+                    CalculateProgressBar.PerformStep();
+
+                    for (int i = 2; i < _numberOfIterration; i++)
+                    {
+                        results[i] = _calculator.CalculateBtK(_strikePrice, _stockPrice, _riskFreeRate,
+                        _tau, _volatilitySigma, _numberOfNodes, _timeToMaturity, i, results[i - 1].BtValue);
+
+                        string[] subItemsK = new string[] {
+                        results[i].ResultNumber.ToString(),
+                        results[i].BtRoundedValue.ToString(),
+                        results[i].PutRoundedValue.ToString()
+                        };
+
+                        ResultListView.Items.Add(new ListViewItem(subItemsK));
+                        CalculateProgressBar.PerformStep();
+
+                        if (double.IsNaN(results[i].BtValue))
+                        {
+                            Array.Resize(ref results, i);
+                            CalculateProgressBar.Maximum = results.Length;
+                            break;
+                        }
+                    }                    
                 });
             }
             catch (Exception ex)
@@ -79,9 +116,10 @@ namespace AmericanOptions.Windows
             }
         }
 
-        private void ClearResultsLabels()
+        private void ClearResultView()
         {
-
+            CalculateProgressBar.Value = 0;
+            ResultListView.Items.Clear();
         }
 
         private void ValidateInputs()
@@ -121,29 +159,10 @@ namespace AmericanOptions.Windows
             _timeToMaturity = Convert.ToDouble(TimeToMaturityTextBox.Text);
         }
 
-        private void SetLabels(Result[] results)
-        {
-            CalculateProgressBar.Maximum = results.Length;
-
-            for (int i = 0; i < results.Length; i++)
-            {
-                string[] subitems = new string[] {
-                    results[i].ResultNumber.ToString(),
-                    results[i].BtRoundedValue.ToString(),
-                    results[i].PutRoundedValue.ToString()
-                };
-
-                ListViewItem item = new ListViewItem(subitems);
-                ResultListView.Items.Add(item);
-                CalculateProgressBar.PerformStep();
-            }
-
-            CalculateProgressBar.Hide();
-        }
-
         private void ClearAll()
         {
             _cleaner.CleanTextBoxes(InputsGroupBox);
+
         }
     }
 }
