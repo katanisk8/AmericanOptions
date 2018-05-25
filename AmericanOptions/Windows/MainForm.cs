@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Data;
 using System.Windows.Forms;
-using System.Windows.Threading;
 using AmericanOptions.ClickHelpers;
 using AmericanOptions.Model;
 using AmericanOptions.Validations;
@@ -14,6 +12,7 @@ namespace AmericanOptions.Windows
         private readonly ICalculator _calculator;
         private readonly IInputsValidator _validator;
         private readonly ICleaner _cleaner;
+        private BackgroundWorker _worker;
 
         // Inputs
         private double _riskFreeRate;
@@ -32,11 +31,62 @@ namespace AmericanOptions.Windows
             _calculator = calculator;
             _validator = validator;
             _cleaner = cleaner;
+            _worker = new BackgroundWorker
+            {
+                WorkerReportsProgress = true,
+                WorkerSupportsCancellation = true
+            };
         }
 
         private void CalculateButton_Click(object sender, EventArgs e)
         {
-            Calculate();
+            try
+            {
+                ClearResultView();
+                ValidateInputs();
+                AssignVariables();
+                CalculateProgressBar.Maximum = _numberOfIterration;
+
+                if (_worker != null)
+                {
+                    _worker.Dispose();
+                }                
+
+                _worker.DoWork += Calculate;
+                _worker.ProgressChanged += ProgressChanged;
+                _worker.RunWorkerCompleted += RunWorkerCompleted;
+                _worker.RunWorkerAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        void ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            Result result = e.UserState as Result;
+
+            string[] subItem = new string[] {
+                    result.ResultNumber.ToString(),
+                    result.BtRoundedValue.ToString(),
+                    result.PutRoundedValue.ToString()
+                    };
+
+            ResultListView.Items.Add(new ListViewItem(subItem));
+            CalculateProgressBar.Value = e.ProgressPercentage;
+        }
+
+        void RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                MessageBox.Show("Calulation has been canceled.");
+            }
+            else if (e.Error != null)
+            {
+                MessageBox.Show(e.Error.Message);
+            }
         }
 
         private void DefaultButton_Click(object sender, EventArgs e)
@@ -49,76 +99,46 @@ namespace AmericanOptions.Windows
             ClearAll();
         }
 
-        private void Calculate()
+        private void Calculate(object sender, DoWorkEventArgs e)
         {
-            try
+            if (_worker.CancellationPending)
             {
-                ClearResultView();
-                ValidateInputs();
-                AssignVariables();
-
-                Dispatcher.CurrentDispatcher.Invoke(() =>
-                {
-                    Result[] results = new Result[_numberOfIterration];
-                    CalculateProgressBar.Maximum = _numberOfIterration;
-
-                    results[0] = _calculator.CalculateK0(_strikePrice, _stockPrice, _riskFreeRate,
-                    _tau, _volatilitySigma, _numberOfNodes, _timeToMaturity);
-
-                    string[] subItemsK0 = new string[] {
-                    results[0].ResultNumber.ToString(),
-                    results[0].BtRoundedValue.ToString(),
-                    results[0].PutRoundedValue.ToString()
-                    };
-
-                    ResultListView.Items.Add(new ListViewItem(subItemsK0));
-                    CalculateProgressBar.PerformStep();
-
-                    results[1] = _calculator.CalculateBtK1(_strikePrice, _stockPrice, _riskFreeRate,
-                    _tau, _volatilitySigma, _numberOfNodes, _timeToMaturity);
-
-                    string[] subItemsK1 = new string[] {
-                    results[1].ResultNumber.ToString(),
-                    results[1].BtRoundedValue.ToString(),
-                    results[1].PutRoundedValue.ToString()
-                    };
-
-                    ResultListView.Items.Add(new ListViewItem(subItemsK1));
-                    CalculateProgressBar.PerformStep();
-
-                    for (int i = 2; i < _numberOfIterration; i++)
-                    {
-                        results[i] = _calculator.CalculateBtK(_strikePrice, _stockPrice, _riskFreeRate,
-                        _tau, _volatilitySigma, _numberOfNodes, _timeToMaturity, i, results[i - 1].BtValue);
-
-                        string[] subItemsK = new string[] {
-                        results[i].ResultNumber.ToString(),
-                        results[i].BtRoundedValue.ToString(),
-                        results[i].PutRoundedValue.ToString()
-                        };
-
-                        ResultListView.Items.Add(new ListViewItem(subItemsK));
-                        CalculateProgressBar.PerformStep();
-
-                        if (double.IsNaN(results[i].BtValue))
-                        {
-                            Array.Resize(ref results, i);
-                            CalculateProgressBar.Maximum = results.Length;
-                            break;
-                        }
-                    }
-                });
+                e.Cancel = true;
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                Result[] results = new Result[_numberOfIterration];
+
+                results[0] = _calculator.CalculateK0(_strikePrice, _stockPrice, _riskFreeRate,
+                _tau, _volatilitySigma, _numberOfNodes, _timeToMaturity);
+                
+                _worker.ReportProgress(0, results[0]);
+
+                results[1] = _calculator.CalculateBtK1(_strikePrice, _stockPrice, _riskFreeRate,
+                _tau, _volatilitySigma, _numberOfNodes, _timeToMaturity);
+                
+                 _worker.ReportProgress(1, results[1]);
+
+                for (int i = 2; i < _numberOfIterration; i++)
+                {
+                    results[i] = _calculator.CalculateBtKi(_strikePrice, _stockPrice, _riskFreeRate,
+                    _tau, _volatilitySigma, _numberOfNodes, _timeToMaturity, i, results[i - 1].BtValue);
+                    
+                    _worker.ReportProgress(i, results[i]);
+
+                    if (double.IsNaN(results[i].BtValue))
+                    {
+                        Array.Resize(ref results, i);
+                        break;
+                    }
+                }
             }
         }
 
         private void ClearResultView()
         {
-            CalculateProgressBar.Value = 0;
             ResultListView.Items.Clear();
+            CalculateProgressBar.Value = 0;
         }
 
         private void ValidateInputs()

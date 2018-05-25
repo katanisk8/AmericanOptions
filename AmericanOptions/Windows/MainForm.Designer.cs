@@ -100,7 +100,7 @@
             this.NumberOfNodesTextBox.Size = new System.Drawing.Size(60, 20);
             this.NumberOfNodesTextBox.TabIndex = 7;
             this.NumberOfNodesTextBox.Tag = "Number Of Nodes n";
-            this.NumberOfNodesTextBox.Text = "4";
+            this.NumberOfNodesTextBox.Text = "5000";
             // 
             // NumberOfIterationTextBox
             // 
@@ -109,7 +109,7 @@
             this.NumberOfIterationTextBox.Size = new System.Drawing.Size(60, 20);
             this.NumberOfIterationTextBox.TabIndex = 6;
             this.NumberOfIterationTextBox.Tag = "Number Of Iteration k";
-            this.NumberOfIterationTextBox.Text = "16";
+            this.NumberOfIterationTextBox.Text = "500";
             // 
             // NumberOfNodesLabel
             // 

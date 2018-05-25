@@ -1,4 +1,7 @@
-﻿namespace AmericanOptions.Model
+﻿using System;
+using System.ComponentModel;
+
+namespace AmericanOptions.Model
 {
     public class Result
     {
@@ -9,5 +12,10 @@
 
         public double PutValue;
         public double PutRoundedValue;
+
+        public static explicit operator Result(ProgressChangedEventArgs v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
