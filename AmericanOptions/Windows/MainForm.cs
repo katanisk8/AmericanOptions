@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows.Forms;
 using AmericanOptions.ClickHelpers;
 using AmericanOptions.Model;
@@ -36,6 +37,14 @@ namespace AmericanOptions.Windows
                 WorkerReportsProgress = true,
                 WorkerSupportsCancellation = true
             };
+            _worker.DoWork += Calculate;
+            _worker.ProgressChanged += ProgressChanged;
+            _worker.RunWorkerCompleted += RunWorkerCompleted;
+        }
+        
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            AssignDefaultVariables();
         }
 
         private void CalculateButton_Click(object sender, EventArgs e)
@@ -52,9 +61,6 @@ namespace AmericanOptions.Windows
                     _worker.Dispose();
                 }                
 
-                _worker.DoWork += Calculate;
-                _worker.ProgressChanged += ProgressChanged;
-                _worker.RunWorkerCompleted += RunWorkerCompleted;
                 _worker.RunWorkerAsync();
             }
             catch (Exception ex)
@@ -89,14 +95,14 @@ namespace AmericanOptions.Windows
             }
         }
 
-        private void DefaultButton_Click(object sender, EventArgs e)
-        {
-            AssignDefaultVariables();
-        }
-
         private void ClearButton_Click(object sender, EventArgs e)
         {
             ClearAll();
+        }
+
+        private void DefaultButton_Click(object sender, EventArgs e)
+        {
+            AssignDefaultVariables();
         }
 
         private void Calculate(object sender, DoWorkEventArgs e)
@@ -156,14 +162,14 @@ namespace AmericanOptions.Windows
 
         private void AssignDefaultVariables()
         {
-            RiskFreeRateTextBox.Text = "0,05";
-            VolatilitySigmaTextBox.Text = "0,2";
-            TauTextBox.Text = "1";
-            StrikePriceTextBox.Text = "45";
-            StockPriceTextBox.Text = "45";
-            NumberOfIterationTextBox.Text = "16";
-            NumberOfNodesTextBox.Text = "4";
-            TimeToMaturityTextBox.Text = "1";
+            RiskFreeRateTextBox.Text = (0.05).ToString();
+            VolatilitySigmaTextBox.Text = (0.2).ToString();
+            TauTextBox.Text = (1).ToString();
+            StrikePriceTextBox.Text = (45).ToString();
+            StockPriceTextBox.Text = (45).ToString();
+            NumberOfIterationTextBox.Text = (500).ToString();
+            NumberOfNodesTextBox.Text = (5000).ToString();
+            TimeToMaturityTextBox.Text = (1).ToString();
         }
 
         private void AssignVariables()

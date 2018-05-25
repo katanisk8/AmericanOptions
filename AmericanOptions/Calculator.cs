@@ -32,7 +32,7 @@ namespace AmericanOptions
                     Array.Resize(ref results, i);
                     break;
                 }
-            }
+            } 
 
             return results;
         }

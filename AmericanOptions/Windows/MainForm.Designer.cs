@@ -100,7 +100,6 @@
             this.NumberOfNodesTextBox.Size = new System.Drawing.Size(60, 20);
             this.NumberOfNodesTextBox.TabIndex = 7;
             this.NumberOfNodesTextBox.Tag = "Number Of Nodes n";
-            this.NumberOfNodesTextBox.Text = "5000";
             // 
             // NumberOfIterationTextBox
             // 
@@ -109,7 +108,6 @@
             this.NumberOfIterationTextBox.Size = new System.Drawing.Size(60, 20);
             this.NumberOfIterationTextBox.TabIndex = 6;
             this.NumberOfIterationTextBox.Tag = "Number Of Iteration k";
-            this.NumberOfIterationTextBox.Text = "500";
             // 
             // NumberOfNodesLabel
             // 
@@ -127,7 +125,6 @@
             this.VolatilitySigmaTextBox.Size = new System.Drawing.Size(60, 20);
             this.VolatilitySigmaTextBox.TabIndex = 2;
             this.VolatilitySigmaTextBox.Tag = "Volatility sigma";
-            this.VolatilitySigmaTextBox.Text = "0,2";
             // 
             // VolatilitySigmaLabel
             // 
@@ -145,7 +142,6 @@
             this.RiskFreeRateTextBox.Size = new System.Drawing.Size(60, 20);
             this.RiskFreeRateTextBox.TabIndex = 1;
             this.RiskFreeRateTextBox.Tag = "Risk free rate r";
-            this.RiskFreeRateTextBox.Text = "0,05";
             // 
             // RiskFreeRateLabel
             // 
@@ -163,7 +159,6 @@
             this.TauTextBox.Size = new System.Drawing.Size(60, 20);
             this.TauTextBox.TabIndex = 3;
             this.TauTextBox.Tag = "Tau t";
-            this.TauTextBox.Text = "1";
             // 
             // TauLabel
             // 
@@ -190,7 +185,6 @@
             this.StockPriceTextBox.Size = new System.Drawing.Size(60, 20);
             this.StockPriceTextBox.TabIndex = 5;
             this.StockPriceTextBox.Tag = "Stock price S";
-            this.StockPriceTextBox.Text = "45";
             // 
             // StockPriceLabel
             // 
@@ -208,7 +202,6 @@
             this.TimeToMaturityTextBox.Size = new System.Drawing.Size(60, 20);
             this.TimeToMaturityTextBox.TabIndex = 8;
             this.TimeToMaturityTextBox.Tag = "Time to maturity T";
-            this.TimeToMaturityTextBox.Text = "1";
             // 
             // TimeToMaturityLabel
             // 
@@ -226,7 +219,6 @@
             this.StrikePriceTextBox.Size = new System.Drawing.Size(60, 20);
             this.StrikePriceTextBox.TabIndex = 4;
             this.StrikePriceTextBox.Tag = "Strike price K";
-            this.StrikePriceTextBox.Text = "45";
             // 
             // StrikePriceLabel
             // 
@@ -316,7 +308,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "American Options";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.InputsGroupBox.ResumeLayout(false);
             this.InputsGroupBox.PerformLayout();
             this.ResumeLayout(false);
