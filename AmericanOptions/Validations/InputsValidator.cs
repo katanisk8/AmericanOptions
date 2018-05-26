@@ -24,7 +24,7 @@ namespace AmericanOptions.Validations
             }
             else
             {
-                SetControlIndistMode(control);
+                SetControlInNormalMode(control);
             }
         }
 
@@ -40,7 +40,7 @@ namespace AmericanOptions.Validations
             }
             else
             {
-                SetControlIndistMode(control);
+                SetControlInNormalMode(control);
             }
         }
 
@@ -50,7 +50,7 @@ namespace AmericanOptions.Validations
             control.Select();
         }
 
-        private void SetControlIndistMode(Control control)
+        private void SetControlInNormalMode(Control control)
         {
             control.BackColor = Color.White;
         }

@@ -1,7 +1,8 @@
 ﻿namespace AmericanOptions.Model
 {
-    public class Denominator
+    public class IntegralFunction
     {
+        public UnderIntegral[] UnderIntegral;
         public Result Result;
     }
 }

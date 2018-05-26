@@ -8,12 +8,12 @@ namespace AmericanOptions.PutOptions
     public class EuropeanPut : IEuropeanPut
     {
         private readonly IIntegralPoints _integralPoints;
-        private readonly IUnivariateDistribution _dist;
+        private readonly IUnivariateDistribution _distribution;
 
-        public EuropeanPut(IIntegralPoints integralPoints, IUnivariateDistribution dist)
+        public EuropeanPut(IIntegralPoints integralPoints, IUnivariateDistribution distribution)
         {
             _integralPoints = integralPoints;
-            _dist = dist;
+            _distribution = distribution;
         }
 
         public EuropeanPutResult Calculate(double K, double S, double r, double t, double sigma)
@@ -22,11 +22,16 @@ namespace AmericanOptions.PutOptions
 
             ePut.IntegralPointD1 = _integralPoints.CalculateIntegralPointD1(S, K, r, sigma, t);
             ePut.IntegralPointD2 = _integralPoints.CalculateIntegralPointD2(ePut.IntegralPointD1, sigma, t);
-            ePut.Distribution1 = _dist.CumulativeDistribution(-ePut.IntegralPointD1.Value);
-            ePut.Distribution2 = _dist.CumulativeDistribution(-ePut.IntegralPointD2.Value);
-            ePut.Value = K * Math.Exp(-r * t) * ePut.Distribution2 - (S * ePut.Distribution1);
+            ePut.Distribution1 = _distribution.CumulativeDistribution(-ePut.IntegralPointD1.Result.Value);
+            ePut.Distribution2 = _distribution.CumulativeDistribution(-ePut.IntegralPointD2.Result.Value);
+            ePut.Result = new Result(CalculateValue(K, S, r, t, ePut));
 
             return ePut;
+        }
+
+        private static double CalculateValue(double K, double S, double r, double t, EuropeanPutResult ePut)
+        {
+            return K * Math.Exp(-r * t) * ePut.Distribution2 - (S * ePut.Distribution1);
         }
     }
 }

@@ -16,9 +16,9 @@ namespace AmericanOptions
             _putCalculator = putCalculator;
         }
 
-        public Result[] Calculate(double r, double sigma, double t, double K, double S, int k, int n, double T)
+        public CalculatorResult[] Calculate(double r, double sigma, double t, double K, double S, int k, int n, double T)
         {
-            Result[] results = new Result[k];
+            CalculatorResult[] results = new CalculatorResult[k];
 
             results[0] = CalculateK0(K, S, r, t, sigma, n, T);
             results[1] = CalculateBtK1(K, S, r, t, sigma, n, T);
@@ -27,7 +27,7 @@ namespace AmericanOptions
             {
                 results[i] = CalculateBtKi(K, S, r, t, sigma, n, T, i, results[i - 1].BtResult);
 
-                if (double.IsNaN(results[i].BtResult.Value))
+                if (double.IsNaN(results[i].BtResult.Result.Value))
                 {
                     Array.Resize(ref results, i);
                     break;
@@ -37,9 +37,9 @@ namespace AmericanOptions
             return results;
         }
 
-        public Result CalculateK0(double K, double S, double r, double t, double sigma, int n, double T)
+        public CalculatorResult CalculateK0(double K, double S, double r, double t, double sigma, int n, double T)
         {
-            Result result = new Result();
+            CalculatorResult result = new CalculatorResult();
 
             result.ResultNumber = 0;
             result.BtResult = _btCalculator.CalculateBtK0(K);
@@ -48,9 +48,9 @@ namespace AmericanOptions
             return result;
         }
 
-        public Result CalculateBtK1(double K, double S, double r, double t, double sigma, int n, double T)
+        public CalculatorResult CalculateBtK1(double K, double S, double r, double t, double sigma, int n, double T)
         {
-            Result result = new Result();
+            CalculatorResult result = new CalculatorResult();
 
             result.ResultNumber = 1;
             result.BtResult = _btCalculator.CalculateBtK1(r, sigma, t, K, S, n, T);
@@ -59,9 +59,9 @@ namespace AmericanOptions
             return result;
         }
 
-        public Result CalculateBtKi(double K, double S, double r, double t, double sigma, int n, double T, int i, BtResult BtK_1)
+        public CalculatorResult CalculateBtKi(double K, double S, double r, double t, double sigma, int n, double T, int i, BtResult BtK_1)
         {
-            Result result = new Result();
+            CalculatorResult result = new CalculatorResult();
 
             result.ResultNumber = i;
             result.BtResult = _btCalculator.CalculateBtK(r, sigma, t, K, S, n, T, BtK_1);

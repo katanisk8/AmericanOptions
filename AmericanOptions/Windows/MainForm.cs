@@ -68,12 +68,12 @@ namespace AmericanOptions.Windows
             AssignDefaultVariables();
         }
 
-        void ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             CalculateProgressBar.Value = e.ProgressPercentage;
         }
 
-        void RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled)
             {
@@ -84,7 +84,7 @@ namespace AmericanOptions.Windows
                 throw new Exception(e.Error.Message);
             }
 
-            DisplayResults(e.Result as Result[]);
+            DisplayResults(e.Result as CalculatorResult[]);
         }
 
         private void PrepareWorker()
@@ -98,7 +98,7 @@ namespace AmericanOptions.Windows
 
         private void Calculate(object sender, DoWorkEventArgs e)
         {
-            Result[] results = new Result[numberOfIterration];
+            CalculatorResult[] results = new CalculatorResult[numberOfIterration];
 
             if (_worker.CancellationPending)
             {
@@ -143,7 +143,7 @@ namespace AmericanOptions.Windows
                                  results[i - 1].BtResult);
                     _worker.ReportProgress(i);
 
-                    if (double.IsNaN(results[i].BtResult.Value))
+                    if (double.IsNaN(results[i].BtResult.Result.Value))
                     {
                         Array.Resize(ref results, i);
                         break;
@@ -154,14 +154,14 @@ namespace AmericanOptions.Windows
             e.Result = results;
         }
 
-        private void DisplayResults(Result[] results)
+        private void DisplayResults(CalculatorResult[] results)
         {
             foreach (var result in results)
             {
                 string[] subItem = new string[] {
                     result.ResultNumber.ToString(),
-                    result.BtResult.RoundedValue.ToString(),
-                    result.PutResult.RoundedValue.ToString()
+                    result.BtResult.Result.RoundedValue.ToString(),
+                    result.PutResult.Result.RoundedValue.ToString()
                 };
 
                 ResultListView.Items.Add(new ListViewItem(subItem));

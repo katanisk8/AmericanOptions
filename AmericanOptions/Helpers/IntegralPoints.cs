@@ -11,18 +11,18 @@ namespace AmericanOptions.Helpers
 
             integralPoint.Numerator = CalculateNumerator(S, B, r, sigma, t);
             integralPoint.Denominator = CalculateDenominator(sigma, t);
-            integralPoint.Value = integralPoint.Numerator.Value / integralPoint.Denominator.Value;
+            integralPoint.Result = new Result(integralPoint.Numerator.Result.Value / integralPoint.Denominator.Result.Value);
 
             return integralPoint;
         }
 
-        public IntegralPoint CalculateIntegralPointD2(IntegralPoint d1, double sigma, double t)
+        public IntegralPoint CalculateIntegralPointD2(IntegralPoint D1, double sigma, double t)
         {
             IntegralPoint integralPoint = new IntegralPoint();
 
-            integralPoint.Numerator = CalculateNumerator(d1);
+            integralPoint.Numerator = CalculateNumerator(D1);
             integralPoint.Denominator = CalculateDenominator(sigma, t);
-            integralPoint.Value = integralPoint.Numerator.Value - integralPoint.Denominator.Value;
+            integralPoint.Result = new Result(integralPoint.Numerator.Result.Value - integralPoint.Denominator.Result.Value);
 
             return integralPoint;
         }
@@ -31,16 +31,16 @@ namespace AmericanOptions.Helpers
         {
             Numerator numerator = new Numerator();
 
-            numerator.Value = Math.Log(S / B) + (r + (0.5 * Math.Pow(sigma, 2))) * t;
+            numerator.Result = new Result(Math.Log(S / B) + (r + (0.5 * Math.Pow(sigma, 2))) * t);
 
             return numerator;
         }
 
-        private Numerator CalculateNumerator(IntegralPoint d1)
+        private Numerator CalculateNumerator(IntegralPoint D1)
         {
             Numerator numerator = new Numerator();
 
-            numerator.Value = d1.Value;
+            numerator.Result = D1.Result;
 
             return numerator;
         }
@@ -49,7 +49,7 @@ namespace AmericanOptions.Helpers
         {
             Denominator denominator = new Denominator();
 
-            denominator.Value = sigma * Math.Sqrt(t);
+            denominator.Result = new Result(sigma * Math.Sqrt(t));
 
             return denominator;
         }
