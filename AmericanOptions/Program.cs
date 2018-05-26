@@ -9,16 +9,17 @@ using AmericanOptions.Validations;
 using AmericanOptions.Windows;
 using Unity;
 using Unity.Injection;
+using System.ComponentModel;
 
 namespace AmericanOptions
 {
-   internal static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-      private static void Main()
+        private static void Main()
         {
             UnityContainer container = new UnityContainer();
 
@@ -32,13 +33,14 @@ namespace AmericanOptions
             container.RegisterType<ICalculator, Calculator>();
             container.RegisterType<IInputsValidator, InputsValidator>();
             container.RegisterType<ICleaner, Cleaner>();
+            container.RegisterType<BackgroundWorker, BackgroundWorker>();
             container.RegisterType<IContainerControl, MainForm>();
-            
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Form form = container.Resolve<IContainerControl>() as Form;  
-            
+            Form form = container.Resolve<IContainerControl>() as Form;
+
             Application.Run(form);
         }
     }

@@ -13,35 +13,26 @@ namespace AmericanOptions.Windows
         private readonly IInputsValidator _validator;
         private readonly ICleaner _cleaner;
         private BackgroundWorker _worker;
-        private int _iterations;
 
         // Inputs
-        private double _riskFreeRate;
-        private double _volatilitySigma;
-        private double _tau;
-        private double _strikePrice;
-        private double _stockPrice;
-        private int _numberOfIterration;
-        private int _numberOfNodes;
-        private double _timeToMaturity;
+        private double riskFreeRate;
+        private double volatilitySigma;
+        private double tau;
+        private double strikePrice;
+        private double stockPrice;
+        private int numberOfIterration;
+        private int numberOfNodes;
+        private double timeToMaturity;
 
-        public MainForm(ICalculator calculator, IInputsValidator validator, ICleaner cleaner)
+        public MainForm(ICalculator calculator, IInputsValidator validator, ICleaner cleaner, BackgroundWorker worker)
         {
-            InitializeComponent();
-
             _calculator = calculator;
             _validator = validator;
             _cleaner = cleaner;
-            _worker = new BackgroundWorker
-            {
-                WorkerReportsProgress = true,
-                WorkerSupportsCancellation = true
-            };
+            _worker = worker;
 
-
-            _worker.DoWork += Calculate;
-            _worker.ProgressChanged += ProgressChanged;
-            _worker.RunWorkerCompleted += RunWorkerCompleted;
+            InitializeComponent();
+            PrepareWorker();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -53,15 +44,10 @@ namespace AmericanOptions.Windows
         {
             try
             {
-                ClearResultView();
+                ClearResults();
                 ValidateInputs();
                 AssignVariables();
-                CalculateProgressBar.Maximum = _numberOfIterration * 2 - 1;
-
-                if (_worker != null)
-                {
-                    _worker.Dispose();
-                }
+                PrepareProgressBar();
 
                 _worker.RunWorkerAsync();
             }
@@ -69,6 +55,17 @@ namespace AmericanOptions.Windows
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            _worker.CancelAsync();
+            ClearAll();
+        }
+
+        private void DefaultButton_Click(object sender, EventArgs e)
+        {
+            AssignDefaultVariables();
         }
 
         void ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -90,20 +87,18 @@ namespace AmericanOptions.Windows
             DisplayResults(e.Result as Result[]);
         }
 
-        private void ClearButton_Click(object sender, EventArgs e)
+        private void PrepareWorker()
         {
-            _worker.CancelAsync();
-            ClearAll();
-        }
-
-        private void DefaultButton_Click(object sender, EventArgs e)
-        {
-            AssignDefaultVariables();
+            _worker.WorkerSupportsCancellation = true;
+            _worker.WorkerReportsProgress = true;
+            _worker.DoWork += Calculate;
+            _worker.ProgressChanged += ProgressChanged;
+            _worker.RunWorkerCompleted += RunWorkerCompleted;
         }
 
         private void Calculate(object sender, DoWorkEventArgs e)
         {
-            Result[] results = new Result[_numberOfIterration];
+            Result[] results = new Result[numberOfIterration];
 
             if (_worker.CancellationPending)
             {
@@ -111,24 +106,41 @@ namespace AmericanOptions.Windows
             }
             else
             {
-                results[0] = _calculator.CalculateK0(_strikePrice, _stockPrice, _riskFreeRate,
-                _tau, _volatilitySigma, _numberOfNodes, _timeToMaturity);
-                _iterations++;
-
+                // k=0
+                results[0] = _calculator.CalculateK0(
+                             strikePrice,
+                             stockPrice,
+                             riskFreeRate,
+                             tau,
+                             volatilitySigma,
+                             numberOfNodes,
+                             timeToMaturity);
                 _worker.ReportProgress(0);
 
-                results[1] = _calculator.CalculateBtK1(_strikePrice, _stockPrice, _riskFreeRate,
-                _tau, _volatilitySigma, _numberOfNodes, _timeToMaturity);
-                _iterations++;
-
+                // k=1
+                results[1] = _calculator.CalculateBtK1(
+                             strikePrice,
+                             stockPrice,
+                             riskFreeRate,
+                             tau,
+                             volatilitySigma,
+                             numberOfNodes,
+                             timeToMaturity);
                 _worker.ReportProgress(1);
 
-                for (int i = 2; i < _numberOfIterration; i++)
+                // k>1
+                for (int i = 2; i < numberOfIterration; i++)
                 {
-                    results[i] = _calculator.CalculateBtKi(_strikePrice, _stockPrice, _riskFreeRate,
-                    _tau, _volatilitySigma, _numberOfNodes, _timeToMaturity, i, results[i - 1].BtValue);
-                    _iterations++;
-
+                    results[i] = _calculator.CalculateBtKi(
+                                 strikePrice,
+                                 stockPrice,
+                                 riskFreeRate,
+                                 tau,
+                                 volatilitySigma,
+                                 numberOfNodes,
+                                 timeToMaturity,
+                                 i,
+                                 results[i - 1].BtValue);
                     _worker.ReportProgress(i);
 
                     if (double.IsNaN(results[i].BtValue))
@@ -150,7 +162,7 @@ namespace AmericanOptions.Windows
                     result.ResultNumber.ToString(),
                     result.BtRoundedValue.ToString(),
                     result.PutRoundedValue.ToString()
-                    };
+                };
 
                 ResultListView.Items.Add(new ListViewItem(subItem));
                 CalculateProgressBar.Value++;
@@ -159,7 +171,7 @@ namespace AmericanOptions.Windows
             CalculateProgressBar.Maximum = CalculateProgressBar.Value;
         }
 
-        private void ClearResultView()
+        private void ClearResults()
         {
             ResultListView.Items.Clear();
             CalculateProgressBar.Value = 0;
@@ -192,20 +204,25 @@ namespace AmericanOptions.Windows
 
         private void AssignVariables()
         {
-            _riskFreeRate = Convert.ToDouble(RiskFreeRateTextBox.Text);
-            _volatilitySigma = Convert.ToDouble(VolatilitySigmaTextBox.Text);
-            _tau = Convert.ToDouble(TauTextBox.Text);
-            _strikePrice = Convert.ToDouble(StrikePriceTextBox.Text);
-            _stockPrice = Convert.ToDouble(StockPriceTextBox.Text);
-            _numberOfIterration = Convert.ToInt32(NumberOfIterationTextBox.Text);
-            _numberOfNodes = Convert.ToInt32(NumberOfNodesTextBox.Text);
-            _timeToMaturity = Convert.ToDouble(TimeToMaturityTextBox.Text);
+            riskFreeRate = Convert.ToDouble(RiskFreeRateTextBox.Text);
+            volatilitySigma = Convert.ToDouble(VolatilitySigmaTextBox.Text);
+            tau = Convert.ToDouble(TauTextBox.Text);
+            strikePrice = Convert.ToDouble(StrikePriceTextBox.Text);
+            stockPrice = Convert.ToDouble(StockPriceTextBox.Text);
+            numberOfIterration = Convert.ToInt32(NumberOfIterationTextBox.Text);
+            numberOfNodes = Convert.ToInt32(NumberOfNodesTextBox.Text);
+            timeToMaturity = Convert.ToDouble(TimeToMaturityTextBox.Text);
+        }
+
+        private void PrepareProgressBar()
+        {
+            CalculateProgressBar.Maximum = numberOfIterration * 2 - 1;
         }
 
         private void ClearAll()
         {
             _cleaner.CleanTextBoxes(InputsGroupBox);
-            ClearResultView();
+            ClearResults();
         }
     }
 }
