@@ -1,4 +1,5 @@
 ﻿using AmericanOptions.Helpers;
+using AmericanOptions.Model;
 using MathNet.Numerics.Distributions;
 using System;
 
@@ -6,9 +7,9 @@ namespace AmericanOptions.OptimalExerciseBoundary
 {
     public class BtCalculator : IBtCalculator
     {
-      private readonly IIntegralPoints _integralPoints;
-      private readonly IBtIntegralFunction _btIntegralFunction;
-      private readonly IUnivariateDistribution _dist;
+        private readonly IIntegralPoints _integralPoints;
+        private readonly IBtIntegralFunction _btIntegralFunction;
+        private readonly IUnivariateDistribution _dist;
 
         public BtCalculator(IIntegralPoints integralPoints, IBtIntegralFunction btIntegralFunction, IUnivariateDistribution dist)
         {
@@ -17,41 +18,54 @@ namespace AmericanOptions.OptimalExerciseBoundary
             _dist = dist;
         }
 
-        public double CalculateBtK1(double r, double sigma, double t, double K, double S, int n, double T)
+        public BtResult CalculateBtK0(double K)
         {
-            double integralPointD1 = _integralPoints.CalculateIntegralPointD1(K, K, r, sigma, t);
-            double integralPointD2 = _integralPoints.CalculateIntegralPointD2(integralPointD1, sigma, t);
-            double distribution = _dist.CumulativeDistribution(integralPointD1);
+            BtResult bt = new BtResult();
 
-            return CalculateBtK1(sigma, K, distribution, integralPointD1, r, t, integralPointD2);
+            bt.Value = K;
+
+            return bt;
         }
 
-        public double CalculateBtK(double r, double sigma, double t, double K, double S, int n, double T, double BtK_1)
+        public BtResult CalculateBtK1(double r, double sigma, double t, double K, double S, int n, double T)
         {
-           double integralPointD1 = _integralPoints.CalculateIntegralPointD1(BtK_1, K, r, sigma, t);
-           double integralPointD2 = _integralPoints.CalculateIntegralPointD2(integralPointD1, sigma, t);
-           double distribution = _dist.CumulativeDistribution(integralPointD1);
+            BtResult bt = new BtResult();
 
-            return CalculateBt(sigma, K, distribution, integralPointD1, r, t, integralPointD2, n, T);
+            bt.IntegralPointD1 = _integralPoints.CalculateIntegralPointD1(K, K, r, sigma, t);
+            bt.IntegralPointD2 = _integralPoints.CalculateIntegralPointD2(bt.IntegralPointD1, sigma, t);
+            bt.Distribution = _dist.CumulativeDistribution(bt.IntegralPointD1.Value);
+            bt.a = (1 / sigma * Math.Sqrt(2 * Math.PI * t));
+            bt.Value = CalculateBtK1(sigma, K, r, t, bt);
+
+            return bt;
         }
 
-        private static double CalculateBtK1(double sigma, double K, double dist, double d1, double r, double tau, double d2)
+        public BtResult CalculateBtK(double r, double sigma, double t, double K, double S, int n, double T, BtResult BtK_1)
         {
-            double a = (1 / sigma * Math.Sqrt(2 * Math.PI * tau));
+            BtResult bt = new BtResult();
 
-            return (K * (1 / (dist + a * Math.Exp(-0.5 * Math.Pow(d1, 2))))) *
-                (a * Math.Exp(-((r * tau) + (0.5 * Math.Pow(d2, 2))))) +
-                (((2 * sigma * r) / ((2 * r) + (Math.Pow(sigma, 2))) * (2 * dist) - 1));
+            bt.IntegralPointD1 = _integralPoints.CalculateIntegralPointD1(BtK_1.Value, K, r, sigma, t);
+            bt.IntegralPointD2 = _integralPoints.CalculateIntegralPointD2(bt.IntegralPointD1, sigma, t);
+            bt.Distribution = _dist.CumulativeDistribution(bt.IntegralPointD2.Value);
+            bt.a = (1 / sigma * Math.Sqrt(2 * Math.PI * t));
+            bt.IntegralFunction = _btIntegralFunction.Calculate(n, T, r, sigma, t, bt.IntegralPointD2);
+            bt.Value = CalculateBtValue(sigma, K, r, t, bt);
+
+            return bt;
         }
 
-        private double CalculateBt(double sigma, double K, double dist, double d1, double r, double t, double d2, int n, double T)
+        private double CalculateBtK1(double sigma, double K, double r, double t, BtResult bt)
         {
-            double a = (1 / sigma * Math.Sqrt(2 * Math.PI * t));
-            double integralFunction = _btIntegralFunction.Calculate(n, T, r, sigma, t, d2);
+            return (K * (1 / (bt.Distribution + bt.a * Math.Exp(-0.5 * Math.Pow(bt.IntegralPointD1.Value, 2))))) *
+                (bt.a * Math.Exp(-((r * t) + (0.5 * Math.Pow(bt.IntegralPointD2.Value, 2))))) +
+                (((2 * sigma * r) / ((2 * r) + (Math.Pow(sigma, 2))) * (2 * bt.Distribution) - 1));
+        }
 
-            return (1 / (dist + a * Math.Exp(-0.5 * Math.Pow(d1, 2)))) *
-                (a * K * Math.Exp(-((r * t) + (0.5 * Math.Pow(d2, 2))))) +
-                (r * K * integralFunction);
+        private double CalculateBtValue(double sigma, double K, double r, double t, BtResult bt)
+        {
+            return (1 / (bt.Distribution + bt.a * Math.Exp(-0.5 * Math.Pow(bt.IntegralPointD1.Value, 2)))) *
+                (bt.a * K * Math.Exp(-((r * t) + (0.5 * Math.Pow(bt.IntegralPointD2.Value, 2))))) +
+                (r * K * bt.IntegralFunction.Value);
         }
     }
 }

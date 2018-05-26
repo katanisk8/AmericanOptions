@@ -1,7 +1,9 @@
-﻿namespace AmericanOptions.OptimalExerciseBoundary
+﻿using AmericanOptions.Model;
+
+namespace AmericanOptions.OptimalExerciseBoundary
 {
     public interface IBtIntegralFunction
     {
-        double Calculate(int n, double T, double r, double sigma, double t, double d2);
+        BtIntegralFunctionResult Calculate(int n, double T, double r, double sigma, double t, IntegralPoint d2);
     }
 }

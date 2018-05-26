@@ -140,10 +140,10 @@ namespace AmericanOptions.Windows
                                  numberOfNodes,
                                  timeToMaturity,
                                  i,
-                                 results[i - 1].BtValue);
+                                 results[i - 1].BtResult);
                     _worker.ReportProgress(i);
 
-                    if (double.IsNaN(results[i].BtValue))
+                    if (double.IsNaN(results[i].BtResult.Value))
                     {
                         Array.Resize(ref results, i);
                         break;
@@ -160,8 +160,8 @@ namespace AmericanOptions.Windows
             {
                 string[] subItem = new string[] {
                     result.ResultNumber.ToString(),
-                    result.BtRoundedValue.ToString(),
-                    result.PutRoundedValue.ToString()
+                    result.BtResult.RoundedValue.ToString(),
+                    result.PutResult.RoundedValue.ToString()
                 };
 
                 ResultListView.Items.Add(new ListViewItem(subItem));
@@ -197,8 +197,8 @@ namespace AmericanOptions.Windows
             TauTextBox.Text = (1).ToString();
             StrikePriceTextBox.Text = (45).ToString();
             StockPriceTextBox.Text = (45).ToString();
-            NumberOfIterationTextBox.Text = (500).ToString();
-            NumberOfNodesTextBox.Text = (5000).ToString();
+            NumberOfIterationTextBox.Text = (16).ToString();
+            NumberOfNodesTextBox.Text = (4).ToString();
             TimeToMaturityTextBox.Text = (1).ToString();
         }
 

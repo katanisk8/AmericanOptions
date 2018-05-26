@@ -1,4 +1,5 @@
 ﻿using AmericanOptions.Helpers;
+using AmericanOptions.Model;
 using MathNet.Numerics.Distributions;
 using System;
 
@@ -6,8 +7,8 @@ namespace AmericanOptions.PutOptions
 {
     public class PutIntegralFunction : IPutIntegralFunction
     {
-      private readonly IIntegralPoints _integralPoints;
-      private readonly IUnivariateDistribution _dist;
+        private readonly IIntegralPoints _integralPoints;
+        private readonly IUnivariateDistribution _dist;
 
         public PutIntegralFunction(IIntegralPoints integralPoints, IUnivariateDistribution dist)
         {
@@ -15,28 +16,34 @@ namespace AmericanOptions.PutOptions
             _dist = dist;
         }
 
-        public double Calculate(int n, double T, double r, double sigma, double t, double S, double K, double Btksi)
+        public PutIntegralFunctionResult Calculate(int n, double T, double r, double sigma, double t, double S, double K, BtResult Btksi)
         {
-            double result = 0;
+            PutIntegralFunctionResult result = new PutIntegralFunctionResult();
+            UnderIntegral[] underIntegral = new UnderIntegral[n];
 
             for (int i = 0; i < n; i++)
             {
-                double h = (T / n);
-                double ksi = i * h;
+                UnderIntegral ui = new UnderIntegral();
 
-                result += CalculateUnderIntegral(r, S, K, t, ksi, Btksi, sigma) * h;
+                ui.h = (T / n);
+                ui.ksi = i * ui.h;
+                ui.IntegralPointD1 = _integralPoints.CalculateIntegralPointD1(S, Btksi.Value, r, sigma, t - ui.ksi);
+                ui.IntegralPointD2 = _integralPoints.CalculateIntegralPointD2(ui.IntegralPointD1, sigma, t - ui.ksi);
+                ui.Distribution = _dist.CumulativeDistribution(-ui.IntegralPointD2.Value);
+                ui.Value = CalculateUnderIntegral(r, K, t, ui.ksi, ui.Distribution) * ui.h;
+
+                underIntegral[i] = ui;
+                result.Value += ui.Value;
             }
+
+            result.UnderIntegral = underIntegral;
 
             return result;
         }
 
-        private double CalculateUnderIntegral(double r, double S, double K, double t, double ksi, double Btksi, double sigma)
+        private double CalculateUnderIntegral(double r, double K, double t, double ksi, double dist)
         {
-            double integralPointD1 = _integralPoints.CalculateIntegralPointD1(S, Btksi, r, sigma, t - ksi);
-            double integralPointD2 = _integralPoints.CalculateIntegralPointD2(integralPointD1, sigma, t - ksi);
-            double distribution = _dist.CumulativeDistribution(-integralPointD2);
-
-            return r * K * Math.Exp(-r * (t - ksi)) * distribution;
+            return r * K * Math.Exp(-r * (t - ksi)) * dist;
         }
     }
 }

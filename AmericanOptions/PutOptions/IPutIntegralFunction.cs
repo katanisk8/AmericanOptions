@@ -1,7 +1,9 @@
-﻿namespace AmericanOptions.PutOptions
+﻿using AmericanOptions.Model;
+
+namespace AmericanOptions.PutOptions
 {
     public interface IPutIntegralFunction
     {
-        double Calculate(int n, double T, double r, double sigma, double t, double S, double K, double Btksi);
+        PutIntegralFunctionResult Calculate(int n, double T, double r, double sigma, double t, double S, double K, BtResult Btksi);
     }
 }

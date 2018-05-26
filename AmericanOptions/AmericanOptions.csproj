@@ -99,8 +99,17 @@
     <Compile Include="Calculator.cs" />
     <Compile Include="ClickHelpers\ICleaner.cs" />
     <Compile Include="Helpers\IIntegralPoints.cs" />
+    <Compile Include="Model\BtResult.cs" />
+    <Compile Include="Model\Denominator.cs" />
+    <Compile Include="Model\EuropeanPutResult.cs" />
+    <Compile Include="Model\BtIntegralFunctionResult.cs" />
+    <Compile Include="Model\IntegralPoint.cs" />
+    <Compile Include="Model\Numerator.cs" />
+    <Compile Include="Model\PutIntegralFunction.cs" />
+    <Compile Include="Model\PutResult.cs" />
     <Compile Include="Model\Result.cs" />
     <Compile Include="ICalculator.cs" />
+    <Compile Include="Model\UnderIntegral.cs" />
     <Compile Include="OptimalExerciseBoundary\BtCalculator.cs" />
     <Compile Include="OptimalExerciseBoundary\BtIntegralFunction.cs" />
     <Compile Include="ClickHelpers\Cleaner.cs" />

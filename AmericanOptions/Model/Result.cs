@@ -2,12 +2,9 @@
 {
     public class Result
     {
-        public int ResultNumber;
+        public int ResultNumber { get; set; }
 
-        public double BtValue;
-        public double BtRoundedValue;
-
-        public double PutValue;
-        public double PutRoundedValue;
+        public BtResult BtResult { get; set; }
+        public PutResult PutResult { get; set; }
     }
 }
