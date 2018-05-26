@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Globalization;
 using System.Windows.Forms;
 using AmericanOptions.ClickHelpers;
 using AmericanOptions.Model;
@@ -14,6 +13,7 @@ namespace AmericanOptions.Windows
         private readonly IInputsValidator _validator;
         private readonly ICleaner _cleaner;
         private BackgroundWorker _worker;
+        private int _iterations;
 
         // Inputs
         private double _riskFreeRate;
@@ -37,11 +37,13 @@ namespace AmericanOptions.Windows
                 WorkerReportsProgress = true,
                 WorkerSupportsCancellation = true
             };
+
+
             _worker.DoWork += Calculate;
             _worker.ProgressChanged += ProgressChanged;
             _worker.RunWorkerCompleted += RunWorkerCompleted;
         }
-        
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             AssignDefaultVariables();
@@ -54,12 +56,12 @@ namespace AmericanOptions.Windows
                 ClearResultView();
                 ValidateInputs();
                 AssignVariables();
-                CalculateProgressBar.Maximum = _numberOfIterration;
+                CalculateProgressBar.Maximum = _numberOfIterration * 2 - 1;
 
                 if (_worker != null)
                 {
                     _worker.Dispose();
-                }                
+                }
 
                 _worker.RunWorkerAsync();
             }
@@ -71,15 +73,6 @@ namespace AmericanOptions.Windows
 
         void ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            Result result = e.UserState as Result;
-
-            string[] subItem = new string[] {
-                    result.ResultNumber.ToString(),
-                    result.BtRoundedValue.ToString(),
-                    result.PutRoundedValue.ToString()
-                    };
-
-            ResultListView.Items.Add(new ListViewItem(subItem));
             CalculateProgressBar.Value = e.ProgressPercentage;
         }
 
@@ -91,12 +84,15 @@ namespace AmericanOptions.Windows
             }
             else if (e.Error != null)
             {
-                MessageBox.Show(e.Error.Message);
+                throw new Exception(e.Error.Message);
             }
+
+            DisplayResults(e.Result as Result[]);
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
         {
+            _worker.CancelAsync();
             ClearAll();
         }
 
@@ -107,30 +103,33 @@ namespace AmericanOptions.Windows
 
         private void Calculate(object sender, DoWorkEventArgs e)
         {
+            Result[] results = new Result[_numberOfIterration];
+
             if (_worker.CancellationPending)
             {
                 e.Cancel = true;
             }
             else
             {
-                Result[] results = new Result[_numberOfIterration];
-
                 results[0] = _calculator.CalculateK0(_strikePrice, _stockPrice, _riskFreeRate,
                 _tau, _volatilitySigma, _numberOfNodes, _timeToMaturity);
-                
-                _worker.ReportProgress(0, results[0]);
+                _iterations++;
+
+                _worker.ReportProgress(0);
 
                 results[1] = _calculator.CalculateBtK1(_strikePrice, _stockPrice, _riskFreeRate,
                 _tau, _volatilitySigma, _numberOfNodes, _timeToMaturity);
-                
-                 _worker.ReportProgress(1, results[1]);
+                _iterations++;
+
+                _worker.ReportProgress(1);
 
                 for (int i = 2; i < _numberOfIterration; i++)
                 {
                     results[i] = _calculator.CalculateBtKi(_strikePrice, _stockPrice, _riskFreeRate,
                     _tau, _volatilitySigma, _numberOfNodes, _timeToMaturity, i, results[i - 1].BtValue);
-                    
-                    _worker.ReportProgress(i, results[i]);
+                    _iterations++;
+
+                    _worker.ReportProgress(i);
 
                     if (double.IsNaN(results[i].BtValue))
                     {
@@ -139,6 +138,25 @@ namespace AmericanOptions.Windows
                     }
                 }
             }
+
+            e.Result = results;
+        }
+
+        private void DisplayResults(Result[] results)
+        {
+            foreach (var result in results)
+            {
+                string[] subItem = new string[] {
+                    result.ResultNumber.ToString(),
+                    result.BtRoundedValue.ToString(),
+                    result.PutRoundedValue.ToString()
+                    };
+
+                ResultListView.Items.Add(new ListViewItem(subItem));
+                CalculateProgressBar.Value++;
+            }
+
+            CalculateProgressBar.Maximum = CalculateProgressBar.Value;
         }
 
         private void ClearResultView()

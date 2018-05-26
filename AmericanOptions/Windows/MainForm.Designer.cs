@@ -308,6 +308,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "American Options";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.InputsGroupBox.ResumeLayout(false);
             this.InputsGroupBox.PerformLayout();
