@@ -8,5 +8,10 @@
         public IntegralFunction IntegralFunction;
         public double a;
         public Result Result;
+
+        public BtResult()
+        {
+            Result = new Result();
+        }
     }
 }

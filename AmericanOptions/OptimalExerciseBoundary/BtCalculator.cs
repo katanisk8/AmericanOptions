@@ -22,7 +22,7 @@ namespace AmericanOptions.OptimalExerciseBoundary
         {
             BtResult bt = new BtResult();
 
-            bt.Result = new Result(K);
+            bt.Result.Value = K;
 
             return bt;
         }
@@ -35,7 +35,7 @@ namespace AmericanOptions.OptimalExerciseBoundary
             bt.IntegralPointD2 = _integralPoints.CalculateIntegralPointD2(bt.IntegralPointD1, sigma, t);
             bt.Distribution = _distribution.CumulativeDistribution(bt.IntegralPointD1.Result.Value);
             bt.a = CalculateAValue(sigma, t);
-            bt.Result = new Result(CalculateBtK1(sigma, K, r, t, bt));
+            bt.Result.Value = CalculateBtK1(sigma, K, r, t, bt);
 
             return bt;
         }
@@ -49,7 +49,7 @@ namespace AmericanOptions.OptimalExerciseBoundary
             bt.Distribution = _distribution.CumulativeDistribution(bt.IntegralPointD1.Result.Value);
             bt.a = CalculateAValue(sigma, t);
             bt.IntegralFunction = _btIntegralFunction.Calculate(n, T, r, sigma, t, bt.IntegralPointD2);
-            bt.Result = new Result(CalculateBtValue(sigma, K, r, t, bt));
+            bt.Result.Value = CalculateBtValue(sigma, K, r, t, bt);
 
             return bt;
         }

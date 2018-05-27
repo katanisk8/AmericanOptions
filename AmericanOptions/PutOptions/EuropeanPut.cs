@@ -24,7 +24,7 @@ namespace AmericanOptions.PutOptions
             ePut.IntegralPointD2 = _integralPoints.CalculateIntegralPointD2(ePut.IntegralPointD1, sigma, t);
             ePut.Distribution1 = _distribution.CumulativeDistribution(-ePut.IntegralPointD1.Result.Value);
             ePut.Distribution2 = _distribution.CumulativeDistribution(-ePut.IntegralPointD2.Result.Value);
-            ePut.Result = new Result(CalculateValue(K, S, r, t, ePut));
+            ePut.Result.Value = CalculateValue(K, S, r, t, ePut);
 
             return ePut;
         }

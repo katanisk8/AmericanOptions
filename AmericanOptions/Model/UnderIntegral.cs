@@ -9,5 +9,10 @@
         public IntegralPoint IntegralPointD2;
         public double Distribution;
         public Result Result;
+
+        public UnderIntegral()
+        {
+            Result = new Result();
+        }
     }
 }

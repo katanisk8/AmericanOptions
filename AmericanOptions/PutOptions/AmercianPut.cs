@@ -19,7 +19,7 @@ namespace AmericanOptions.PutOptions
 
             put.EuropeanPut = _europeanPut.Calculate(K, S, r, t, sigma);
             put.PutIntegralFunction = _putIntegralFunction.Calculate(n, T, r, sigma, t, S, K, Btksi);
-            put.Result = new Result(put.EuropeanPut.Result.Value + put.PutIntegralFunction.Result.Value);
+            put.Result.Value = put.EuropeanPut.Result.Value + put.PutIntegralFunction.Result.Value;
 
             return put;
         }

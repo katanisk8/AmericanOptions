@@ -4,5 +4,10 @@
     {
         public UnderIntegral[] UnderIntegral;
         public Result Result;
+
+        public IntegralFunction()
+        {
+            Result = new Result();
+        }
     }
 }

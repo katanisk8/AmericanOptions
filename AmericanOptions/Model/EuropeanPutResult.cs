@@ -7,5 +7,10 @@
         public double Distribution1;
         public double Distribution2;
         public Result Result;
+
+        public EuropeanPutResult()
+        {
+            Result = new Result();
+        }
     }
 }

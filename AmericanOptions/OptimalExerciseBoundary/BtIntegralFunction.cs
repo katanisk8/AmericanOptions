@@ -8,7 +8,6 @@ namespace AmericanOptions.OptimalExerciseBoundary
         public IntegralFunction Calculate(int n, double T, double r, double sigma, double t, IntegralPoint D2)
         {
             IntegralFunction integralFunction = new IntegralFunction();
-            integralFunction.Result = new Result();
             UnderIntegral[] underIntegral = new UnderIntegral[n];
 
             for (int i = 0; i < n; i++)
@@ -17,7 +16,7 @@ namespace AmericanOptions.OptimalExerciseBoundary
 
                 ui.h = (T / n);
                 ui.ksi = i * ui.h;
-                ui.Result = new Result(CalculateUnderIntegral(r, sigma, t, ui.ksi, D2) * ui.h);
+                ui.Result.Value = CalculateUnderIntegral(r, sigma, t, ui.ksi, D2) * ui.h;
 
                 underIntegral[i] = ui;
                 integralFunction.Result.Value += ui.Result.Value;

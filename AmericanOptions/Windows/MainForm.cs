@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Forms;
 using AmericanOptions.ClickHelpers;
 using AmericanOptions.Model;
@@ -223,6 +224,11 @@ namespace AmericanOptions.Windows
         {
             _cleaner.CleanTextBoxes(InputsGroupBox);
             ClearResults();
+        }
+
+        private void MainForm_HelpButtonClicked(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

@@ -11,7 +11,7 @@ namespace AmericanOptions.Helpers
 
             integralPoint.Numerator = CalculateNumerator(S, B, r, sigma, t);
             integralPoint.Denominator = CalculateDenominator(sigma, t);
-            integralPoint.Result = new Result(integralPoint.Numerator.Result.Value / integralPoint.Denominator.Result.Value);
+            integralPoint.Result.Value = integralPoint.Numerator.Result.Value / integralPoint.Denominator.Result.Value;
 
             return integralPoint;
         }
@@ -22,7 +22,7 @@ namespace AmericanOptions.Helpers
 
             integralPoint.Numerator = CalculateNumerator(D1);
             integralPoint.Denominator = CalculateDenominator(sigma, t);
-            integralPoint.Result = new Result(integralPoint.Numerator.Result.Value - integralPoint.Denominator.Result.Value);
+            integralPoint.Result.Value = integralPoint.Numerator.Result.Value - integralPoint.Denominator.Result.Value;
 
             return integralPoint;
         }
@@ -31,7 +31,7 @@ namespace AmericanOptions.Helpers
         {
             Numerator numerator = new Numerator();
 
-            numerator.Result = new Result(Math.Log(S / B) + (r + (0.5 * Math.Pow(sigma, 2))) * t);
+            numerator.Result.Value = Math.Log(S / B) + (r + (0.5 * Math.Pow(sigma, 2))) * t;
 
             return numerator;
         }
@@ -49,7 +49,7 @@ namespace AmericanOptions.Helpers
         {
             Denominator denominator = new Denominator();
 
-            denominator.Result = new Result(sigma * Math.Sqrt(t));
+            denominator.Result.Value = sigma * Math.Sqrt(t);
 
             return denominator;
         }

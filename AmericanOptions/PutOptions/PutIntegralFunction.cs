@@ -19,7 +19,6 @@ namespace AmericanOptions.PutOptions
         public IntegralFunction Calculate(int n, double T, double r, double sigma, double t, double S, double K, BtResult Btksi)
         {
             IntegralFunction integralFunction = new IntegralFunction();
-            integralFunction.Result = new Result();
             UnderIntegral[] underIntegral = new UnderIntegral[n];
 
             for (int i = 0; i < n; i++)
@@ -31,7 +30,7 @@ namespace AmericanOptions.PutOptions
                 ui.IntegralPointD1 = _integralPoints.CalculateIntegralPointD1(S, Btksi.Result.Value, r, sigma, t - ui.ksi);
                 ui.IntegralPointD2 = _integralPoints.CalculateIntegralPointD2(ui.IntegralPointD1, sigma, t - ui.ksi);
                 ui.Distribution = _distribution.CumulativeDistribution(-ui.IntegralPointD2.Result.Value);
-                ui.Result = new Result(CalculateUnderIntegral(r, K, t, ui.ksi, ui.Distribution) * ui.h);
+                ui.Result.Value = CalculateUnderIntegral(r, K, t, ui.ksi, ui.Distribution) * ui.h;
 
                 underIntegral[i] = ui;
                 integralFunction.Result.Value += ui.Result.Value;

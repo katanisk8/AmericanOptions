@@ -4,11 +4,8 @@ namespace AmericanOptions.Model
 {
     public class Result
     {
-        public Result() { }
-        public Result(double value)
-        {
-            Value = value;
-        }
+        private double value;
+        private double roundedValue;
 
         public double Value
         {
@@ -34,7 +31,10 @@ namespace AmericanOptions.Model
             }
         }
 
-        private double value;
-        private double roundedValue;
+        public Result() { }
+        public Result(double value)
+        {
+            Value = value;
+        }
     }
 }
