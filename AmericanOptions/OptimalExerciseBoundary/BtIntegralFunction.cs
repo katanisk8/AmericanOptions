@@ -1,28 +1,36 @@
 ﻿using System;
+using AmericanOptions.Model;
 
 namespace AmericanOptions.OptimalExerciseBoundary
 {
     public class BtIntegralFunction : IBtIntegralFunction
     {
-        public double Calculate(int n, double T, double r, double sigma, double t, double d2)
+        public IntegralFunction Calculate(int n, double T, double r, double sigma, double t, IntegralPoint D2)
         {
-            double result = 0;
+            IntegralFunction integralFunction = new IntegralFunction();
+            UnderIntegral[] underIntegral = new UnderIntegral[n];
 
             for (int i = 0; i < n; i++)
             {
-                double h = (T / n);
-                double ksi = i * h;
+                UnderIntegral ui = new UnderIntegral();
 
-                result += CalculateUnderIntegral(r, sigma, t, ksi, d2) * h;
+                ui.h = (T / n);
+                ui.ksi = i * ui.h;
+                ui.Result.Value = CalculateUnderIntegral(r, sigma, t, ui.ksi, D2) * ui.h;
+
+                underIntegral[i] = ui;
+                integralFunction.Result.Value += ui.Result.Value;
             }
 
-            return result;
+            integralFunction.UnderIntegral = underIntegral;
+
+            return integralFunction;
         }
 
-        private static double CalculateUnderIntegral(double r, double sigma, double t, double ksi, double d2)
+        private static double CalculateUnderIntegral(double r, double sigma, double t, double ksi, IntegralPoint D2)
         {
             return (r / sigma * Math.Sqrt(2 * Math.PI * (t - ksi))) *
-                    Math.Exp(-(r * (t - ksi) + (0.5 * Math.Pow(d2, 2))));
+                    Math.Exp(-(r * (t - ksi) + (0.5 * Math.Pow(D2.Result.Value, 2))));
         }
     }
 }
