@@ -97,7 +97,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
+    <Compile Include="ClickHelpers\Cleaner.cs" />
     <Compile Include="ClickHelpers\ICleaner.cs" />
+    <Compile Include="Helpers\ProgramStatus.cs" />
     <Compile Include="Helpers\IIntegralPoints.cs" />
     <Compile Include="Model\BtResult.cs" />
     <Compile Include="Model\Denominator.cs" />
@@ -112,7 +114,6 @@
     <Compile Include="Model\Result.cs" />
     <Compile Include="OptimalExerciseBoundary\BtCalculator.cs" />
     <Compile Include="OptimalExerciseBoundary\BtIntegralFunction.cs" />
-    <Compile Include="ClickHelpers\Cleaner.cs" />
     <Compile Include="OptimalExerciseBoundary\IBtCalculator.cs" />
     <Compile Include="OptimalExerciseBoundary\IBtIntegralFunction.cs" />
     <Compile Include="PutOptions\AmercianPut.cs" />

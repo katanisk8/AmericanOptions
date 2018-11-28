@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 using AmericanOptions.ClickHelpers;
+using AmericanOptions.Helpers;
 using AmericanOptions.Model;
 using AmericanOptions.Validations;
 
@@ -38,13 +39,25 @@ namespace AmericanOptions.Windows
       private void MainForm_Load(object sender, EventArgs e)
       {
          AssignDefaultVariables();
+         SetStatusLabel(Status.Ready);
       }
 
       private void CalculateButton_Click(object sender, EventArgs e)
       {
          try
          {
-            if (!_worker.IsBusy)
+            if (_worker.IsBusy)
+            {
+               if (_worker.CancellationPending)
+               {
+                  SetStatusLabel(Status.Canceling, "Worker is busy!");
+               }
+               else
+               {
+                  SetStatusLabel(Status.Running, "Worker is busy!");
+               }
+            }
+            else
             {
                ClearResults();
                ValidateInputs();
@@ -52,23 +65,39 @@ namespace AmericanOptions.Windows
                PrepareProgressBar();
 
                _worker.RunWorkerAsync();
+
+               SetStatusLabel(Status.Running);
             }
          }
          catch (Exception ex)
          {
-            MessageBox.Show(ex.Message);
+            SetStatusLabel(Status.Error, ex.Message);
+         }
+      }
+
+      private void CancelButton_Click(object sender, EventArgs e)
+      {
+         _worker.CancelAsync();
+
+         if (_worker.IsBusy)
+         {
+            SetStatusLabel(Status.Canceling);
+         }
+         else
+         {
+            SetStatusLabel("Nothing to canceled!");
          }
       }
 
       private void ClearButton_Click(object sender, EventArgs e)
       {
-         _worker.CancelAsync();
          ClearAll();
       }
 
       private void DefaultButton_Click(object sender, EventArgs e)
       {
          AssignDefaultVariables();
+         SetStatusLabel(Status.Ready);
       }
 
       private void ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -91,7 +120,7 @@ namespace AmericanOptions.Windows
       {
          if (e.Cancelled)
          {
-            MessageBox.Show("Processing cancelled.");
+            SetStatusLabel(Status.Canceled);
          }
          if (e.Error != null)
          {
@@ -99,6 +128,7 @@ namespace AmericanOptions.Windows
          }
 
          EndProgressBar();
+         SetStatusLabel(Status.Completed);
       }
 
       private void PrepareWorker()
@@ -199,6 +229,7 @@ namespace AmericanOptions.Windows
 
       private void ValidateInputs()
       {
+         SetStatusLabel(Status.Validating);
          _validator.ValidateInput(RiskFreeRateTextBox);
          _validator.ValidateInput(VolatilitySigmaTextBox);
          _validator.ValidateInput(TauTextBox);
@@ -208,6 +239,7 @@ namespace AmericanOptions.Windows
          _validator.ValidateInput(NumberOfNodesTextBox);
          _validator.ValidateInput(StockPriceTextBox);
          _validator.ValidateInput(TimeToMaturityTextBox);
+         SetStatusLabel(Status.Validated);
       }
 
       private void AssignDefaultVariables()
@@ -234,6 +266,21 @@ namespace AmericanOptions.Windows
          timeToMaturity = Convert.ToDouble(TimeToMaturityTextBox.Text);
       }
 
+      private void SetStatusLabel(Status status)
+      {
+         StripStatusLabel.Text = $"{ProgramStatus.GetStatus(status)}...";
+      }
+
+      private void SetStatusLabel(string info)
+      {
+         StripStatusLabel.Text = info;
+      }
+
+      private void SetStatusLabel(Status status, string info)
+      {
+         StripStatusLabel.Text = $"{ProgramStatus.GetStatus(status)}: {info}";
+      }
+
       private void PrepareProgressBar()
       {
          CalculateProgressBar.Maximum = numberOfIterration * 2 - 1;
@@ -246,8 +293,10 @@ namespace AmericanOptions.Windows
 
       private void ClearAll()
       {
+         SetStatusLabel(Status.Cleaning);
          _cleaner.CleanTextBoxes(InputsGroupBox);
          ClearResults();
+         SetStatusLabel(Status.Cleaned);
       }
 
       private void MainForm_HelpButtonClicked(object sender, CancelEventArgs e)
