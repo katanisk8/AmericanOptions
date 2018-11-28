@@ -2,6 +2,7 @@
 using AmericanOptions.Model;
 using MathNet.Numerics.Distributions;
 using System;
+using System.Threading.Tasks;
 
 namespace AmericanOptions.OptimalExerciseBoundary
 {
@@ -40,7 +41,7 @@ namespace AmericanOptions.OptimalExerciseBoundary
             return bt;
         }
 
-        public BtResult CalculateBtK(double r, double sigma, double t, double K, double S, int n, double T, BtResult BtK_1)
+        public async Task<BtResult> CalculateBtKAsync(double r, double sigma, double t, double K, double S, int n, double T, BtResult BtK_1)
         {
             BtResult bt = new BtResult();
 
@@ -48,7 +49,7 @@ namespace AmericanOptions.OptimalExerciseBoundary
             bt.IntegralPointD2 = _integralPoints.CalculateIntegralPointD2(bt.IntegralPointD1, sigma, t);
             bt.Distribution = _distribution.CumulativeDistribution(bt.IntegralPointD1.Result.Value);
             bt.a = CalculateAValue(sigma, t);
-            bt.IntegralFunction = _btIntegralFunction.Calculate(n, T, r, sigma, t, bt.IntegralPointD2);
+            bt.IntegralFunction = await _btIntegralFunction.CalculateAsync(n, T, r, sigma, t, bt.IntegralPointD2);
             bt.Result.Value = CalculateBtValue(sigma, K, r, t, bt);
 
             return bt;

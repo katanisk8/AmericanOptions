@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AmericanOptions.Model;
 
 namespace AmericanOptions.OptimalExerciseBoundary
 {
     public class BtIntegralFunction : IBtIntegralFunction
     {
-        public IntegralFunction Calculate(int n, double T, double r, double sigma, double t, IntegralPoint D2)
+        public async Task<IntegralFunction> CalculateAsync(int n, double T, double r, double sigma, double t, IntegralPoint D2)
         {
             IntegralFunction integralFunction = new IntegralFunction();
             UnderIntegral[] underIntegral = new UnderIntegral[n];

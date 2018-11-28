@@ -2,6 +2,7 @@
 using AmericanOptions.Model;
 using MathNet.Numerics.Distributions;
 using System;
+using System.Threading.Tasks;
 
 namespace AmericanOptions.PutOptions
 {
@@ -16,7 +17,7 @@ namespace AmericanOptions.PutOptions
             _distribution = distribution;
         }
 
-        public IntegralFunction Calculate(int n, double T, double r, double sigma, double t, double S, double K, BtResult Btksi)
+        public async Task<IntegralFunction> CalculateAsync(int n, double T, double r, double sigma, double t, double S, double K, BtResult Btksi)
         {
             IntegralFunction integralFunction = new IntegralFunction();
             UnderIntegral[] underIntegral = new UnderIntegral[n];
