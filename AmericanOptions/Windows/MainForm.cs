@@ -44,12 +44,15 @@ namespace AmericanOptions.Windows
       {
          try
          {
-            ClearResults();
-            ValidateInputs();
-            AssignVariables();
-            PrepareProgressBar();
+            if (!_worker.IsBusy)
+            {
+               ClearResults();
+               ValidateInputs();
+               AssignVariables();
+               PrepareProgressBar();
 
-            _worker.RunWorkerAsync();
+               _worker.RunWorkerAsync();
+            }
          }
          catch (Exception ex)
          {
@@ -70,15 +73,17 @@ namespace AmericanOptions.Windows
 
       private void ProgressChanged(object sender, ProgressChangedEventArgs e)
       {
-         CalculatorResult result = e.UserState as CalculatorResult;
-
-         string[] subItem = {
+         if (e.UserState is CalculatorResult result)
+         {
+            string[] subItem = {
                result.ResultNumber.ToString(),
                result.BtResult.Result.RoundedValue.ToString(),
                result.PutResult.Result.RoundedValue.ToString()
             };
 
-         ResultListView.Items.Add(new ListViewItem(subItem));
+            ResultListView.Items.Add(new ListViewItem(subItem));
+         }
+
          CalculateProgressBar.Value = e.ProgressPercentage;
       }
 
@@ -86,35 +91,34 @@ namespace AmericanOptions.Windows
       {
          if (e.Cancelled)
          {
-            MessageBox.Show("Calulation has been canceled.");
+            MessageBox.Show("Processing cancelled.");
          }
-         else if (e.Error != null)
+         if (e.Error != null)
          {
             throw new Exception(e.Error.Message);
          }
 
-         CalculateProgressBar.Maximum = CalculateProgressBar.Value;
+         EndProgressBar();
       }
 
       private void PrepareWorker()
       {
-         _worker.WorkerSupportsCancellation = true;
          _worker.WorkerReportsProgress = true;
-         _worker.DoWork += Calculate;
+         _worker.WorkerSupportsCancellation = true;
          _worker.ProgressChanged += ProgressChanged;
          _worker.RunWorkerCompleted += RunWorkerCompleted;
+         _worker.DoWork += Calculate;
       }
 
       private async void Calculate(object sender, DoWorkEventArgs e)
       {
-
          if (_worker.CancellationPending)
          {
             e.Cancel = true;
          }
          else
          {
-            double Btk_1; 
+            double Btk_1;
             CalculatorResult result;
 
             // k=0
@@ -126,7 +130,14 @@ namespace AmericanOptions.Windows
                volatilitySigma,
                numberOfNodes,
                timeToMaturity);
+
             _worker.ReportProgress(0, result);
+
+            if (_worker.CancellationPending)
+            {
+               e.Cancel = true;
+               return;
+            }
 
             // k=1
             result = await _calculator.CalculateBtK1Async(
@@ -137,8 +148,15 @@ namespace AmericanOptions.Windows
                volatilitySigma,
                numberOfNodes,
                timeToMaturity);
+
             Btk_1 = result.BtResult.Result.Value;
             _worker.ReportProgress(1, result);
+
+            if (_worker.CancellationPending)
+            {
+               e.Cancel = true;
+               return;
+            }
 
             // k>1
             for (int i = 2; i < numberOfIterration; i++)
@@ -153,8 +171,15 @@ namespace AmericanOptions.Windows
                   timeToMaturity,
                   i,
                   Btk_1);
+
                Btk_1 = result.BtResult.Result.Value;
                _worker.ReportProgress(i, result);
+
+               if (_worker.CancellationPending)
+               {
+                  e.Cancel = true;
+                  return;
+               }
 
                if (double.IsNaN(result.BtResult.Result.Value))
                {
@@ -212,6 +237,11 @@ namespace AmericanOptions.Windows
       private void PrepareProgressBar()
       {
          CalculateProgressBar.Maximum = numberOfIterration * 2 - 1;
+      }
+
+      private void EndProgressBar()
+      {
+         CalculateProgressBar.Maximum = CalculateProgressBar.Value;
       }
 
       private void ClearAll()
