@@ -41,11 +41,11 @@ namespace AmericanOptions.OptimalExerciseBoundary
             return bt;
         }
 
-        public async Task<BtResult> CalculateBtKAsync(double r, double sigma, double t, double K, double S, int n, double T, BtResult BtK_1)
+        public async Task<BtResult> CalculateBtKAsync(double r, double sigma, double t, double K, double S, int n, double T, double BtK_1)
         {
             BtResult bt = new BtResult();
 
-            bt.IntegralPointD1 = _integralPoints.CalculateIntegralPointD1(BtK_1.Result.Value, K, r, sigma, t);
+            bt.IntegralPointD1 = _integralPoints.CalculateIntegralPointD1(BtK_1, K, r, sigma, t);
             bt.IntegralPointD2 = _integralPoints.CalculateIntegralPointD2(bt.IntegralPointD1, sigma, t);
             bt.Distribution = _distribution.CumulativeDistribution(bt.IntegralPointD1.Result.Value);
             bt.a = CalculateAValue(sigma, t);

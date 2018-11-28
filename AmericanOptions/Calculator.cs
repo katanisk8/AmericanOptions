@@ -26,7 +26,7 @@ namespace AmericanOptions
 
             for (int i = 2; i < k; i++)
             {
-                results[i] = await CalculateBtKiAsync(K, S, r, t, sigma, n, T, i, results[i - 1].BtResult);
+                results[i] = await CalculateBtKiAsync(K, S, r, t, sigma, n, T, i, results[i - 1].BtResult.Result.Value);
 
                 if (double.IsNaN(results[i].BtResult.Result.Value))
                 {
@@ -60,7 +60,7 @@ namespace AmericanOptions
             return result;
         }
 
-        public async Task<CalculatorResult> CalculateBtKiAsync(double K, double S, double r, double t, double sigma, int n, double T, int i, BtResult BtK_1)
+        public async Task<CalculatorResult> CalculateBtKiAsync(double K, double S, double r, double t, double sigma, int n, double T, int i, double BtK_1)
         {
             CalculatorResult result = new CalculatorResult();
 

@@ -72,11 +72,11 @@ namespace AmericanOptions.Windows
       {
          CalculatorResult result = e.UserState as CalculatorResult;
 
-         string[] subItem = new string[] {
-            result.ResultNumber.ToString(),
-            result.BtResult.Result.RoundedValue.ToString(),
-            result.PutResult.Result.RoundedValue.ToString()
-         };
+         string[] subItem = {
+               result.ResultNumber.ToString(),
+               result.BtResult.Result.RoundedValue.ToString(),
+               result.PutResult.Result.RoundedValue.ToString()
+            };
 
          ResultListView.Items.Add(new ListViewItem(subItem));
          CalculateProgressBar.Value = e.ProgressPercentage;
@@ -92,7 +92,7 @@ namespace AmericanOptions.Windows
          {
             throw new Exception(e.Error.Message);
          }
-         
+
          CalculateProgressBar.Maximum = CalculateProgressBar.Value;
       }
 
@@ -107,16 +107,18 @@ namespace AmericanOptions.Windows
 
       private async void Calculate(object sender, DoWorkEventArgs e)
       {
-         CalculatorResult[] results = new CalculatorResult[numberOfIterration];
-         
+
          if (_worker.CancellationPending)
          {
             e.Cancel = true;
          }
          else
          {
+            double Btk_1; 
+            CalculatorResult result;
+
             // k=0
-            results[0] = await _calculator.CalculateK0Async(
+            result = await _calculator.CalculateK0Async(
                strikePrice,
                stockPrice,
                riskFreeRate,
@@ -124,10 +126,10 @@ namespace AmericanOptions.Windows
                volatilitySigma,
                numberOfNodes,
                timeToMaturity);
-            _worker.ReportProgress(0, results[0]);
-            
+            _worker.ReportProgress(0, result);
+
             // k=1
-            results[1] = await _calculator.CalculateBtK1Async(
+            result = await _calculator.CalculateBtK1Async(
                strikePrice,
                stockPrice,
                riskFreeRate,
@@ -135,12 +137,13 @@ namespace AmericanOptions.Windows
                volatilitySigma,
                numberOfNodes,
                timeToMaturity);
-            _worker.ReportProgress(1, results[1]);
+            Btk_1 = result.BtResult.Result.Value;
+            _worker.ReportProgress(1, result);
 
             // k>1
             for (int i = 2; i < numberOfIterration; i++)
             {
-               results[i] = await _calculator.CalculateBtKiAsync(
+               result = await _calculator.CalculateBtKiAsync(
                   strikePrice,
                   stockPrice,
                   riskFreeRate,
@@ -149,17 +152,17 @@ namespace AmericanOptions.Windows
                   numberOfNodes,
                   timeToMaturity,
                   i,
-                  results[i - 1].BtResult);
-               _worker.ReportProgress(i, results[i]);
+                  Btk_1);
+               Btk_1 = result.BtResult.Result.Value;
+               _worker.ReportProgress(i, result);
 
-               if (double.IsNaN(results[i].BtResult.Result.Value))
+               if (double.IsNaN(result.BtResult.Result.Value))
                {
-                  Array.Resize(ref results, i);
                   break;
                }
             }
 
-            e.Result = results;
+            e.Result = result;
          }
       }
 
