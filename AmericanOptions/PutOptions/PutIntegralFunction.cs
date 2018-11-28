@@ -1,6 +1,7 @@
 ﻿using AmericanOptions.Helpers;
 using MathNet.Numerics.Distributions;
 using System;
+using System.Threading.Tasks;
 
 namespace AmericanOptions.PutOptions
 {
@@ -15,7 +16,7 @@ namespace AmericanOptions.PutOptions
             _dist = dist;
         }
 
-        public double Calculate(int n, double T, double r, double sigma, double t, double S, double K, double Btksi)
+        public async Task<double> Calculate(int n, double T, double r, double sigma, double t, double S, double K, double Btksi)
         {
             double result = 0;
 

@@ -1,4 +1,6 @@
-﻿namespace AmericanOptions.PutOptions
+﻿using System.Threading.Tasks;
+
+namespace AmericanOptions.PutOptions
 {
    public class AmercianPut : IAmercianPut
    {
@@ -11,10 +13,10 @@
          _putIntegralFunction = putIntegralFunction;
       }
 
-      public double Calculate(double K, double S, double r, double t, double sigma, int n, double T, double Btksi)
+      public async Task<double> Calculate(double K, double S, double r, double t, double sigma, int n, double T, double Btksi)
       {
          double europeanPutValue = _europeanPut.Calculate(K, S, r, t, sigma);
-         double putIntegralFunctionValue = _putIntegralFunction.Calculate(n, T, r, sigma, t, S, K, Btksi);
+         double putIntegralFunctionValue = await _putIntegralFunction.Calculate(n, T, r, sigma, t, S, K, Btksi);
 
          return europeanPutValue + putIntegralFunctionValue;
       }

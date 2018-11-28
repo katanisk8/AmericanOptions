@@ -1,7 +1,9 @@
-﻿namespace AmericanOptions.OptimalExerciseBoundary
+﻿using System.Threading.Tasks;
+
+namespace AmericanOptions.OptimalExerciseBoundary
 {
     public interface IBtIntegralFunction
     {
-        double Calculate(int n, double T, double r, double sigma, double t, double d2);
+       Task<double> Calculate(int n, double T, double r, double sigma, double t, double d2);
     }
 }
