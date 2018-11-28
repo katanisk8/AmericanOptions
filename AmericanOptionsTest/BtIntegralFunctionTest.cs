@@ -14,11 +14,11 @@ namespace AmericanOptionsTest
 
 
         [Fact]
-        public async void CalculateTest()
+        public void CalculateTest()
         {
             BtIntegralFunction integral = new BtIntegralFunction();
 
-            double integralValue = await integral.Calculate(n, T, r, sigma, t, d2);
+            double integralValue = integral.Calculate(n, T, r, sigma, t, d2);
 
             Assert.Equal(0.33245806127914307, integralValue);
         }

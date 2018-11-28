@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace AmericanOptions.OptimalExerciseBoundary
 {
     public class BtIntegralFunction : IBtIntegralFunction
     {
-        public async Task<double> Calculate(int n, double T, double r, double sigma, double t, double d2)
+        public double Calculate(int n, double T, double r, double sigma, double t, double d2)
         {
             double result = 0;
 
