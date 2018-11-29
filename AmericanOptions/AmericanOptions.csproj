@@ -99,7 +99,8 @@
     <Compile Include="Calculator.cs" />
     <Compile Include="ClickHelpers\Cleaner.cs" />
     <Compile Include="ClickHelpers\ICleaner.cs" />
-    <Compile Include="Helpers\MemoryMeter.cs" />
+    <Compile Include="Helpers\IMemoryMeasurer.cs" />
+    <Compile Include="Helpers\MemoryMeasurer.cs" />
     <Compile Include="Helpers\ProgramStatus.cs" />
     <Compile Include="Helpers\IIntegralPoints.cs" />
     <Compile Include="Model\BtResult.cs" />

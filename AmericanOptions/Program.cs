@@ -33,6 +33,7 @@ namespace AmericanOptions
          container.RegisterType<ICalculator, Calculator>();
          container.RegisterType<IInputsValidator, InputsValidator>();
          container.RegisterType<ICleaner, Cleaner>();
+         container.RegisterType<IMemoryMeasurer, MemoryMeasurer>();
          container.RegisterType<BackgroundWorker, BackgroundWorker>();
          container.RegisterType<IContainerControl, MainForm>();
 

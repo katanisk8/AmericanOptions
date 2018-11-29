@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Globalization;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using AmericanOptions.ClickHelpers;
 using AmericanOptions.Helpers;
@@ -15,6 +13,7 @@ namespace AmericanOptions.Windows
       private readonly ICalculator _calculator;
       private readonly IInputsValidator _validator;
       private readonly ICleaner _cleaner;
+      private readonly IMemoryMeasurer _measurer;
       private BackgroundWorker _worker;
 
       // Inputs
@@ -27,11 +26,12 @@ namespace AmericanOptions.Windows
       private int numberOfNodes;
       private double timeToMaturity;
 
-      public MainForm(ICalculator calculator, IInputsValidator validator, ICleaner cleaner, BackgroundWorker worker)
+      public MainForm(ICalculator calculator, IInputsValidator validator, ICleaner cleaner, IMemoryMeasurer measurer, BackgroundWorker worker)
       {
          _calculator = calculator;
          _validator = validator;
          _cleaner = cleaner;
+         _measurer = measurer;
          _worker = worker;
 
          InitializeComponent();
@@ -42,7 +42,7 @@ namespace AmericanOptions.Windows
       {
          AssignDefaultVariables();
          SetStatusLabel(Status.Ready);
-         Async();
+         SetMemoryLabelAsync();
       }
 
       private void CalculateButton_Click(object sender, EventArgs e)
@@ -59,10 +59,10 @@ namespace AmericanOptions.Windows
                ValidateInputs();
                AssignVariables();
                PrepareProgressBar();
+               SetStatusLabel(Status.Running);
 
                _worker.RunWorkerAsync();
 
-               SetStatusLabel(Status.Running);
             }
          }
          catch (Exception ex)
@@ -107,7 +107,7 @@ namespace AmericanOptions.Windows
             };
 
             ResultListView.Items.Add(new ListViewItem(subItem));
-            Async(result);
+            SetMemoryLabelAsync(result);
          }
 
          CalculateProgressBar.Value = e.ProgressPercentage;
@@ -273,18 +273,18 @@ namespace AmericanOptions.Windows
          StripStatusLabel.Text = $@"{ProgramStatus.GetStatus(status)}: {info}";
       }
 
-      private async void Async(CalculatorResult result = null)
+      private async void SetMemoryLabelAsync(CalculatorResult result = null)
       {
+         string totalMemory = await _measurer.GetTotalMemoryWithSuffixAsync();
+
          if (result != null)
          {
-            string totalMemory = await MemoryMeter.GetTotalMemoryWithSuffixAsync();
-            string resultMemory = await MemoryMeter.GetObjectSizeWithSuffixAsync(result);
-
+            string resultMemory = await _measurer.GetObjectSizeWithSuffixAsync(result);
             MemoryLabel.Text = $@"{totalMemory}/{resultMemory}";
          }
          else
          {
-            MemoryLabel.Text = await MemoryMeter.GetTotalMemoryWithSuffixAsync();
+            MemoryLabel.Text = totalMemory;
          }
       }
 

@@ -1,23 +1,22 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 
 namespace AmericanOptions.Helpers
 {
-   public class MemoryMeter
+   public class MemoryMeasurer : IMemoryMeasurer
    {
       static readonly string[] SizeSuffixes = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
 
-      public static async Task<string> GetTotalMemoryWithSuffixAsync()
+      public async Task<string> GetTotalMemoryWithSuffixAsync()
       {
          var totalMemory = GC.GetTotalMemory(true);
          var totalMemory64 = Convert.ToInt64(totalMemory);
          return await SizeSuffix(totalMemory64, 2);
       }
 
-      public static async Task<string> GetObjectSizeWithSuffixAsync(object obj)
+      public async Task<string> GetObjectSizeWithSuffixAsync(object obj)
       {
          var objSize = GetObjectSize(obj);
          var objSize64 = Convert.ToInt64(objSize);
