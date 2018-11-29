@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
 
 namespace AmericanOptions.Helpers
 {
@@ -8,7 +10,21 @@ namespace AmericanOptions.Helpers
    {
       static readonly string[] SizeSuffixes = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
 
-      public static int GetObjectSize(object obj)
+      public static async Task<string> GetTotalMemoryWithSuffixAsync()
+      {
+         var totalMemory = GC.GetTotalMemory(true);
+         var totalMemory64 = Convert.ToInt64(totalMemory);
+         return await SizeSuffix(totalMemory64, 2);
+      }
+
+      public static async Task<string> GetObjectSizeWithSuffixAsync(object obj)
+      {
+         var objSize = GetObjectSize(obj);
+         var objSize64 = Convert.ToInt64(objSize);
+         return await SizeSuffix(objSize64, 2);
+      }
+
+      private static int GetObjectSize(object obj)
       {
          using (MemoryStream ms = new MemoryStream())
          {
@@ -18,21 +34,8 @@ namespace AmericanOptions.Helpers
             return ms.ToArray().Length;
          }
       }
-      public static string GetObjectSizeWithSuffix()
-      {
-         var objSize = GC.GetTotalMemory(true);
-         var objSize64 = Convert.ToInt64(objSize);
-         return SizeSuffix(objSize64, 2);
-      }
 
-      public static string GetObjectSizeWithSuffix(object obj)
-      {
-         var objSize = GetObjectSize(obj);
-         var objSize64 = Convert.ToInt64(objSize);
-         return SizeSuffix(objSize64, 2);
-      }
-
-      private static string SizeSuffix(Int64 value, int decimalPlaces = 1)
+      private static async Task<string> SizeSuffix(Int64 value, int decimalPlaces = 1)
       {
          if (decimalPlaces < 0) { throw new ArgumentOutOfRangeException("decimalPlaces"); }
          if (value < 0) { return "-" + SizeSuffix(-value); }

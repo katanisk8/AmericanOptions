@@ -41,7 +41,7 @@ namespace AmericanOptions.Windows
       {
          AssignDefaultVariables();
          SetStatusLabel(Status.Ready);
-         SetMemoryLabel();
+         Async();
       }
 
       private void CalculateButton_Click(object sender, EventArgs e)
@@ -106,7 +106,7 @@ namespace AmericanOptions.Windows
             };
 
             ResultListView.Items.Add(new ListViewItem(subItem));
-            SetMemoryLabel(result);
+            Async(result);
          }
 
          CalculateProgressBar.Value = e.ProgressPercentage;
@@ -269,17 +269,22 @@ namespace AmericanOptions.Windows
 
       private void SetStatusLabel(Status status, string info)
       {
-         StripStatusLabel.Text = $"{ProgramStatus.GetStatus(status)}: {info}";
+         StripStatusLabel.Text = $@"{ProgramStatus.GetStatus(status)}: {info}";
       }
 
-      private void SetMemoryLabel()
+      private async void Async(CalculatorResult result = null)
       {
-         MemoryLabel.Text = MemoryMeter.GetObjectSizeWithSuffix();
-      }
+         if (result != null)
+         {
+            string totalMemory = await MemoryMeter.GetTotalMemoryWithSuffixAsync();
+            string resultMemory = await MemoryMeter.GetObjectSizeWithSuffixAsync(result);
 
-      private void SetMemoryLabel(CalculatorResult result)
-      {
-         MemoryLabel.Text = MemoryMeter.GetObjectSizeWithSuffix(result);
+            MemoryLabel.Text = $@"{totalMemory}/{resultMemory}";
+         }
+         else
+         {
+            MemoryLabel.Text = await MemoryMeter.GetTotalMemoryWithSuffixAsync();
+         }
       }
 
       private void PrepareProgressBar()
