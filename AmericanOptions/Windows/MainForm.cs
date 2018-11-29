@@ -48,14 +48,7 @@ namespace AmericanOptions.Windows
          {
             if (_worker.IsBusy)
             {
-               if (_worker.CancellationPending)
-               {
-                  SetStatusLabel(Status.Canceling, "Worker is busy!");
-               }
-               else
-               {
-                  SetStatusLabel(Status.Running, "Worker is busy!");
-               }
+               SetStatusLabel(_worker.CancellationPending ? Status.Canceling : Status.Running, "Worker is busy!");
             }
             else
             {
@@ -122,13 +115,14 @@ namespace AmericanOptions.Windows
          {
             SetStatusLabel(Status.Canceled);
          }
+         
+         EndProgressBar();
+         SetStatusLabel(Status.Completed);
+
          if (e.Error != null)
          {
             throw new Exception(e.Error.Message);
          }
-
-         EndProgressBar();
-         SetStatusLabel(Status.Completed);
       }
 
       private void PrepareWorker()
@@ -205,19 +199,13 @@ namespace AmericanOptions.Windows
                Btk_1 = result.BtResult.Result.Value;
                _worker.ReportProgress(i, result);
 
-               if (_worker.CancellationPending)
+               if (_worker.CancellationPending ||
+                   double.IsNaN(result.BtResult.Result.Value))
                {
                   e.Cancel = true;
                   return;
                }
-
-               if (double.IsNaN(result.BtResult.Result.Value))
-               {
-                  break;
-               }
             }
-
-            e.Result = result;
          }
       }
 

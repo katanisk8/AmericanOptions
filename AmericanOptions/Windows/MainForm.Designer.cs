@@ -288,12 +288,14 @@
          // 
          // MainStatusStrip
          // 
+         this.MainStatusStrip.Font = new System.Drawing.Font("Segoe UI", 8F);
          this.MainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CalculateProgressBar,
             this.StripStatusLabel});
          this.MainStatusStrip.Location = new System.Drawing.Point(0, 320);
          this.MainStatusStrip.Name = "MainStatusStrip";
          this.MainStatusStrip.Size = new System.Drawing.Size(451, 22);
+         this.MainStatusStrip.SizingGrip = false;
          this.MainStatusStrip.TabIndex = 15;
          this.MainStatusStrip.Text = "statusStrip1";
          // 
