@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using AmericanOptions.ClickHelpers;
@@ -118,7 +119,7 @@ namespace AmericanOptions.Windows
          {
             SetStatusLabel(Status.Canceled);
          }
-         
+
          EndProgressBar();
          SetStatusLabel(Status.Completed);
 
@@ -175,7 +176,7 @@ namespace AmericanOptions.Windows
                volatilitySigma,
                numberOfNodes,
                timeToMaturity);
-            
+
             Btk_1 = result.BtResult.Result.Value;
             _worker.ReportProgress(1, result);
 
@@ -198,7 +199,7 @@ namespace AmericanOptions.Windows
                   timeToMaturity,
                   i,
                   Btk_1);
-               
+
                Btk_1 = result.BtResult.Result.Value;
                _worker.ReportProgress(i, result);
 
@@ -226,8 +227,8 @@ namespace AmericanOptions.Windows
          _validator.ValidateInput(TauTextBox);
          _validator.ValidateInput(StrikePriceTextBox);
          _validator.ValidateInput(StockPriceTextBox);
-         _validator.ValidateInput(NumberOfIterationTextBox);
-         _validator.ValidateInput(NumberOfNodesTextBox);
+         _validator.ValidateIterationNumber(NumberOfIterationTextBox, 99999);
+         _validator.ValidateIterationNumber(NumberOfNodesTextBox, 999);
          _validator.ValidateInput(StockPriceTextBox);
          _validator.ValidateInput(TimeToMaturityTextBox);
          SetStatusLabel(Status.Validated);

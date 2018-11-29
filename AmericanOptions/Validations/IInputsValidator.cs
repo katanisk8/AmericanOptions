@@ -2,8 +2,9 @@
 
 namespace AmericanOptions.Validations
 {
-    public interface IInputsValidator
-    {
-        void ValidateInput(Control control);
-    }
+   public interface IInputsValidator
+   {
+      void ValidateInput(Control control);
+      void ValidateIterationNumber(Control numberOfIteration, int maxValue);
+   }
 }

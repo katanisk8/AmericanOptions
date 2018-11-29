@@ -4,55 +4,65 @@ using System.Windows.Forms;
 
 namespace AmericanOptions.Validations
 {
-    public class InputsValidator : IInputsValidator
-    {
-        public void ValidateInput(Control control)
-        {
-            ValidateText(control);
-            ValidateNumber(control);
-        }
+   public class InputsValidator : IInputsValidator
+   {
+      public void ValidateInput(Control control)
+      {
+         ValidateText(control);
+         ValidateNumber(control);
+      }
 
-        private void ValidateText(Control control)
-        {
-            string inputText = control.Text;
+      public void ValidateIterationNumber(Control control, int maxValue)
+      {
+         ValidateText(control);
+         double numberOfIterration = ValidateNumber(control);
 
-            if (string.IsNullOrEmpty(inputText) || string.IsNullOrWhiteSpace(inputText))
-            {
-                string message = string.Format("Input \"{0}\" cannot be empty!", control.Tag);
-                SetControlInExceptionMode(control);
-                throw new Exception(message);
-            }
-            else
-            {
-                SetControlInNormalMode(control);
-            }
-        }
+         if (numberOfIterration > maxValue)
+         {
+            SetControlInExceptionMode(control);
+            throw new Exception($"Max value for \"{control.Tag}\" is {maxValue}");
+         }
 
-        private void ValidateNumber(Control control)
-        {
-            string inputText = control.Text;
+         SetControlInNormalMode(control);
+      }
 
-            if (!double.TryParse(inputText, out double result))
-            {
-                string message = string.Format("Input \"{0}\" must be a number!", control.Tag);
-                SetControlInExceptionMode(control);
-                throw new Exception(message);
-            }
-            else
-            {
-                SetControlInNormalMode(control);
-            }
-        }
+      private void ValidateText(Control control)
+      {
+         string inputText = control.Text;
 
-        private void SetControlInExceptionMode(Control control)
-        {
-            control.BackColor = Color.IndianRed;
-            control.Select();
-        }
+         if (string.IsNullOrEmpty(inputText) || string.IsNullOrWhiteSpace(inputText))
+         {
+            string message = $"Input \"{control.Tag}\" cannot be empty!";
+            SetControlInExceptionMode(control);
+            throw new Exception(message);
+         }
 
-        private void SetControlInNormalMode(Control control)
-        {
-            control.BackColor = Color.White;
-        }
-    }
+         SetControlInNormalMode(control);
+      }
+
+      private double ValidateNumber(Control control)
+      {
+         if (!double.TryParse(control.Text, out double result))
+         {
+            string message = $"Input \"{control.Tag}\" must be a number!";
+            SetControlInExceptionMode(control);
+            throw new Exception(message);
+         }
+
+         SetControlInNormalMode(control);
+
+         return result;
+      }
+
+      private void SetControlInExceptionMode(Control control)
+      {
+         control.BackColor = Color.IndianRed;
+         control.Select();
+      }
+
+      private void SetControlInNormalMode(Control control)
+      {
+         control.BackColor = Color.White;
+      }
+   }
 }
