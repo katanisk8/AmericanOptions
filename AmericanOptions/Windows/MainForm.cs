@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using AmericanOptions.ClickHelpers;
 using AmericanOptions.Helpers;
@@ -40,6 +41,7 @@ namespace AmericanOptions.Windows
       {
          AssignDefaultVariables();
          SetStatusLabel(Status.Ready);
+         SetMemoryLabel();
       }
 
       private void CalculateButton_Click(object sender, EventArgs e)
@@ -104,6 +106,7 @@ namespace AmericanOptions.Windows
             };
 
             ResultListView.Items.Add(new ListViewItem(subItem));
+            SetMemoryLabel(result);
          }
 
          CalculateProgressBar.Value = e.ProgressPercentage;
@@ -172,7 +175,7 @@ namespace AmericanOptions.Windows
                volatilitySigma,
                numberOfNodes,
                timeToMaturity);
-
+            
             Btk_1 = result.BtResult.Result.Value;
             _worker.ReportProgress(1, result);
 
@@ -195,7 +198,7 @@ namespace AmericanOptions.Windows
                   timeToMaturity,
                   i,
                   Btk_1);
-
+               
                Btk_1 = result.BtResult.Result.Value;
                _worker.ReportProgress(i, result);
 
@@ -267,6 +270,16 @@ namespace AmericanOptions.Windows
       private void SetStatusLabel(Status status, string info)
       {
          StripStatusLabel.Text = $"{ProgramStatus.GetStatus(status)}: {info}";
+      }
+
+      private void SetMemoryLabel()
+      {
+         MemoryLabel.Text = MemoryMeter.GetObjectSizeWithSuffix();
+      }
+
+      private void SetMemoryLabel(CalculatorResult result)
+      {
+         MemoryLabel.Text = MemoryMeter.GetObjectSizeWithSuffix(result);
       }
 
       private void PrepareProgressBar()

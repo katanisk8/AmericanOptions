@@ -1,5 +1,8 @@
-﻿namespace AmericanOptions.Model
+﻿using System;
+
+namespace AmericanOptions.Model
 {
+   [Serializable]
     public class IntegralFunction
     {
         public UnderIntegral[] UnderIntegral;

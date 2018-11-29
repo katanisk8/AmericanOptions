@@ -2,6 +2,7 @@
 
 namespace AmericanOptions.Model
 {
+   [Serializable]
    public class CalculatorResult : IDisposable
    {
       public int ResultNumber { get; set; }

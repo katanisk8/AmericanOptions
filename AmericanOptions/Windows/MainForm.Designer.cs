@@ -57,6 +57,7 @@
          this.CalculateProgressBar = new System.Windows.Forms.ToolStripProgressBar();
          this.StripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
          this.CancelButton = new System.Windows.Forms.Button();
+         this.MemoryLabel = new System.Windows.Forms.ToolStripStatusLabel();
          this.InputsGroupBox.SuspendLayout();
          this.MainStatusStrip.SuspendLayout();
          this.SuspendLayout();
@@ -290,6 +291,7 @@
          // 
          this.MainStatusStrip.Font = new System.Drawing.Font("Segoe UI", 8F);
          this.MainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MemoryLabel,
             this.CalculateProgressBar,
             this.StripStatusLabel});
          this.MainStatusStrip.Location = new System.Drawing.Point(0, 320);
@@ -319,6 +321,12 @@
          this.CancelButton.Text = "Cancel";
          this.CancelButton.UseVisualStyleBackColor = true;
          this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+         // 
+         // MemoryLabel
+         // 
+         this.MemoryLabel.Name = "MemoryLabel";
+         this.MemoryLabel.Size = new System.Drawing.Size(27, 17);
+         this.MemoryLabel.Text = "Size";
          // 
          // MainForm
          // 
@@ -381,6 +389,7 @@
       private System.Windows.Forms.ToolStripProgressBar CalculateProgressBar;
       private System.Windows.Forms.ToolStripStatusLabel StripStatusLabel;
       private System.Windows.Forms.Button CancelButton;
+      private System.Windows.Forms.ToolStripStatusLabel MemoryLabel;
    }
 }
 

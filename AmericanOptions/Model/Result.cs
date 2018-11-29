@@ -2,6 +2,7 @@
 
 namespace AmericanOptions.Model
 {
+   [Serializable]
     public class Result
     {
         private double value;
