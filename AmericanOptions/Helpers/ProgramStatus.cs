@@ -15,7 +15,8 @@ namespace AmericanOptions.Helpers
          {6,"Cleaned"},
          {7,"Error"},
          {8,"Validating"},
-         {9,"Validated"}
+         {9,"Validated"},
+         {10,"Closing"}
       };
 
       public static string GetStatus(Status status)
@@ -35,6 +36,7 @@ namespace AmericanOptions.Helpers
       Cleaned,
       Error,
       Validating,
-      Validated
+      Validated,
+      Closing
    }
 }

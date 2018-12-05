@@ -1,4 +1,6 @@
-﻿namespace AmericanOptions.Windows
+﻿using System.Windows.Forms;
+
+namespace AmericanOptions.Windows
 {
     partial class MainForm
     {
@@ -54,10 +56,10 @@
          this.BtColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
          this.PutColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
          this.MainStatusStrip = new System.Windows.Forms.StatusStrip();
+         this.MemoryLabel = new System.Windows.Forms.ToolStripStatusLabel();
          this.CalculateProgressBar = new System.Windows.Forms.ToolStripProgressBar();
          this.StripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
          this.CancelButton = new System.Windows.Forms.Button();
-         this.MemoryLabel = new System.Windows.Forms.ToolStripStatusLabel();
          this.InputsGroupBox.SuspendLayout();
          this.MainStatusStrip.SuspendLayout();
          this.SuspendLayout();
@@ -301,6 +303,12 @@
          this.MainStatusStrip.TabIndex = 15;
          this.MainStatusStrip.Text = "statusStrip1";
          // 
+         // MemoryLabel
+         // 
+         this.MemoryLabel.Name = "MemoryLabel";
+         this.MemoryLabel.Size = new System.Drawing.Size(27, 17);
+         this.MemoryLabel.Text = "Size";
+         // 
          // CalculateProgressBar
          // 
          this.CalculateProgressBar.Name = "CalculateProgressBar";
@@ -321,12 +329,6 @@
          this.CancelButton.Text = "Cancel";
          this.CancelButton.UseVisualStyleBackColor = true;
          this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
-         // 
-         // MemoryLabel
-         // 
-         this.MemoryLabel.Name = "MemoryLabel";
-         this.MemoryLabel.Size = new System.Drawing.Size(27, 17);
-         this.MemoryLabel.Text = "Size";
          // 
          // MainForm
          // 
