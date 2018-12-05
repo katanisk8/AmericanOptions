@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading;
 using System.Windows.Forms;
 using AmericanOptions.ClickHelpers;
 using AmericanOptions.Helpers;
 using AmericanOptions.Model;
 using AmericanOptions.Validations;
+using Unity.Interception.Utilities;
 
 namespace AmericanOptions.Windows
 {
@@ -14,7 +17,8 @@ namespace AmericanOptions.Windows
       private readonly IInputsValidator _validator;
       private readonly ICleaner _cleaner;
       private readonly IMemoryMeasurer _measurer;
-      private BackgroundWorker _worker;
+      private readonly BackgroundWorker _worker;
+      private readonly IList<Thread> _bgWorkersThreads;
       private bool _closePending;
 
       // Inputs
@@ -34,6 +38,7 @@ namespace AmericanOptions.Windows
          _cleaner = cleaner;
          _measurer = measurer;
          _worker = worker;
+         _bgWorkersThreads  = new List<Thread>();
 
          InitializeComponent();
          PrepareWorker();
@@ -121,7 +126,6 @@ namespace AmericanOptions.Windows
          EndProgressBar();
 
          if (e.Error != null) throw new Exception(e.Error.Message);
-         if (_closePending) Close();
       }
 
       private void PrepareWorker()
@@ -135,21 +139,14 @@ namespace AmericanOptions.Windows
 
       protected override void OnFormClosing(FormClosingEventArgs e)
       {
-         if (_worker.IsBusy)
-         {
-            SetStatusLabel(Status.Closing);
-            _closePending = true;
-            _worker.CancelAsync();
-            e.Cancel = true;
-            Enabled = false;
-            return;
-         }
-
+         _bgWorkersThreads.ForEach(x => x.Abort());
          base.OnFormClosing(e);
       }
 
       private async void Calculate(object sender, DoWorkEventArgs e)
       {
+         _bgWorkersThreads.Add(Thread.CurrentThread);
+
          if (_worker.CancellationPending)
          {
             e.Cancel = true;
@@ -237,8 +234,8 @@ namespace AmericanOptions.Windows
          _validator.ValidateInput(TauTextBox);
          _validator.ValidateInput(StrikePriceTextBox);
          _validator.ValidateInput(StockPriceTextBox);
-         _validator.ValidateIterationNumber(NumberOfIterationTextBox, 999999999);
-         _validator.ValidateIterationNumber(NumberOfNodesTextBox, 99999999);
+         _validator.ValidateIterationNumber(NumberOfIterationTextBox, 999999);
+         _validator.ValidateIterationNumber(NumberOfNodesTextBox, 99999);
          _validator.ValidateInput(StockPriceTextBox);
          _validator.ValidateInput(TimeToMaturityTextBox);
          SetStatusLabel(Status.Validated);
