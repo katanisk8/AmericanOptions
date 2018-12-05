@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using AmericanOptions.ClickHelpers;
 using AmericanOptions.Helpers;
@@ -52,20 +51,6 @@ namespace AmericanOptions.Windows
 
       }
 
-      protected override void OnFormClosing(FormClosingEventArgs e)
-      {
-         if (_worker.IsBusy)
-         {
-            _closePending = true;
-            _worker.CancelAsync();
-            e.Cancel = true;
-            Enabled = false;
-            return;
-         }
-
-         base.OnFormClosing(e);
-      }
-
       private void CalculateButton_Click(object sender, EventArgs e)
       {
          try
@@ -83,7 +68,6 @@ namespace AmericanOptions.Windows
                SetStatusLabel(Status.Running);
 
                _worker.RunWorkerAsync();
-
             }
          }
          catch (Exception ex)
@@ -94,10 +78,9 @@ namespace AmericanOptions.Windows
 
       private void CancelButton_Click(object sender, EventArgs e)
       {
-         _worker.CancelAsync();
-
          if (_worker.IsBusy)
          {
+            _worker.CancelAsync();
             SetStatusLabel(Status.Canceling);
          }
          else
@@ -117,7 +100,7 @@ namespace AmericanOptions.Windows
          SetStatusLabel(Status.Ready);
       }
 
-      private async void ProgressChanged(object sender, ProgressChangedEventArgs e)
+      private void ProgressChanged(object sender, ProgressChangedEventArgs e)
       {
          if (e.UserState is CalculatorResult result)
          {
@@ -127,9 +110,7 @@ namespace AmericanOptions.Windows
                result.PutResult.Result.RoundedValue.ToString()
             };
 
-
             ResultListView.Items.Add(new ListViewItem(subItem));
-            SetMemoryLabelAsync(result);
             CalculateProgressBar.Value = e.ProgressPercentage;
          }
       }
@@ -150,6 +131,21 @@ namespace AmericanOptions.Windows
          _worker.ProgressChanged += ProgressChanged;
          _worker.RunWorkerCompleted += RunWorkerCompleted;
          _worker.DoWork += Calculate;
+      }
+
+      protected override void OnFormClosing(FormClosingEventArgs e)
+      {
+         if (_worker.IsBusy)
+         {
+            SetStatusLabel(Status.Closing);
+            _closePending = true;
+            _worker.CancelAsync();
+            e.Cancel = true;
+            Enabled = false;
+            return;
+         }
+
+         base.OnFormClosing(e);
       }
 
       private async void Calculate(object sender, DoWorkEventArgs e)
@@ -241,8 +237,8 @@ namespace AmericanOptions.Windows
          _validator.ValidateInput(TauTextBox);
          _validator.ValidateInput(StrikePriceTextBox);
          _validator.ValidateInput(StockPriceTextBox);
-         _validator.ValidateIterationNumber(NumberOfIterationTextBox, 999999);
-         _validator.ValidateIterationNumber(NumberOfNodesTextBox, 9999);
+         _validator.ValidateIterationNumber(NumberOfIterationTextBox, 999999999);
+         _validator.ValidateIterationNumber(NumberOfNodesTextBox, 99999999);
          _validator.ValidateInput(StockPriceTextBox);
          _validator.ValidateInput(TimeToMaturityTextBox);
          SetStatusLabel(Status.Validated);
@@ -255,8 +251,8 @@ namespace AmericanOptions.Windows
          TauTextBox.Text = (1).ToString();
          StrikePriceTextBox.Text = (45).ToString();
          StockPriceTextBox.Text = (45).ToString();
-         NumberOfIterationTextBox.Text = (99999).ToString();
-         NumberOfNodesTextBox.Text = (999).ToString();
+         NumberOfIterationTextBox.Text = (16).ToString();
+         NumberOfNodesTextBox.Text = (4).ToString();
          TimeToMaturityTextBox.Text = (1).ToString();
       }
 
@@ -274,7 +270,7 @@ namespace AmericanOptions.Windows
 
       private void SetStatusLabel(Status status)
       {
-         StripStatusLabel.Text = $"{ProgramStatus.GetStatus(status)}...";
+         StripStatusLabel.Text = $@"{ProgramStatus.GetStatus(status)}...";
       }
 
       private void SetStatusLabel(string info)
@@ -287,17 +283,9 @@ namespace AmericanOptions.Windows
          StripStatusLabel.Text = $@"{ProgramStatus.GetStatus(status)}: {info}";
       }
 
-      private async void SetMemoryLabelAsync(CalculatorResult result = null)
+      private async void SetMemoryLabelAsync()
       {
-         string totalMemory = await _measurer.GetTotalMemoryWithSuffixAsync();
-
-         if (result != null)
-         {
-            //string resultMemory = await _measurer.GetObjectSizeWithSuffixAsync(result);
-            //MemoryLabel.Text = $@"{totalMemory}/{resultMemory}";
-         }
-         MemoryLabel.Text = totalMemory;
-
+         MemoryLabel.Text = await _measurer.GetTotalMemoryWithSuffixAsync();
       }
 
       private void PrepareProgressBar()
@@ -316,6 +304,11 @@ namespace AmericanOptions.Windows
          _cleaner.CleanTextBoxes(InputsGroupBox);
          ClearResults();
          SetStatusLabel(Status.Cleaned);
+      }
+
+      private void UpdateTimer_Tick(object sender, EventArgs e)
+      {
+         SetMemoryLabelAsync();
       }
    }
 }

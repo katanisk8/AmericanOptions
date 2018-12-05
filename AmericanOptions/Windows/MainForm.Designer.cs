@@ -2,34 +2,35 @@
 
 namespace AmericanOptions.Windows
 {
-    partial class MainForm
-    {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+   partial class MainForm
+   {
+      /// <summary>
+      /// Required designer variable.
+      /// </summary>
+      private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+      /// <summary>
+      /// Clean up any resources being used.
+      /// </summary>
+      /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+      protected override void Dispose(bool disposing)
+      {
+         if (disposing && (components != null))
+         {
+            components.Dispose();
+         }
+         base.Dispose(disposing);
+      }
 
-        #region Windows Form Designer generated code
+      #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
+      /// <summary>
+      /// Required method for Designer support - do not modify
+      /// the contents of this method with the code editor.
+      /// </summary>
+      private void InitializeComponent()
+      {
+         this.components = new System.ComponentModel.Container();
          System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
          this.CalculateButton = new System.Windows.Forms.Button();
          this.InputsGroupBox = new System.Windows.Forms.GroupBox();
@@ -60,6 +61,7 @@ namespace AmericanOptions.Windows
          this.CalculateProgressBar = new System.Windows.Forms.ToolStripProgressBar();
          this.StripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
          this.CancelButton = new System.Windows.Forms.Button();
+         this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
          this.InputsGroupBox.SuspendLayout();
          this.MainStatusStrip.SuspendLayout();
          this.SuspendLayout();
@@ -330,6 +332,12 @@ namespace AmericanOptions.Windows
          this.CancelButton.UseVisualStyleBackColor = true;
          this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
          // 
+         // UpdateTimer
+         // 
+         this.UpdateTimer.Enabled = true;
+         this.UpdateTimer.Interval = 1000;
+         this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
+         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -359,39 +367,40 @@ namespace AmericanOptions.Windows
          this.ResumeLayout(false);
          this.PerformLayout();
 
-        }
+      }
 
-        #endregion
+      #endregion
 
-        private System.Windows.Forms.Button CalculateButton;
-        private System.Windows.Forms.GroupBox InputsGroupBox;
-        private System.Windows.Forms.TextBox TimeToMaturityTextBox;
-        private System.Windows.Forms.Label TimeToMaturityLabel;
-        private System.Windows.Forms.TextBox StrikePriceTextBox;
-        private System.Windows.Forms.Label StrikePriceLabel;
-        private System.Windows.Forms.Label NumberOfIterationLabel;
-        private System.Windows.Forms.TextBox StockPriceTextBox;
-        private System.Windows.Forms.Label StockPriceLabel;
-        private System.Windows.Forms.TextBox TauTextBox;
-        private System.Windows.Forms.Label TauLabel;
-        private System.Windows.Forms.TextBox RiskFreeRateTextBox;
-        private System.Windows.Forms.Label RiskFreeRateLabel;
-        private System.Windows.Forms.TextBox VolatilitySigmaTextBox;
-        private System.Windows.Forms.Label VolatilitySigmaLabel;
-        private System.Windows.Forms.Button ClearButton;
-        private System.Windows.Forms.Label NumberOfNodesLabel;
-        private System.Windows.Forms.Button DefaultButton;
-        private System.Windows.Forms.TextBox NumberOfNodesTextBox;
-        private System.Windows.Forms.TextBox NumberOfIterationTextBox;
-        private System.Windows.Forms.ColumnHeader IterationColumn;
-        private System.Windows.Forms.ColumnHeader BtColumn;
-        private System.Windows.Forms.ColumnHeader PutColumn;
-        private System.Windows.Forms.ListView ResultListView;
+      private System.Windows.Forms.Button CalculateButton;
+      private System.Windows.Forms.GroupBox InputsGroupBox;
+      private System.Windows.Forms.TextBox TimeToMaturityTextBox;
+      private System.Windows.Forms.Label TimeToMaturityLabel;
+      private System.Windows.Forms.TextBox StrikePriceTextBox;
+      private System.Windows.Forms.Label StrikePriceLabel;
+      private System.Windows.Forms.Label NumberOfIterationLabel;
+      private System.Windows.Forms.TextBox StockPriceTextBox;
+      private System.Windows.Forms.Label StockPriceLabel;
+      private System.Windows.Forms.TextBox TauTextBox;
+      private System.Windows.Forms.Label TauLabel;
+      private System.Windows.Forms.TextBox RiskFreeRateTextBox;
+      private System.Windows.Forms.Label RiskFreeRateLabel;
+      private System.Windows.Forms.TextBox VolatilitySigmaTextBox;
+      private System.Windows.Forms.Label VolatilitySigmaLabel;
+      private System.Windows.Forms.Button ClearButton;
+      private System.Windows.Forms.Label NumberOfNodesLabel;
+      private System.Windows.Forms.Button DefaultButton;
+      private System.Windows.Forms.TextBox NumberOfNodesTextBox;
+      private System.Windows.Forms.TextBox NumberOfIterationTextBox;
+      private System.Windows.Forms.ColumnHeader IterationColumn;
+      private System.Windows.Forms.ColumnHeader BtColumn;
+      private System.Windows.Forms.ColumnHeader PutColumn;
+      private System.Windows.Forms.ListView ResultListView;
       private System.Windows.Forms.StatusStrip MainStatusStrip;
       private System.Windows.Forms.ToolStripProgressBar CalculateProgressBar;
       private System.Windows.Forms.ToolStripStatusLabel StripStatusLabel;
       private System.Windows.Forms.Button CancelButton;
       private System.Windows.Forms.ToolStripStatusLabel MemoryLabel;
+      private Timer UpdateTimer;
    }
 }
 
