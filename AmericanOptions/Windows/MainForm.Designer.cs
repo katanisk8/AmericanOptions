@@ -72,7 +72,7 @@ namespace AmericanOptions.Windows
          this.CalculateButton.Location = new System.Drawing.Point(114, 279);
          this.CalculateButton.Name = "CalculateButton";
          this.CalculateButton.Size = new System.Drawing.Size(95, 30);
-         this.CalculateButton.TabIndex = 9;
+         this.CalculateButton.TabIndex = 12;
          this.CalculateButton.Text = "Calculate";
          this.CalculateButton.UseVisualStyleBackColor = true;
          this.CalculateButton.Click += new System.EventHandler(this.CalculateButton_Click);
@@ -243,7 +243,7 @@ namespace AmericanOptions.Windows
          this.ClearButton.Location = new System.Drawing.Point(12, 253);
          this.ClearButton.Name = "ClearButton";
          this.ClearButton.Size = new System.Drawing.Size(95, 20);
-         this.ClearButton.TabIndex = 10;
+         this.ClearButton.TabIndex = 9;
          this.ClearButton.Text = "Clear";
          this.ClearButton.UseVisualStyleBackColor = true;
          this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
@@ -253,7 +253,7 @@ namespace AmericanOptions.Windows
          this.DefaultButton.Location = new System.Drawing.Point(114, 253);
          this.DefaultButton.Name = "DefaultButton";
          this.DefaultButton.Size = new System.Drawing.Size(95, 20);
-         this.DefaultButton.TabIndex = 11;
+         this.DefaultButton.TabIndex = 10;
          this.DefaultButton.Text = "Default";
          this.DefaultButton.UseVisualStyleBackColor = true;
          this.DefaultButton.Click += new System.EventHandler(this.DefaultButton_Click);
@@ -272,7 +272,6 @@ namespace AmericanOptions.Windows
          this.ResultListView.Location = new System.Drawing.Point(215, 18);
          this.ResultListView.Name = "ResultListView";
          this.ResultListView.Size = new System.Drawing.Size(230, 291);
-         this.ResultListView.TabIndex = 12;
          this.ResultListView.UseCompatibleStateImageBehavior = false;
          this.ResultListView.View = System.Windows.Forms.View.Details;
          // 
@@ -327,7 +326,7 @@ namespace AmericanOptions.Windows
          this.CancelButton.Location = new System.Drawing.Point(13, 279);
          this.CancelButton.Name = "CancelButton";
          this.CancelButton.Size = new System.Drawing.Size(95, 30);
-         this.CancelButton.TabIndex = 16;
+         this.CancelButton.TabIndex = 11;
          this.CancelButton.Text = "Cancel";
          this.CancelButton.UseVisualStyleBackColor = true;
          this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
