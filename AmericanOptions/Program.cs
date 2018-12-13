@@ -10,6 +10,7 @@ using AmericanOptions.Windows;
 using Unity;
 using Unity.Injection;
 using System.ComponentModel;
+using Help = System.Windows.Forms.Help;
 
 namespace AmericanOptions
 {
@@ -35,6 +36,7 @@ namespace AmericanOptions
          container.RegisterType<ICleaner, Cleaner>();
          container.RegisterType<IMemoryMeasurer, MemoryMeasurer>();
          container.RegisterType<BackgroundWorker, BackgroundWorker>();
+
          container.RegisterType<IContainerControl, MainForm>();
 
          Application.EnableVisualStyles();

@@ -19,7 +19,6 @@ namespace AmericanOptions.Windows
       private readonly IMemoryMeasurer _measurer;
       private readonly BackgroundWorker _worker;
       private readonly IList<Thread> _bgWorkersThreads;
-      private bool _closePending;
 
       // Inputs
       private double riskFreeRate;
@@ -38,7 +37,7 @@ namespace AmericanOptions.Windows
          _cleaner = cleaner;
          _measurer = measurer;
          _worker = worker;
-         _bgWorkersThreads  = new List<Thread>();
+         _bgWorkersThreads = new List<Thread>();
 
          InitializeComponent();
          PrepareWorker();
@@ -53,7 +52,7 @@ namespace AmericanOptions.Windows
 
       private void MainForm_HelpButtonClicked(object sender, CancelEventArgs e)
       {
-
+         new Help().Show();
       }
 
       private void CalculateButton_Click(object sender, EventArgs e)
