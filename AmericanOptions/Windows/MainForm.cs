@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using System.IO;
 using System.Threading;
+using System.Diagnostics;
 using System.Windows.Forms;
-using AmericanOptions.ClickHelpers;
-using AmericanOptions.Helpers;
 using AmericanOptions.Model;
+using System.ComponentModel;
+using AmericanOptions.Helpers;
+using System.Collections.Generic;
 using AmericanOptions.Validations;
+using AmericanOptions.ClickHelpers;
 using Unity.Interception.Utilities;
 
 namespace AmericanOptions.Windows
@@ -52,7 +54,7 @@ namespace AmericanOptions.Windows
 
       private void MainForm_HelpButtonClicked(object sender, CancelEventArgs e)
       {
-         new Help().Show();
+         Process.Start(Path.GetFullPath(@"Resources\Documentation.pdf"));
       }
 
       private void CalculateButton_Click(object sender, EventArgs e)
